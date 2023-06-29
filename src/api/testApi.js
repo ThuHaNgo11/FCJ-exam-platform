@@ -17,6 +17,9 @@ const getListTestsQuery = `
                     id
                     testId
                     questionId
+                    question {
+                      prompt
+                    }
                     createdAt
                     updatedAt
                   }
@@ -35,8 +38,14 @@ export const listTest = async(filter) => {
     let tests = await API.graphql(graphqlOperation(getListTestsQuery, {filter}))
     tests.data.listTests.items.map((item) => {
         item.data = JSON.parse(item.data)
+        item.Questions = item.Questions.items.map(
+            it => {
+                const {id, questionId, question} = it
+                const {prompt} = question
+                return {id, questionId, prompt}
+            }
+        )
         console.log("Questions", item.Questions)
-        item.Questions = []
     })
     console.log(tests)
     return tests
@@ -53,7 +62,7 @@ export const saveTest = async(test) => {
             await Promise.all(
                 Questions.map(
                     async (question) => {
-                        await linkQuestionToTest(result.data.updateTest.id, question.id)
+                        await linkQuestionToTest(result.data.updateTest.id, question.questionId)
                     }
                 )
             )
@@ -70,7 +79,7 @@ export const saveTest = async(test) => {
             await Promise.all(
                 Questions.map(
                     async (question) => {
-                        await linkQuestionToTest(test.id, question.id)
+                        await linkQuestionToTest(test.id, question.questionId)
                     }
                 )
             )

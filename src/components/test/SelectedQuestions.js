@@ -39,7 +39,7 @@ const SelectedQuestions = ({selectedQuestionsProp}) => {
                             return (
                             <TableRow key={question.id}>
                                 <TableCell><CheckboxField></CheckboxField></TableCell>
-                                <TableCell>{question.id}</TableCell>
+                                <TableCell>{question.questionId}</TableCell>
                                 <TableCell>{question.prompt}</TableCell>
                                 <TableCell>
                                     <Button data-questionid={question.id} onClick={handleDelete}>

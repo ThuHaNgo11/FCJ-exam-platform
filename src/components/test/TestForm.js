@@ -55,8 +55,6 @@ const TestForm = () => {
         saveTest(formState)
             .then((data) => {
                 console.log("Created new data", data.data[field])
-                setFormState(initialState)
-                setIsSubmitting(false)
                 delay(1000).then(
                     () => navigate('/tests', { replace: true })
                 )
@@ -81,10 +79,20 @@ const TestForm = () => {
         setFormState(
             (formState) => {
                 let result = [...formState.Questions]
+                data = data.map(
+                    (newQuestion) => {
+                        if (!newQuestion.questionId) {
+                            let {id, ...others} = newQuestion
+                            return {questionId: id, ...others}
+                        } else {
+                            return newQuestion
+                        }
+                    }
+                )
 
-                result = arrayMergeUnique(result, data, (item1, item2) => item1.id === item2.id)
+                result = arrayMergeUnique(result, data, (item1, item2) => ((item1.id === item2.id) || (item1.questionId === item2.questionId)))
 
-                console.log(result)
+                console.log("Merged", result)
                 
                 formState.Questions = result
             }

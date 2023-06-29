@@ -20,6 +20,12 @@ const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
             console.log("Modal load")
             const loadQuestions = async () => {
                 const data = await listQuestion()
+                // let questions = data.data.searchQuestions.items.map(
+                //     (question) => {
+                //         let {id, ...fields} = question
+                //         return {...fields, questionId: id}
+                //     }
+                // )
                 setQuestions(data.data.searchQuestions.items)
             }
 
