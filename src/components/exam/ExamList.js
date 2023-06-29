@@ -116,7 +116,6 @@ const ExamList = () => {
                         <TableCell as="th">Date</TableCell>
                         <TableCell as="th">Organization</TableCell>
                         <TableCell as="th">Name</TableCell>
-                        <TableCell as="th">Description</TableCell>
                         <TableCell as="th">Actions</TableCell>
                     </TableRow>
                 </TableHead>
@@ -131,7 +130,6 @@ const ExamList = () => {
                                         <TableCell>{formatDate(exam.date)}</TableCell>
                                         <TableCell>{exam.org}</TableCell>
                                         <TableCell>{exam.data.name}</TableCell>
-                                        <TableCell>{exam.data.description}</TableCell>
                                         <TableCell>
                                             <Flex direction="row">
                                                 <ButtonGroup>

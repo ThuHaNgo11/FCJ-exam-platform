@@ -20,8 +20,7 @@ const initialState = {
     date: new Date(),
     org: "",
     data: {
-        name: "exam name",
-        description: "exam description",
+        name: "exam name"
     },
     Test: null
 }
@@ -132,13 +131,6 @@ const ExamForm = () => {
                 onChange={handleDataChanges('name')}
             >
             </TextField>
-            <TextAreaField
-                label="Exam Description"
-                name="examDescription"
-                value={formState.data.description}
-                onChange={handleDataChanges('description')}
-            >
-            </TextAreaField>
 
             {/* select test for the exam */}
             {alert.status && 

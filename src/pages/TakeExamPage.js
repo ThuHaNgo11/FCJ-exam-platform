@@ -75,9 +75,6 @@ const TakeExamPage = () => {
                             }
                         </Flex>
                         <Flex>
-                            <Text>{examData.data.description}</Text>
-                        </Flex>
-                        <Flex>
                             <Text>{examData.Test.data.description}</Text>
                         </Flex>
                         {

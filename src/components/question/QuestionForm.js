@@ -54,9 +54,8 @@ const QuestionForm = () => {
         saveQuestion(formState)
             .then((data) => {
                 console.log("Created new data", data.data[field])
-                setFormState(initialState)
-                setIsSubmitting(false)
-                delay(1000).then(
+                // wait 2s for the data to be available on OpenSearch
+                delay(2000).then(
                     () => navigate('/questions', { replace:true})
                 )
             }, (reason) => {
