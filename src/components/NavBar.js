@@ -19,7 +19,7 @@ const NavBar = ({ userName, signOut }) => {
                         <Nav.Link as={Link} to="/tests">Tests</Nav.Link>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
-                        <Navbar.Text>
+                        <Navbar.Text style={{padding: "0 5px"}}>
                             Signed in as: <a href="#login">{userName}</a>
                         </Navbar.Text>
                         <Button variant="outline-success" onClick={signOut}>
