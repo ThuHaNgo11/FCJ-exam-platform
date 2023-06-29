@@ -19,7 +19,7 @@ type Exam @model @auth(rules: [{allow: public}]) {
   Test: Test @hasOne
 }
 
-type Test @model @auth(rules: [{allow: public}]) {
+type Test @model @auth(rules: [{allow: public}]) @searchable {
   id: ID!
   data: String
   Questions: [Question] @manyToMany(relationName: "TestQuestion")

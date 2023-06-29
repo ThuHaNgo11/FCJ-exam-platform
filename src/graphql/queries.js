@@ -217,6 +217,51 @@ export const listTests = /* GraphQL */ `
     }
   }
 `;
+export const searchTests = /* GraphQL */ `
+  query SearchTests(
+    $filter: SearchableTestFilterInput
+    $sort: [SearchableTestSortInput]
+    $limit: Int
+    $nextToken: String
+    $from: Int
+    $aggregates: [SearchableTestAggregationInput]
+  ) {
+    searchTests(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+      aggregates: $aggregates
+    ) {
+      items {
+        id
+        data
+        Questions {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+      aggregateItems {
+        name
+        result {
+          ... on SearchableAggregateScalarResult {
+            value
+          }
+          ... on SearchableAggregateBucketResult {
+            buckets {
+              key
+              doc_count
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 export const getQuestion = /* GraphQL */ `
   query GetQuestion($id: ID!) {
     getQuestion(id: $id) {
