@@ -1,11 +1,13 @@
-import { Heading, TextAreaField, View, TextField, Button, Loader } from "@aws-amplify/ui-react"
+import { Heading, TextAreaField, View, TextField, Button, Loader, Flex } from "@aws-amplify/ui-react"
 import { saveQuestion } from "../../api/questionApi";
-import { useState } from "react"
+import {useContext, useState} from "react"
 import { useImmer } from "use-immer";
 import { getImmerChangeHandler } from "../../hooks/utils";
+import {QMContext} from "../../pages/QuestionManager";
 
 const initialState = {
     prompt: 'Please enter question prompt.',
+    key: 1,
     choices: [
         { key: 1, value: 'This is choice 1.' },
         { key: 2, value: 'This is choice 2.' },
@@ -18,6 +20,7 @@ const QuestionForm = () => {
 
     const [formState, setFormState] = useImmer(initialState)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const {setNewFormLoad} = useContext(QMContext)
 
     const handleChanges = getImmerChangeHandler(setFormState)
 
@@ -25,8 +28,16 @@ const QuestionForm = () => {
         setFormState(
             formState => {
                 formState.choices.find(c => {
-                    return c.key == event.target.dataset.key
+                    return c.key.toString() === event.target.dataset.key.toString()
                 }).value = event.target.value
+            }
+        )
+    }
+
+    const handleKeyChange = (event) => {
+        setFormState(
+            formState => {
+                formState.key = parseInt(event.target.dataset.key)
             }
         )
     }
@@ -44,9 +55,10 @@ const QuestionForm = () => {
 
         saveQuestion(formState)
             .then((data) => {
-                console.log(data)
+                console.log("Created new data", data.data.createQuestion)
                 setFormState(initialState)
                 setIsSubmitting(false)
+                setNewFormLoad(data.data.createQuestion)
             }, (reason) => {
                 console.log(reason)
             })
@@ -59,10 +71,17 @@ const QuestionForm = () => {
             {
                 formState.choices.map(
                     (choice, index) => (
-                        <TextField key={choice.key} data-key={choice.key} value={choice.value}
-                            onChange={handleChoiceChange}
-                        >
-                        </TextField>
+                        <Flex key={choice.key}>
+                            <TextField data-key={choice.key} value={choice.value}
+                                       onChange={handleChoiceChange}
+                            >
+                            </TextField>
+                            {
+                                (choice.key === formState.key) ?
+                                    <Button size="small" backgroundColor="green">Correct Answer</Button>
+                                    : <Button size="small" data-key={choice.key} onClick={handleKeyChange}>Correct Answer</Button>
+                            }
+                        </Flex>
                     )
                 )
             }

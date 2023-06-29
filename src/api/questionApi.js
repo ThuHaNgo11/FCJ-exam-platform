@@ -1,4 +1,4 @@
-import {createQuestion, updateQuestion} from "../graphql/mutations";
+import {createQuestion, updateQuestion, deleteQuestion} from "../graphql/mutations";
 import {listQuestions} from "../graphql/queries";
 import {API, graphqlOperation} from '@aws-amplify/api'
 
@@ -8,15 +8,6 @@ export const ApiRequest = {
             let questions = await API.graphql(graphqlOperation(listQuestions))
             console.log(questions)
             return questions
-        },
-        addQuestion: async (state) => {
-            let {id, ...input} = state
-            try {
-                let result = await API.graphql(graphqlOperation(createQuestion, {input: input}))
-                return result
-            } catch (ex) {
-                console.log(ex)
-            }
         },
         saveQuestion : async (state) => {
             if (!!state.id) {
@@ -36,9 +27,21 @@ export const ApiRequest = {
                     console.log(ex)
                 }
             }
+        },
+        deleteQuestionById : async (questionId) => {
+            try {
+                let result = await API.graphql({
+                        query: deleteQuestion,
+                        variables: {input: {id: questionId}}
+                    }
+                )
+                return result
+            } catch (ex) {
+                console.log(ex)
+            }
         }
     }
 }
 
-export const { saveQuestion, listQuestion, addQuestion } = ApiRequest.requests
+export const { saveQuestion, listQuestion, deleteQuestionById} = ApiRequest.requests
 export default ApiRequest.requests
