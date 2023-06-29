@@ -9,16 +9,19 @@ export const listTest = async(filter) => {
 }
 
 export const saveTest = async(test) => {
+    console.log(test)
     if (!!test.id) {
-        let {createdAt, updatedAt, questions, ...input} = test
+        let {createdAt, updatedAt, Questions, ...input} = test
         try {
+            input.data = JSON.stringify(input.data)
             let result = await API.graphql(graphqlOperation(updateTest, {input}))
             return result
         } catch (e) {
             console.log(e)
         }
     } else {
-        let {id, ...input} = test
+        let {id, Questions, ...input} = test
+        input.data = JSON.stringify(input.data)
         try {
             let result = await API.graphql(graphqlOperation(createTest, {input}))
             return result

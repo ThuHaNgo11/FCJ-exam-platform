@@ -11,7 +11,7 @@ import { View, Heading, Button, TextAreaField, Loader } from "@aws-amplify/ui-re
 import SelectedQuestions from "./SelectedQuestions";
 
 // import API functions
-import saveTest from "../../api/testApi";
+import { saveTest } from "../../api/testApi";
 
 // default initial state
 const initialState = {
