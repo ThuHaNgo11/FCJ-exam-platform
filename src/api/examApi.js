@@ -70,3 +70,56 @@ export const deleteExamById = async (examId) => {
         console.log(ex)
     }
 }
+
+const getExamForSessionQuery = 
+`
+  query GetExam($id: ID!) {
+    getExam(id: $id) {
+      id
+      date
+      org
+      data
+      Test {
+        id
+        data
+        Questions {
+            items {
+                id
+                testId
+                questionId
+                question {
+                  prompt,
+                  choices {
+                    key
+                    value
+                  }
+                }
+              }
+            nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      examTestId
+    }
+  }
+`
+
+export const getExamForSession = async (examId) => {
+    try {
+        let result = await API.graphql({
+                query: getExamForSessionQuery,
+                variables: {id: examId}
+            }
+        )
+        result.data.getExam.data = JSON.parse(result.data.getExam.data)
+        result.data.getExam.Test.data = JSON.parse(result.data.getExam.Test.data)
+
+
+        return result
+    } catch (ex) {
+        console.log(ex)
+    }
+}

@@ -32,7 +32,7 @@ const ExamList = () => {
 
     // States for SendExamModal 
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [modalExam, setModalExam] = useState({})
+    const [modalExam, setModalExam] = useState("")
 
     const navigate = useNavigate()
 
@@ -97,6 +97,8 @@ const ExamList = () => {
     const handleSend = (event) => {
         // using SES and lambda to send email
         console.log("SendExamModal", event)
+        
+
     }
 
     const handleModalClose = (event) => {
