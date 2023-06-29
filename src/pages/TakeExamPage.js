@@ -18,6 +18,7 @@ import {getExamForSession} from '../api/examApi';
 
 // import utils
 import {formatDate} from "../hooks/utils";
+import {useImmer} from "use-immer";
 
 const initialState = {}
 
@@ -31,7 +32,7 @@ const TakeExamPage = () => {
 
     let [isTestLoaded, setIsTestLoaded] = useState(false)
 
-    let [responseData, setResponseData] = useState ({})
+    let [responseData, setResponseData] = useImmer({})
 
     useEffect(() => {
         const fetchExamData = async () => {
@@ -45,6 +46,14 @@ const TakeExamPage = () => {
 
     const handleBeginTest = () => {
         setIsTestStarted(true)
+    }
+
+    const handleResponseUpdate = () => {
+
+    }
+
+    const handleSubmit = () => {
+
     }
 
     return (
@@ -77,12 +86,12 @@ const TakeExamPage = () => {
                                         {
                                             (item, index) => (
                                                 <View key={item.question.id}>
-                                                    <RadioGroupField label={item.question.prompt} name={item.question.id}>
+                                                    <RadioGroupField label={item.question.prompt} name={item.question.id} onChange={handleResponseUpdate}>
                                                         <Collection items={item.question.choices} type="list" direction="column" gap="20px">
                                                             {
                                                                 (choice, index) => {
                                                                     return (
-                                                                        <Radio value={choice.value}>{choice.value}</Radio>
+                                                                        <Radio value={choice.key}>{choice.value}</Radio>
                                                                     )
                                                                 }
                                                             }
@@ -92,6 +101,7 @@ const TakeExamPage = () => {
                                             )
                                         }
                                     </Collection>
+                                    <Button onClick={handleSubmit}>Submit</Button>
                                 </View>
                             )
                         }
