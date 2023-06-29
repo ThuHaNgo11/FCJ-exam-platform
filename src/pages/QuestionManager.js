@@ -1,19 +1,19 @@
 import React, {createContext, useState} from 'react';
 import MainLayout from '../components/MainLayout';
-import QuestionForm from '../components/question/QuestionForm';
 import QuestionList from "../components/question/QuestionList";
+import { Link } from "react-router-dom";
+import { Button } from "@aws-amplify/ui-react";
 
 export const QMContext = createContext(null)
 
 const QuestionManager = () => {
-    const [newFormLoad, setNewFormLoad] = useState(null)
     return (
-        <QMContext.Provider value={{newFormLoad, setNewFormLoad}}>
-            <MainLayout>
-                <QuestionForm />
-                <QuestionList />
-            </MainLayout>
-        </QMContext.Provider>
+        <MainLayout>
+            <Link to="/question/create">
+                <Button>Create</Button>
+            </Link>
+            <QuestionList />
+        </MainLayout>
     )
 }
 

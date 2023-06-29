@@ -14,33 +14,38 @@ import {
 import {useImmer} from "use-immer";
 import {listQuestion, deleteQuestionById} from "../../api/questionApi";
 import {FaCheckCircle, FaEdit, FaTrash} from "react-icons/fa";
-import {QMContext} from "../../pages/QuestionManager";
-
+import {useLocation, useNavigate} from "react-router-dom";
 
 const QuestionList = () => {
     const [questions, setQuestions] = useState([])
     const [isListLoaded, setIsListLoaded] = useState(false)
     const [filter, setFilter] = useImmer({})
     const [nextToken, setNextToken] = useImmer('')
-    const {newFormLoad, setNewFormLoad} = useContext(QMContext)
+
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const [newFormLoadState, setNewFormLoadState] = useState(location.state)
 
     useEffect(
         () => {
             (async () => {
-                if (!!newFormLoad) {
-                    setNewFormLoad(null)
-                    return
-                }
+                console.log(newFormLoadState)
+                const field = 'searchQuestions'
+                // if (!!newFormLoadState.newFormLoad) {
+                //     navigate('/questions', { state: { newFormLoad: null}})
+                //     return
+                // }
                 let result = await listQuestion()
-                console.log(result.data.listQuestions.items)
-                console.log(newFormLoad)
-                setQuestions(result.data.listQuestions.items)
-                setNextToken(result.data.listQuestions.nextToken)
+                console.log(result.data[field].items)
+                // console.log(newFormLoad)
+                setQuestions(result.data[field].items)
+                setNextToken(result.data[field].nextToken)
                 setIsListLoaded(true)
             })()
 
         },
-        [filter, newFormLoad, setNextToken]
+        [filter, newFormLoadState, setNextToken]
     )
 
     const handleEdit = (event) => {

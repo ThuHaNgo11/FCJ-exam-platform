@@ -2,8 +2,8 @@ import { Heading, TextAreaField, View, TextField, Button, Loader, Flex } from "@
 import { saveQuestion } from "../../api/questionApi";
 import {useContext, useState} from "react"
 import { useImmer } from "use-immer";
-import { getImmerChangeHandler } from "../../hooks/utils";
-import {QMContext} from "../../pages/QuestionManager";
+import {delay, getImmerChangeHandler} from "../../hooks/utils";
+import {useNavigate} from "react-router";
 
 const initialState = {
     prompt: 'Please enter question prompt.',
@@ -20,7 +20,7 @@ const QuestionForm = () => {
 
     const [formState, setFormState] = useImmer(initialState)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const {setNewFormLoad} = useContext(QMContext)
+    const navigate = useNavigate()
 
     const handleChanges = getImmerChangeHandler(setFormState)
 
@@ -42,23 +42,22 @@ const QuestionForm = () => {
         )
     }
 
+    const navigateToQuestions = (newFormData) => {
+        navigate('/questions', { replace:true, state: { newFormLoad: newFormData } })
+    }
+
     const handleSaveButton = (event) => {
         event.preventDefault()
         setIsSubmitting(true)
-
-        // (async () => {
-        //     data = await saveQuestion(formState)
-        //     console.log(data)
-        //     setFormState(initialState)
-        //     setIsSubmitting(false)
-        // })()
 
         saveQuestion(formState)
             .then((data) => {
                 console.log("Created new data", data.data.createQuestion)
                 setFormState(initialState)
                 setIsSubmitting(false)
-                setNewFormLoad(data.data.createQuestion)
+                delay(1000).then(
+                    () => navigateToQuestions(data.data.createQuestion)
+                )
             }, (reason) => {
                 console.log(reason)
             })

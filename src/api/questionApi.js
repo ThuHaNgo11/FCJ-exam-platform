@@ -1,11 +1,11 @@
 import {createQuestion, updateQuestion, deleteQuestion} from "../graphql/mutations";
-import {listQuestions} from "../graphql/queries";
+import {searchQuestions} from "../graphql/queries";
 import {API, graphqlOperation} from '@aws-amplify/api'
 
 export const ApiRequest = {
     requests: {
         listQuestion : async (filter) => {
-            let questions = await API.graphql(graphqlOperation(listQuestions))
+            let questions = await API.graphql(graphqlOperation(searchQuestions, {filter, sort: { direction: 'desc', field: 'createdAt' }}))
             console.log(questions)
             return questions
         },

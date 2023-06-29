@@ -30,7 +30,7 @@ type Choice {
   value: String
 }
 
-type Question @model @auth(rules: [{allow: public}]) {
+type Question @model @auth(rules: [{allow: public}]) @searchable {
   id: ID!
   prompt: String!
   choices: [Choice]
