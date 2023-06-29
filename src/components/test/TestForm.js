@@ -55,7 +55,7 @@ const TestForm = () => {
         saveTest(formState)
             .then((data) => {
                 console.log("Created new data", data.data[field])
-                delay(1000).then(
+                delay(2000).then(
                     () => navigate('/tests', { replace: true })
                 )
             })

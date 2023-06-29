@@ -1,54 +1,85 @@
 import {API, graphqlOperation} from "@aws-amplify/api";
-import {listTests} from "../graphql/queries";
 import {createTest, createTestQuestion, deleteTest, deleteTestQuestion, updateTest} from "../graphql/mutations";
 
 const getListTestsQuery = `
-    query ListTests(
-        $filter: ModelTestFilterInput
-        $limit: Int
-        $nextToken: String
+  query SearchTests(
+    $filter: SearchableTestFilterInput
+    $sort: [SearchableTestSortInput]
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchTests(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
     ) {
-        listTests(filter: $filter, limit: $limit, nextToken: $nextToken) {
-        items {
-            id
-            data
-            Questions {
-                items {
-                    id
-                    testId
-                    questionId
-                    question {
-                      prompt
-                    }
-                    createdAt
-                    updatedAt
-                  }
-                nextToken
-            }
-            createdAt
-            updatedAt
+      items {
+        id
+        data
+        Questions {
+            items {
+                id
+                testId
+                questionId
+                question {
+                  prompt
+                }
+                createdAt
+                updatedAt
+              }
+            nextToken
         }
-        nextToken
-        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
     }
+  }
 `
 
 
 export const listTest = async(filter) => {
-    let tests = await API.graphql(graphqlOperation(getListTestsQuery, {filter}))
-    tests.data.listTests.items.map((item) => {
-        item.data = JSON.parse(item.data)
-        item.Questions = item.Questions.items.map(
-            it => {
-                const {id, questionId, question} = it
-                const {prompt} = question
-                return {id, questionId, prompt}
+    let processTestData = (tests) => {
+        console.log("Processing test data", tests)
+        tests.data.searchTests.items.map((item) => {
+            item.data = JSON.parse(item.data)
+            if (item.Questions.items.length > 0) {
+                item.Questions = item.Questions.items.map(
+                    it => {
+                        if (!!it) {
+                            const {id, questionId, question} = it
+                            const {prompt} = question
+                            return {id, questionId, prompt}
+                        } else {
+                            return false
+                        }
+                    }
+                )
+            } else {
+                item.Questions = []
             }
-        )
-        console.log("Questions", item.Questions)
-    })
-    console.log(tests)
-    return tests
+        })
+        console.log("Processed test data", tests)
+        return tests
+    }
+
+    try {
+        let tests = await API.graphql(graphqlOperation(getListTestsQuery, {
+            filter,
+            sort: {direction: 'desc', field: 'createdAt'}
+        }))
+        tests = processTestData(tests)
+        console.log(tests)
+        return tests
+    } catch (dataWithErrors) {
+        let tests = processTestData(dataWithErrors)
+        console.log("Error", dataWithErrors)
+        return tests
+    }
 }
 
 export const saveTest = async(test) => {

@@ -59,15 +59,19 @@ const TestList = () => {
             const fetchData = async () => {
                 // get the data from the api
                 const data = await listTest()
-                console.log(data)
-
                 // set the data to the local state - tests
-                setTests(data.data.listTests.items)
+                setTests(data.data.searchTests.items)
                 setIsListLoaded(true)
             }
 
             setIsListLoaded(false)
-            fetchData();
+            fetchData().catch(
+                (data) => {
+                    console.log("Error XXX", data)
+                    setTests(data.data.searchTests.items)
+                    setIsListLoaded(true)
+                }
+            );
         },
         []
     )
