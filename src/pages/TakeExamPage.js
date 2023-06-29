@@ -7,6 +7,7 @@ import {
     Button,
     Flex,
     Text,
+    TextField,
     Collection,
     Radio,
     RadioGroupField
@@ -17,16 +18,15 @@ import {useParams} from 'react-router';
 import {getExamForSession} from '../api/examApi';
 
 // import utils
-<<<<<<< HEAD
-import {formatDate} from "../hooks/utils";
-=======
 import {delay, formatDate, getImmerChangeHandler} from "../hooks/utils";
->>>>>>> d0f7186 (WIP TakeExamPage)
 import {useImmer} from "use-immer";
 import {createNewSession, submitSessionResponse} from "../api/testTakerApi";
 import {useNavigate} from "react-router";
 
-const initialState = {}
+const initialState = {
+    username: "",
+    email: ""
+}
 
 const TakeExamPage = () => {
     // states
@@ -42,23 +42,15 @@ const TakeExamPage = () => {
 
     let [responseData, setResponseData] = useImmer({ data: []})
 
-<<<<<<< HEAD
-=======
     let [userDetails, setUserDetails] = useImmer(initialState)
 
     let handleChange = getImmerChangeHandler(setUserDetails)
 
     let navigate = useNavigate()
 
->>>>>>> d0f7186 (WIP TakeExamPage)
     useEffect(() => {
         const fetchExamData = async () => {
             let data = await getExamForSession(examid)
-
-            if (sessionid === 'start') {
-                let newSessionId = await createNewSession(examid)
-                setSessionId(newSessionId)
-            }
             setExamData(data.data.getExam)
             setIsTestLoaded(true)
         }
@@ -66,6 +58,16 @@ const TakeExamPage = () => {
     }, [examid, sessionid])
 
     const handleBeginTest = () => {
+
+        const createSession = async () => {
+            if (sessionid === 'start') {
+                let newSessionId = await createNewSession(examid, userDetails)
+                setSessionId(newSessionId)
+            }
+        }
+
+        createSession()
+
         setIsTestStarted(true)
     }
 
@@ -112,6 +114,10 @@ const TakeExamPage = () => {
                         </Flex>
                         <Flex>
                             <Text>{examData.Test.data.description}</Text>
+                        </Flex>
+                        <Flex direction="column">
+                            <TextField label="Please enter your name" name="username" value={userDetails.username} onChange={handleChange}/>
+                            <TextField label="Please enter your email" name="email" type="email" value={userDetails.email} onChange={handleChange}/>
                         </Flex>
                         {
                             !isTestStarted ? (
