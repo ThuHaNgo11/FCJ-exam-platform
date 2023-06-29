@@ -83,7 +83,7 @@ export const saveTest = async(test) => {
             await Promise.all(
                 Questions.map(
                     async (question) => {
-                        await linkQuestionToTest(test.id, question.questionId)
+                        await linkQuestionToTest(result.data.createTest.id, question.questionId)
                     }
                 )
             )

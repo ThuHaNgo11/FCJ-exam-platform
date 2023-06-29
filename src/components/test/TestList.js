@@ -38,11 +38,16 @@ const TestList = () => {
         // implement delete test
         const testId = event.currentTarget.dataset.testid
         const test = tests.find((t) => t.id === testId)
+        setIsListLoaded(false)
         deleteTestById(testId, test.Questions).then(
-            () => setTests(tests.filter(test => test.id != testId))
+            () => {
+                setTests(tests.filter(test => test.id != testId))
+                setIsListLoaded(true)
+            }
         ).catch(
             (error) => {
                 console.log(error)
+                setIsListLoaded(true)
             }
         )
     }
@@ -61,6 +66,7 @@ const TestList = () => {
                 setIsListLoaded(true)
             }
 
+            setIsListLoaded(false)
             fetchData();
         },
         []
@@ -79,6 +85,7 @@ const TestList = () => {
             </TableHead>
             <TableBody>
                 {
+                    !isListLoaded ? <TableRow key="placeholder"><TableCell colSpan="5"><Placeholder /></TableCell></TableRow>:
                     tests.map(
                         (test) => (
                             <TableRow key={test.id}>
