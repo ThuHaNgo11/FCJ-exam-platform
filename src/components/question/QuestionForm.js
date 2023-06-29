@@ -1,4 +1,4 @@
-import { Heading, TextAreaField, View, TextField, Button, Loader, Flex } from "@aws-amplify/ui-react"
+import { Heading, TextAreaField, View, TextField, Loader, Flex, Button } from "@aws-amplify/ui-react"
 import { saveQuestion } from "../../api/questionApi";
 import {useContext, useState} from "react"
 import { useImmer } from "use-immer";
@@ -89,6 +89,7 @@ const QuestionForm = () => {
                 {isSubmitting && <Loader />}
                 Save
             </Button>
+            <Button onClick={() => navigate('/questions', { replace:true})}>Cancel</Button>
         </View>
     )
 }
