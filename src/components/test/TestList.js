@@ -13,7 +13,7 @@ import {
 import { FaCheckCircle, FaEdit, FaTrash } from "react-icons/fa";
 
 // import API functions
-import { listTest } from "../../api/testApi";
+import {deleteTestById, listTest} from "../../api/testApi";
 
 
 const TestList = () => {
@@ -36,7 +36,15 @@ const TestList = () => {
 
     const handleDelete = (event) => {
         // implement delete test
-        
+        const testId = event.currentTarget.dataset.testid
+        const test = tests.find((t) => t.id === testId)
+        deleteTestById(testId, test.Questions).then(
+            () => setTests(tests.filter(test => test.id != testId))
+        ).catch(
+            (error) => {
+                console.log(error)
+            }
+        )
     }
 
     // Load data with useEffect

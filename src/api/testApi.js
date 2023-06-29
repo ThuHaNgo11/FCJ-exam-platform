@@ -94,8 +94,18 @@ export const saveTest = async(test) => {
     }
 }
 
-export const deleteTestById = async(id) => {
+export const deleteTestById = async(id, questions) => {
     try {
+        await Promise.all (
+            questions.map(
+                async (question) => {
+                    if (!!question.id) {
+                        await unlinkQuestionToTest(question.id)
+                    }
+                }
+            )
+        )
+
         let result = await API.graphql({
             query: deleteTest,
             variables: {input: {id}}
