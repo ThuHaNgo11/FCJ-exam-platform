@@ -37,6 +37,9 @@ const TakeExamPage = () => {
     useEffect(() => {
         const fetchExamData = async () => {
             let data = await getExamForSession(examid)
+
+            console.log("Data", data)
+
             setExamData(data.data.getExam)
             setIsTestLoaded(true)
             console.log(data.data.getExam)
@@ -48,8 +51,8 @@ const TakeExamPage = () => {
         setIsTestStarted(true)
     }
 
-    const handleResponseUpdate = () => {
-
+    const handleResponseUpdate = (event) => {
+        // console.log(event.target.name, event.target.value)
     }
 
     const handleSubmit = () => {
@@ -82,7 +85,7 @@ const TakeExamPage = () => {
                                 <Button onClick={handleBeginTest}>Begin</Button>
                             ) : (
                                 <View>
-                                    <Collection items={examData.Test.Questions.items} type="list" direction="column" gap="20px">
+                                    <Collection items={examData.Test.Questions.items} type="list" direction="column" gap="20px" searchNoResultsFound="No questions found">
                                         {
                                             (item, index) => (
                                                 <View key={item.question.id}>

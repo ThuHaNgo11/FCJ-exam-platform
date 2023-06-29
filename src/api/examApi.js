@@ -122,5 +122,11 @@ export const getExamForSession = async (examId) => {
         return result
     } catch (ex) {
         console.log(ex)
+        let { data } = ex
+        let result = { data }
+        result.data.getExam.data = JSON.parse(result.data.getExam.data)
+        result.data.getExam.Test.data = JSON.parse(result.data.getExam.Test.data)
+        result.data.getExam.Test.Questions.items = result.data.getExam.Test.Questions.items.filter(x => x)
+        return result
     }
 }
