@@ -17,6 +17,7 @@ const NavBar = ({ userName, signOut }) => {
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/questions">questions</Nav.Link>
                         <Nav.Link as={Link} to="/tests">Tests</Nav.Link>
+                        <Nav.Link as={Link} to="/exams">Exams</Nav.Link>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
                         <Navbar.Text style={{padding: "0 5px"}}>

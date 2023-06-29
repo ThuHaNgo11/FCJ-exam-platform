@@ -61,6 +61,7 @@ const TestForm = () => {
             })
             .catch((error) => {
                 console.log(error)
+                setIsSubmitting(false)
             })
     }
 
@@ -127,7 +128,7 @@ const TestForm = () => {
             <Heading level={3}>Compose Test</Heading>
             {/* General test info */}
             <TextField
-                name="Test name" 
+                name="testName" 
                 value={formState.data.name}
                 onChange={handleChanges('name')}
             >

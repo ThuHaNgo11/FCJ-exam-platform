@@ -1,3 +1,4 @@
+import moment from "moment"
 
 export const getChangeHandler = (callback, state) => {
     return (event) => {
@@ -39,4 +40,8 @@ export const arrayMergeUnique = (arr1, arr2, compare) => {
     }
 
     return arr
+}
+
+export const formatDate = (date) => {
+    return new moment(date).format("yyyy-MM-DD")
 }
