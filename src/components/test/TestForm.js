@@ -5,7 +5,7 @@ import { arrayMergeUnique, delay, getImmerChangeHandler } from "../../hooks/util
 import { useLocation, useNavigate } from "react-router";
 
 // import UI components
-import { View, Heading, Button, TextAreaField, Loader } from "@aws-amplify/ui-react";
+import { View, Heading, Button, TextAreaField, Loader, TextField } from "@aws-amplify/ui-react";
 
 // import components
 import SelectedQuestions from "./SelectedQuestions";
@@ -82,8 +82,8 @@ const TestForm = () => {
                 data = data.map(
                     (newQuestion) => {
                         if (!newQuestion.questionId) {
-                            let {id, ...others} = newQuestion
-                            return {questionId: id, ...others}
+                            let { id, ...others } = newQuestion
+                            return { questionId: id, ...others }
                         } else {
                             return newQuestion
                         }
@@ -93,7 +93,7 @@ const TestForm = () => {
                 result = arrayMergeUnique(result, data, (item1, item2) => (item1.questionId === item2.questionId))
 
                 console.log("Merged", result)
-                
+
                 formState.Questions = result
             }
         )
@@ -123,9 +123,15 @@ const TestForm = () => {
 
     return (
         <View>
-            <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave}/>
+            <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave} />
             <Heading level={3}>Compose Test</Heading>
             {/* General test info */}
+            <TextField
+                name="Test name" 
+                value={formState.data.name}
+                onChange={handleChanges('name')}
+            >
+            </TextField>
             <TextAreaField
                 name='description'
                 value={formState.data.description}
@@ -147,6 +153,7 @@ const TestForm = () => {
             </Button>
 
             {/* List of selected questions in test */}
+            <Heading level={3}>Selected Questions</Heading>
             <SelectedQuestions selectedQuestionsProp={formState.Questions} key={formState.Questions} handleDeleteSelectedQuestions={handleDeleteSelectedQuestions} />
 
             {/* Save changes to form */}

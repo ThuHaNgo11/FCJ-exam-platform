@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 import MainLayout from "../components/MainLayout";
 import { Link } from "react-router-dom";
-import { Button } from "@aws-amplify/ui-react";
+import { Button, Heading } from "@aws-amplify/ui-react";
 
 // import components
 import TestList from "../components/test/TestList";
@@ -13,6 +13,7 @@ const TestManager = () => {
             <Link to="/test/create">
                 <Button>Create</Button>
             </Link>
+            <Heading level={3}>List of Tests</Heading>
             <TestList />
         </MainLayout>
     )
