@@ -90,7 +90,7 @@ const TestForm = () => {
                     }
                 )
 
-                result = arrayMergeUnique(result, data, (item1, item2) => ((item1.id === item2.id) || (item1.questionId === item2.questionId)))
+                result = arrayMergeUnique(result, data, (item1, item2) => (item1.questionId === item2.questionId))
 
                 console.log("Merged", result)
                 

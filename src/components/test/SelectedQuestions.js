@@ -37,7 +37,7 @@ const SelectedQuestions = ({selectedQuestionsProp}) => {
                         (question) => { 
                             console.log(question)
                             return (
-                            <TableRow key={question.id}>
+                            <TableRow key={question.id + '-' + question.questionId}>
                                 <TableCell><CheckboxField></CheckboxField></TableCell>
                                 <TableCell>{question.questionId}</TableCell>
                                 <TableCell>{question.prompt}</TableCell>
