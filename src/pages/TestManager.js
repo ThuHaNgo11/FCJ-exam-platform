@@ -3,6 +3,8 @@ import MainLayout from "../components/MainLayout";
 import { Link } from "react-router-dom";
 import { Button } from "@aws-amplify/ui-react";
 
+// import components
+import TestList from "../components/test/TestList";
 
 const TestManager = () => {
     return (
@@ -11,6 +13,7 @@ const TestManager = () => {
             <Link to="/test/create">
                 <Button>Create</Button>
             </Link>
+            <TestList />
         </MainLayout>
     )
 }

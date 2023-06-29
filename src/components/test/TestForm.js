@@ -25,8 +25,11 @@ const initialState = {
 
 // Component TestForm
 const TestForm = () => {
+    const location = useLocation()
 
-    const [formState, setFormState] = useImmer(initialState)
+    const navState = location.state || initialState
+
+    const [formState, setFormState] = useImmer(navState)
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const navigate = useNavigate()

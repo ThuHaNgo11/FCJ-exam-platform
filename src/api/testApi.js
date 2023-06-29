@@ -4,6 +4,10 @@ import {createTest, createTestQuestion, deleteTest, deleteTestQuestion, updateTe
 
 export const listTest = async(filter) => {
     let tests = await API.graphql(graphqlOperation(listTests, {filter}))
+    tests.data.listTests.items.map((item) => {
+        item.data = JSON.parse(item.data)
+        //item.Questions = []
+    })
     console.log(tests)
     return tests
 }
