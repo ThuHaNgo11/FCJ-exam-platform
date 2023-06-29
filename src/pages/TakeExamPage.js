@@ -7,7 +7,9 @@ import {
     Button,
     Flex,
     Text,
-    Collection
+    Collection,
+    Radio,
+    RadioGroupField
 } from '@aws-amplify/ui-react';
 import {useParams} from 'react-router';
 
@@ -72,17 +74,17 @@ const TakeExamPage = () => {
                                         {
                                             (item, index) => (
                                                 <View key={item.question.id}>
-                                                    <Text>{item.question.prompt}</Text>
-
-                                                    <Collection items={item.question.choices}>
-                                                        {
-                                                            (choice, index) => {
-                                                                return (
-                                                                    <Text>{choice.value}</Text>
-                                                                )
+                                                    <RadioGroupField label={item.question.prompt} name={item.question.id}>
+                                                        <Collection items={item.question.choices} type="list" direction="column" gap="20px">
+                                                            {
+                                                                (choice, index) => {
+                                                                    return (
+                                                                        <Radio value={choice.value}>{choice.value}</Radio>
+                                                                    )
+                                                                }
                                                             }
-                                                        }
-                                                    </Collection>
+                                                        </Collection>
+                                                    </RadioGroupField>
                                                 </View>
                                             )
                                         }
