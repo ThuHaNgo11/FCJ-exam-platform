@@ -2,11 +2,41 @@ import {API, graphqlOperation} from "@aws-amplify/api";
 import {listTests} from "../graphql/queries";
 import {createTest, createTestQuestion, deleteTest, deleteTestQuestion, updateTest} from "../graphql/mutations";
 
+const getListTestsQuery = `
+    query ListTests(
+        $filter: ModelTestFilterInput
+        $limit: Int
+        $nextToken: String
+    ) {
+        listTests(filter: $filter, limit: $limit, nextToken: $nextToken) {
+        items {
+            id
+            data
+            Questions {
+                items {
+                    id
+                    testId
+                    questionId
+                    createdAt
+                    updatedAt
+                  }
+                nextToken
+            }
+            createdAt
+            updatedAt
+        }
+        nextToken
+        }
+    }
+`
+
+
 export const listTest = async(filter) => {
-    let tests = await API.graphql(graphqlOperation(listTests, {filter}))
+    let tests = await API.graphql(graphqlOperation(getListTestsQuery, {filter}))
     tests.data.listTests.items.map((item) => {
         item.data = JSON.parse(item.data)
-        //item.Questions = []
+        console.log("Questions", item.Questions)
+        item.Questions = []
     })
     console.log(tests)
     return tests
@@ -19,6 +49,14 @@ export const saveTest = async(test) => {
         try {
             input.data = JSON.stringify(input.data)
             let result = await API.graphql(graphqlOperation(updateTest, {input}))
+            // Link test.id with test.Questions[]
+            await Promise.all(
+                Questions.map(
+                    async (question) => {
+                        await linkQuestionToTest(result.data.updateTest.id, question.id)
+                    }
+                )
+            )
             return result
         } catch (e) {
             console.log(e)
@@ -28,6 +66,14 @@ export const saveTest = async(test) => {
         input.data = JSON.stringify(input.data)
         try {
             let result = await API.graphql(graphqlOperation(createTest, {input}))
+            // Link result.createTest.id with test.Questions[]
+            await Promise.all(
+                Questions.map(
+                    async (question) => {
+                        await linkQuestionToTest(test.id, question.id)
+                    }
+                )
+            )
             return result
         } catch (e) {
             console.log(e)

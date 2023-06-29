@@ -50,7 +50,7 @@ const TestForm = () => {
         event.preventDefault()
         setIsSubmitting(true)
 
-        const field = (formState.hasOwnProperty('id')) ? 'createTest' : 'updateTest'
+        const field = (!formState.hasOwnProperty('id')) ? 'createTest' : 'updateTest'
 
         saveTest(formState)
             .then((data) => {

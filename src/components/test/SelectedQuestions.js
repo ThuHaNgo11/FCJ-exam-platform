@@ -17,12 +17,7 @@ const SelectedQuestions = ({selectedQuestionsProp}) => {
 
     // Handlers
     const handleDelete = (event) => {
-        console.log(event.currentTarget.dataset)
-        let questionId = event.currentTarget.dataset.questionid
-        let newQuestions = selectedQuestions.filter((question) => {
-            return question.id != questionId
-        })
-        setSelectedQuestions(newQuestions)
+        // handle selected question deletion
     }
 
 

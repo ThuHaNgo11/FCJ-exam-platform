@@ -35,7 +35,8 @@ const TestList = () => {
     }
 
     const handleDelete = (event) => {
-
+        // implement delete test
+        
     }
 
     // Load data with useEffect

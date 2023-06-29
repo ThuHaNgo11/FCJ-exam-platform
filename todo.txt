@@ -15,3 +15,11 @@ promise, async, await
 - getting started:
     --> "getting started" page: create account (on the left) - how to use (on the right)
 - already had an account, log in
+
+** 22 Jun 2023 **
+- find todo capability of vscode 
+- TestList: delete Button
+- Selected Question in TestForm: delete Button
+- Test api: update test question and test linkage / update when save test
+
+

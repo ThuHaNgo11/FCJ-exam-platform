@@ -49,7 +49,7 @@ const QuestionForm = () => {
         event.preventDefault()
         setIsSubmitting(true)
 
-        const field = (formState.hasOwnProperty('id')) ? 'createQuestion' : 'updateQuestion'
+        const field = (!formState.hasOwnProperty('id')) ? 'createQuestion' : 'updateQuestion'
 
         saveQuestion(formState)
             .then((data) => {
