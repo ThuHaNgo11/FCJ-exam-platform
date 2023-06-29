@@ -1,16 +1,16 @@
-import {Heading, TextAreaField, View, TextField, Button, Loader} from "@aws-amplify/ui-react"
-import {saveQuestion} from "../../api/questionApi";
-import React, {useState} from "react"
-import {useImmer} from "use-immer";
-import {getImmerChangeHandler} from "../../hooks/utils";
+import { Heading, TextAreaField, View, TextField, Button, Loader } from "@aws-amplify/ui-react"
+import { saveQuestion } from "../../api/questionApi";
+import { useState } from "react"
+import { useImmer } from "use-immer";
+import { getImmerChangeHandler } from "../../hooks/utils";
 
 const initialState = {
     prompt: 'Please enter question prompt.',
     choices: [
-        {key: 1, value: 'This is choice 1.'},
-        {key: 2, value: 'This is choice 2.'},
-        {key: 3, value: 'This is choice 3.'},
-        {key: 4, value: 'This is choice 4.'},
+        { key: 1, value: 'This is choice 1.' },
+        { key: 2, value: 'This is choice 2.' },
+        { key: 3, value: 'This is choice 3.' },
+        { key: 4, value: 'This is choice 4.' },
     ]
 }
 
@@ -34,6 +34,14 @@ const QuestionForm = () => {
     const handleSaveButton = (event) => {
         event.preventDefault()
         setIsSubmitting(true)
+
+        // (async () => {
+        //     data = await saveQuestion(formState)
+        //     console.log(data)
+        //     setFormState(initialState)
+        //     setIsSubmitting(false)
+        // })()
+
         saveQuestion(formState)
             .then((data) => {
                 console.log(data)
@@ -53,13 +61,13 @@ const QuestionForm = () => {
                     (choice, index) => (
                         <TextField key={choice.key} data-key={choice.key} value={choice.value}
                             onChange={handleChoiceChange}
-                            >
+                        >
                         </TextField>
                     )
                 )
             }
             <Button onClick={handleSaveButton}>
-                {isSubmitting && <Loader/>}
+                {isSubmitting && <Loader />}
                 Save
             </Button>
         </View>

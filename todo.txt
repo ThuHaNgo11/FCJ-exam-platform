@@ -1,0 +1,17 @@
+useImmer
+fetch data
+promise, async, await
+
+- Create navbar components
+
+- Write react components using state (useImmer) - reference the QuestionForm 
+- implement question list - useEffect (fetch data, set state using useImmer)
+    + Use Amplify UI to render the data
+    + add filter ability (front-end)
+
+
+** Landing page **
+- welcome ...
+- getting started:
+    --> "getting started" page: create account (on the left) - how to use (on the right)
+- already had an account, log in
