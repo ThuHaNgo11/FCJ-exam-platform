@@ -1,0 +1,40 @@
+type Response @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  data: String
+  Session: Session @hasOne
+  Question: Question @hasOne
+}
+
+type Session @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  data: String
+  Exam: Exam @hasOne
+}
+
+type Exam @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  date: AWSDateTime
+  org: String
+  data: String
+  Test: Test @hasOne
+}
+
+type Test @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  data: String
+  Questions: [Question] @manyToMany(relationName: "TestQuestion")
+}
+
+type Choice {
+  key: Int
+  value: String
+}
+
+type Question @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  prompt: String!
+  choices: [Choice]
+  key: Int
+  tests: [Test] @manyToMany(relationName: "TestQuestion")
+}
+ 
