@@ -44,7 +44,6 @@ const getListTestsQuery = `
 
 export const listTest = async(filter) => {
     let processTestData = (tests) => {
-        console.log("Processing test data", tests)
         tests.data.searchTests.items.map((item) => {
             item.data = JSON.parse(item.data)
             if (item.Questions.items.length > 0) {
@@ -63,7 +62,6 @@ export const listTest = async(filter) => {
                 item.Questions = []
             }
         })
-        console.log("Processed test data", tests)
         return tests
     }
 
@@ -73,11 +71,9 @@ export const listTest = async(filter) => {
             sort: {direction: 'desc', field: 'createdAt'}
         }))
         tests = processTestData(tests)
-        console.log(tests)
         return tests
     } catch (dataWithErrors) {
         let tests = processTestData(dataWithErrors)
-        console.log("Error", dataWithErrors)
         return tests
     }
 }
