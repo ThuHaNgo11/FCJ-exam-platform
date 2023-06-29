@@ -21,7 +21,7 @@ const App = () => {
                 <Route path="/question/:id" element={<SingleQuestionPage />} />
                 <Route path="/tests" element={<TestManager />} />
                 <Route path="/test/:id" element={<SingleTestPage />} />
-                <Route path="/take-exam/:examid/:sessionId" element={<TakeExamPage />} />
+                <Route path="/take-exam/:examid/:sessionid" element={<TakeExamPage />} />
                 <Route path="/exams" element={<ExamManager />} />
                 <Route path="/exam/:id" element={<SingleExamPage />} />
             </Routes>

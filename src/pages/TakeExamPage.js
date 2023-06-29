@@ -19,6 +19,7 @@ import {getExamForSession} from '../api/examApi';
 // import utils
 import {formatDate} from "../hooks/utils";
 import {useImmer} from "use-immer";
+import {createNewSession, submitSessionResponse} from "../api/testTakerApi";
 
 const initialState = {}
 
@@ -28,35 +29,52 @@ const TakeExamPage = () => {
 
     let [examData, setExamData] = useState({})
 
+    let [sessionId, setSessionId] = useState(sessionid)
+
     let [isTestStarted, setIsTestStarted] = useState(false)
 
     let [isTestLoaded, setIsTestLoaded] = useState(false)
 
-    let [responseData, setResponseData] = useImmer({})
+    let [responseData, setResponseData] = useImmer({ data: []})
 
     useEffect(() => {
         const fetchExamData = async () => {
             let data = await getExamForSession(examid)
 
-            console.log("Data", data)
-
+            if (sessionid === 'start') {
+                let newSessionId = await createNewSession(examid)
+                setSessionId(newSessionId)
+            }
             setExamData(data.data.getExam)
             setIsTestLoaded(true)
-            console.log(data.data.getExam)
         }
         fetchExamData()
-    }, [examid])
+    }, [examid, sessionid])
 
     const handleBeginTest = () => {
         setIsTestStarted(true)
     }
 
     const handleResponseUpdate = (event) => {
-        // console.log(event.target.name, event.target.value)
+        setResponseData((responseData) => {
+            responseData.data.push({
+                "questionId": event.target.name,
+                "answer": event.target.value
+            })
+        })
     }
 
     const handleSubmit = () => {
+        let data = {
+            responseData,
+            sessionId
+        }
 
+        const submit = async () => {
+            let result = await submitSessionResponse(data)
+            console.log(result)
+        }
+        submit()
     }
 
     return (
@@ -91,7 +109,7 @@ const TakeExamPage = () => {
                                                             {
                                                                 (choice, index) => {
                                                                     return (
-                                                                        <Radio value={choice.key}>{choice.value}</Radio>
+                                                                        <Radio key={choice.key} value={choice.key}>{choice.value}</Radio>
                                                                     )
                                                                 }
                                                             }
