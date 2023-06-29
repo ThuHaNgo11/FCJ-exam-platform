@@ -1,6 +1,6 @@
 import {API, graphqlOperation} from "@aws-amplify/api";
 import {listTests} from "../graphql/queries";
-import {createTest, deleteTest, updateTest} from "../graphql/mutations";
+import {createTest, createTestQuestion, deleteTest, deleteTestQuestion, updateTest} from "../graphql/mutations";
 
 export const listTest = async(filter) => {
     let tests = await API.graphql(graphqlOperation(listTests, {filter}))
@@ -28,11 +28,32 @@ export const saveTest = async(test) => {
     }
 }
 
-export const deleteTestById = async(testId) => {
+export const deleteTestById = async(id) => {
     try {
         let result = await API.graphql({
             query: deleteTest,
-            variables: {input: {id: testId}}
+            variables: {input: {id}}
+        })
+        return result
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const linkQuestionToTest = async(testId, questionId) => {
+    try {
+        let result = await API.graphql(graphqlOperation(createTestQuestion, {input: {testId, questionId}}))
+        return result
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const unlinkQuestionToTest = async(id) => {
+    try {
+        let result = await API.graphql({
+            query: deleteTestQuestion,
+            variables: {input: {id}}
         })
         return result
     } catch (e) {
