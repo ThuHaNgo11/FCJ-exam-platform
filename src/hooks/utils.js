@@ -42,6 +42,6 @@ export const arrayMergeUnique = (arr1, arr2, compare) => {
     return arr
 }
 
-export const formatDate = (date) => {
-    return new moment(date).format("yyyy-MM-DD")
+export const formatDate = (date, newFormat) => {
+    return new moment(date).format(newFormat || "yyyy-MM-DD")
 }

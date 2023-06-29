@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { useImmer } from "use-immer";
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
 
 // import UI components
-import { View, Heading, Button, TextAreaField, Loader, TextField, Text } from "@aws-amplify/ui-react";
+import { View, Alert, Heading, Button, TextAreaField, Loader, TextField, Text } from "@aws-amplify/ui-react";
 import { Form } from "react-bootstrap";
 
 // import components
@@ -27,10 +28,17 @@ const initialState = {
 
 // component ExamForm
 const ExamForm = () => {
+    const today = formatDate(new Date())
+
+    const location = useLocation()
+
+    const navState = location.state || initialState
+
     // local states
-    const [formState, setFormState] = useImmer(initialState)
+    const [formState, setFormState] = useImmer(navState)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [alert, setAlert] = useState({status: false, message: ""})
 
     const navigate = useNavigate()
 
@@ -52,6 +60,14 @@ const ExamForm = () => {
         }
     }
 
+    const handleDateChanges = (event) => {
+        setFormState(
+            formState => {
+                formState.date = new Date(event.target.value)
+            }
+        )
+    }
+
     const handleModalClose = () => {
         setIsModalOpen(false)
     }
@@ -64,6 +80,8 @@ const ExamForm = () => {
                 formState.Test = data
             }
         )
+
+        setAlert({status: false, message: ""})
     }
 
     const handleSaveButton = (event) => {
@@ -71,6 +89,12 @@ const ExamForm = () => {
         setIsSubmitting(true)
 
         const field = (!formState.hasOwnProperty('id')) ? 'createExam' : 'updateExam'
+
+        if (!formState.Test) {
+            setAlert({status: true, message: "Please select a test for the exam"})
+            setIsSubmitting(false)
+            return
+        }
 
         saveExam(formState)
             .then((data) => {
@@ -92,7 +116,7 @@ const ExamForm = () => {
             <Form>
                 <Form.Group className="mb-3">
                     <Form.Label>Exam date</Form.Label>
-                    <Form.Control name="date" type="date" value={formatDate(formState.date)} onChange={handleChanges}></Form.Control>
+                    <Form.Control name="date" type="date" value={formatDate(formState.date)}  min={today} onChange={handleDateChanges}></Form.Control>
                 </Form.Group>
             </Form>
             <TextField
@@ -117,6 +141,14 @@ const ExamForm = () => {
             </TextAreaField>
 
             {/* select test for the exam */}
+            {alert.status && 
+            (<Alert 
+            isDismissible={true}
+            heading="Error"
+            variation="error"
+            >
+                {alert.message}
+            </Alert>)}
             <Button onClick={handleFindExam}>Select Test</Button>
             {
                 formState.Test && (
@@ -132,7 +164,7 @@ const ExamForm = () => {
                     {isSubmitting && <Loader />}
                     Save
                 </Button>
-                <Button onClick={() => navigate('/tests', { replace: true })}>
+                <Button onClick={() => navigate('/exams', { replace: true })}>
                     Cancel
                 </Button>
             </View>
