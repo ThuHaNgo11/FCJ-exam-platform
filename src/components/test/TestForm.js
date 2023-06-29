@@ -99,6 +99,28 @@ const TestForm = () => {
         )
     }
 
+    const handleDeleteSelectedQuestions = (data) => {
+        console.log(data)
+        console.log(formState.Questions)
+        setFormState(
+            formState => {
+                    formState.Questions.map(
+                        c => {
+                            if (data.id && c.id === data.id) {
+                                c.deleted = true
+                            }
+                        }
+                    )
+
+                    if (!data.id) {
+                        formState.Questions = formState.Questions.filter(
+                            c => c.questionId !== data.questionId
+                        )
+                    }
+            }
+        )
+    }
+
     return (
         <View>
             <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave}/>
@@ -125,7 +147,7 @@ const TestForm = () => {
             </Button>
 
             {/* List of selected questions in test */}
-            <SelectedQuestions selectedQuestionsProp={formState.Questions} key={formState.Questions} />
+            <SelectedQuestions selectedQuestionsProp={formState.Questions} key={formState.Questions} handleDeleteSelectedQuestions={handleDeleteSelectedQuestions} />
 
             {/* Save changes to form */}
             <Button onClick={handleSaveButton}>

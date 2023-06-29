@@ -52,7 +52,7 @@ export const listTest = async(filter) => {
 }
 
 export const saveTest = async(test) => {
-    console.log(test)
+    console.log("Saving test", test)
     if (!!test.id) {
         let {createdAt, updatedAt, Questions, ...input} = test
         try {
@@ -62,7 +62,11 @@ export const saveTest = async(test) => {
             await Promise.all(
                 Questions.map(
                     async (question) => {
-                        await linkQuestionToTest(result.data.updateTest.id, question.questionId)
+                        if (question.new) {
+                            await linkQuestionToTest(result.data.updateTest.id, question.questionId)
+                        } else if (question.deleted) {
+                            await unlinkQuestionToTest(question.id)
+                        }
                     }
                 )
             )

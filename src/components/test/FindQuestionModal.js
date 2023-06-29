@@ -53,6 +53,11 @@ const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
                     (question) => {
                         if (question.id === questionId) {
                             question.checked = checked
+                            if (checked) {
+                                question.new = true
+                            } else {
+                                delete question.new
+                            }
                         }
                     }
                 )

@@ -10,14 +10,37 @@ import {
     Button
 } from "@aws-amplify/ui-react";
 import { FaCheckCircle, FaTrash } from "react-icons/fa";
+import {useImmer} from "use-immer";
 
-const SelectedQuestions = ({selectedQuestionsProp}) => {
+const SelectedQuestions = ({selectedQuestionsProp, handleDeleteSelectedQuestions}) => {
 
-    const [selectedQuestions, setSelectedQuestions] = useState(selectedQuestionsProp)
+    const [selectedQuestions, setSelectedQuestions] = useImmer(selectedQuestionsProp)
 
     // Handlers
     const handleDelete = (event) => {
-        // handle selected question deletion
+        let testQuestionId = event.currentTarget.dataset.id
+        let questionId = event.currentTarget.dataset.questionid
+        if (!!testQuestionId) {
+            setSelectedQuestions(
+                selectedQuestions => {
+                    let deletedRecord =
+                        selectedQuestions.find(c => {
+                            return c.id === testQuestionId
+                        })
+                    deletedRecord.deleted = true
+                    handleDeleteSelectedQuestions({id: testQuestionId, questionId})
+                }
+            )
+        } else {
+            setSelectedQuestions(
+                selectedQuestions => {
+                    selectedQuestions = selectedQuestions.filter(
+                        question => question.questionId !== questionId
+                    )
+                    handleDeleteSelectedQuestions({questionId})
+                }
+            )
+        }
     }
 
 
@@ -34,7 +57,10 @@ const SelectedQuestions = ({selectedQuestionsProp}) => {
             <TableBody>
                 {
                     selectedQuestions.map(
-                        (question) => { 
+                        (question) => {
+                            if (question.deleted) {
+                                return
+                            }
                             console.log(question)
                             return (
                             <TableRow key={question.id + '-' + question.questionId}>
@@ -42,7 +68,7 @@ const SelectedQuestions = ({selectedQuestionsProp}) => {
                                 <TableCell>{question.questionId}</TableCell>
                                 <TableCell>{question.prompt}</TableCell>
                                 <TableCell>
-                                    <Button data-questionid={question.id} onClick={handleDelete}>
+                                    <Button data-id={question.id} data-questionid={question.questionId} onClick={handleDelete}>
                                         <FaTrash></FaTrash>
                                     </Button>
                                 </TableCell>
