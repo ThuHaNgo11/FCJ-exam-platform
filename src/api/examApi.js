@@ -88,6 +88,7 @@ const getExamForSessionQuery =
                 testId
                 questionId
                 question {
+                  id,
                   prompt,
                   choices {
                     key
