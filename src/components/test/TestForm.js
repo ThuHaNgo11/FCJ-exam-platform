@@ -1,7 +1,7 @@
 // import libraries
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { useImmer } from "use-immer";
-import { delay, getImmerChangeHandler } from "../../hooks/utils";
+import { arrayMergeUnique, delay, getImmerChangeHandler } from "../../hooks/utils";
 import { useLocation, useNavigate } from "react-router";
 
 // import UI components
@@ -9,6 +9,7 @@ import { View, Heading, Button, TextAreaField, Loader } from "@aws-amplify/ui-re
 
 // import components
 import SelectedQuestions from "./SelectedQuestions";
+import FindQuestionModal from "./FindQuestionModal";
 
 // import API functions
 import { saveTest } from "../../api/testApi";
@@ -31,6 +32,7 @@ const TestForm = () => {
 
     const [formState, setFormState] = useImmer(navState)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const navigate = useNavigate()
 
@@ -64,11 +66,34 @@ const TestForm = () => {
             })
     }
 
-    const handleFindQuestion = (event) => {
+    // handle select and add questions for test
+    const handleFindQuestion = () => {
+        console.log("Find question")
+        setIsModalOpen(true)
+    }
+
+    const handleModalClose = () => {
+        setIsModalOpen(false)
+    }
+
+    const handleModalSave = (data) => {
+        setIsModalOpen(false)
+        setFormState(
+            (formState) => {
+                let result = [...formState.Questions]
+
+                result = arrayMergeUnique(result, data, (item1, item2) => item1.id === item2.id)
+
+                console.log(result)
+                
+                formState.Questions = result
+            }
+        )
     }
 
     return (
         <View>
+            <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave}/>
             <Heading level={3}>Compose Test</Heading>
             {/* General test info */}
             <TextAreaField
@@ -92,7 +117,7 @@ const TestForm = () => {
             </Button>
 
             {/* List of selected questions in test */}
-            <SelectedQuestions selectedQuestionsProp={formState.Questions} />
+            <SelectedQuestions selectedQuestionsProp={formState.Questions} key={formState.Questions} />
 
             {/* Save changes to form */}
             <Button onClick={handleSaveButton}>

@@ -21,3 +21,22 @@ export const getImmerChangeHandler = (callback) => {
 export const delay = (delay) => {
     return new Promise( res => setTimeout(res, delay) );
 }
+
+export const arrayMergeUnique = (arr1, arr2, compare) => {
+    let arr = [...arr1]
+    for (let i = 0; i < arr2.length; i++) {
+        let found = false
+        let j = 0;
+        for (; j < arr.length; j++) {
+            if (compare(arr2[i], arr[j])) {
+                found = true
+                break
+            }
+        }
+        if (!found) {
+            arr.push(arr2[i])
+        }
+    }
+
+    return arr
+}
