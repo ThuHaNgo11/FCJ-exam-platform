@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 
 // import react bootstrap components
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, ModalTitle } from "react-bootstrap";
-import { Table, TableBody, TableHead, TableCell, TableRow, Flex, Text, CheckboxField } from '@aws-amplify/ui-react';
+import {
+    Table,
+    TableBody,
+    TableHead,
+    TableCell,
+    TableRow,
+    Flex,
+    Text,
+    CheckboxField,
+    SearchField
+} from '@aws-amplify/ui-react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useImmer } from 'use-immer';
 
@@ -13,25 +23,19 @@ import { listQuestion } from '../../api/questionApi';
 const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
     // local states
     const [questions, setQuestions] = useImmer([])
+    const [filter, setFilter] = useState({})
+
 
     // Load questions from question bank - API
     useEffect(
         () => {
-            console.log("Modal load")
             const loadQuestions = async () => {
-                const data = await listQuestion()
-                // let questions = data.data.searchQuestions.items.map(
-                //     (question) => {
-                //         let {id, ...fields} = question
-                //         return {...fields, questionId: id}
-                //     }
-                // )
+                const data = await listQuestion(filter)
                 setQuestions(data.data.searchQuestions.items)
             }
-
-            loadQuestions();
+            loadQuestions(filter);
         },
-        []
+        [filter]
     )
 
     // handlers
@@ -65,6 +69,18 @@ const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
         )
     }
 
+    const updateSearch = (prompt) => {
+        if (!prompt) {
+            setFilter({})
+        } else {
+            setFilter({
+                prompt: {
+                    match: prompt
+                }
+            })
+        }
+    }
+
     return (
         <Modal show={isOpen} onHide={onClose} scrollable fullscreen>
             <ModalHeader closeButton>
@@ -73,6 +89,7 @@ const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
                 </ModalTitle>
             </ModalHeader>
             <ModalBody>
+                <SearchField label="Search Questions" onSubmit={updateSearch} onClear={updateSearch} />
                 <Table>
                     <TableHead>
                         <TableRow>
