@@ -16,7 +16,9 @@ export const saveExam = async(exam) => {
     if (!!exam.id) {
         let {createdAt, updatedAt, Test, ...input} = exam
         try {
+            input.date = input.date.toISOString()
             input.data = JSON.stringify(input.data)
+            input.examTestId = Test.id
             let result = await API.graphql(graphqlOperation(updateExam, {input}))
             // Link exam.id with exam.Test
 
@@ -25,8 +27,11 @@ export const saveExam = async(exam) => {
             console.log(e)
         }
     } else {
-        let {id, Test, ...input} = test
+        let {id, Test, ...input} = exam
+        input.date = input.date.toISOString()
         input.data = JSON.stringify(input.data)
+        input.examTestId = Test.id
+        console.log("Saving", input)
         try {
             let result = await API.graphql(graphqlOperation(createExam, {input}))
             // Link result.createExam.id with exam.Test
