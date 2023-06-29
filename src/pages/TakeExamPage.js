@@ -65,7 +65,7 @@ const TakeExamPage = () => {
                 !isTestLoaded ? (
                     <Text>Please wait while the test is loading...</Text>
                 ) : (
-                    <>
+                    <View>
                         <Heading level={3}>{examData.data.name}</Heading>
                         <Flex>
                             <Text>Exam Date: {formatDate(examData.date)}</Text>
@@ -108,7 +108,7 @@ const TakeExamPage = () => {
                                 </View>
                             )
                         }
-                    </>
+                    </View>
                 )
             }
         </View>
