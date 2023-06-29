@@ -1,7 +1,7 @@
 /* src/App.js */
-import React, { Children, useEffect, useState } from 'react'
-import { Amplify, API, graphqlOperation } from 'aws-amplify'
-import { withAuthenticator, Button, Heading, Text, TextField, View } from '@aws-amplify/ui-react'
+import React from 'react'
+import { Amplify } from 'aws-amplify'
+import { withAuthenticator, Button, Heading, View } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import awsExports from "../aws-exports"
 

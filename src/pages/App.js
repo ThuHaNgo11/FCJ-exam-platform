@@ -1,6 +1,6 @@
 /* src/App.js */
 import React, { useEffect, useState } from 'react'
-import { Amplify, API, graphqlOperation } from 'aws-amplify'
+import { Amplify } from 'aws-amplify'
 import { withAuthenticator, Button, Heading, Text, TextField, View } from '@aws-amplify/ui-react'
 
 import '@aws-amplify/ui-react/styles.css'
