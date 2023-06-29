@@ -7,6 +7,8 @@ import LandingPage from './pages/LandingPage';
 import QuestionManager from './pages/QuestionManager';
 import SingleQuestionPage from "./pages/SingleQuestionPage";
 import TestManager from './pages/TestManager';
+import TestForm from './components/test/TestForm';
+import SingleTestPage from './pages/SingleTestPage';
 
 const App = () => {
     return (
@@ -16,6 +18,7 @@ const App = () => {
                 <Route path="/questions" element={<QuestionManager />} />
                 <Route path="/question/:id" element={<SingleQuestionPage />} />
                 <Route path="/tests" element={<TestManager />} />
+                <Route path="/test/:id" element={<SingleTestPage />} />
             </Routes>
         </BrowserRouter>
     )

@@ -19,7 +19,7 @@ const initialState = {
 const QuestionForm = () => {
     const location = useLocation()
 
-    const navState = location.state || initialState
+    const navState =  location.state|| initialState
 
     const [formState, setFormState] = useImmer(navState)
     const [isSubmitting, setIsSubmitting] = useState(false)
