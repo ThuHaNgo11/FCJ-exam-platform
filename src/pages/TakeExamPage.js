@@ -13,7 +13,10 @@ import {
 } from '@aws-amplify/ui-react';
 import {useParams} from 'react-router';
 
+// import API fucntions
 import {getExamForSession} from '../api/examApi';
+
+// import utils
 import {formatDate} from "../hooks/utils";
 
 const initialState = {}

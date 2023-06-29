@@ -2,11 +2,9 @@ import {React, useState} from 'react';
 import { useImmer } from 'use-immer';
 
 // import UI components
-import { Modal, Form} from 'react-bootstrap';
-import { Button, Heading, Text, TextField, Flex } from '@aws-amplify/ui-react';
+import { Modal, Form, Button} from 'react-bootstrap';
+import { Heading, Text, TextField, Flex } from '@aws-amplify/ui-react';
 import { FaCopy } from 'react-icons/fa';
-
-
 
 const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
 
@@ -55,8 +53,12 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                 
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={handleSend}>Send</Button>
-                <Button onClick={onClose}>Cancel</Button>
+                <Button variant="secondary" onClick={onClose}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={handleSend}>
+                    Send
+                </Button>
             </Modal.Footer>
         </Modal>
     )
