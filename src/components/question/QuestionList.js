@@ -1,7 +1,5 @@
 import React, {useEffect, useState, useContext} from "react";
 import {
-    View,
-    Grid,
     TableCell,
     TableBody,
     Table,
@@ -14,7 +12,7 @@ import {
 import {useImmer} from "use-immer";
 import {listQuestion, deleteQuestionById} from "../../api/questionApi";
 import {FaCheckCircle, FaEdit, FaTrash} from "react-icons/fa";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 const QuestionList = () => {
     const [questions, setQuestions] = useState([])
@@ -22,34 +20,30 @@ const QuestionList = () => {
     const [filter, setFilter] = useImmer({})
     const [nextToken, setNextToken] = useImmer('')
 
-    const location = useLocation()
     const navigate = useNavigate()
-
-    const [newFormLoadState, setNewFormLoadState] = useState(location.state)
 
     useEffect(
         () => {
             (async () => {
-                console.log(newFormLoadState)
                 const field = 'searchQuestions'
-                // if (!!newFormLoadState.newFormLoad) {
-                //     navigate('/questions', { state: { newFormLoad: null}})
-                //     return
-                // }
                 let result = await listQuestion()
                 console.log(result.data[field].items)
-                // console.log(newFormLoad)
                 setQuestions(result.data[field].items)
                 setNextToken(result.data[field].nextToken)
                 setIsListLoaded(true)
             })()
 
         },
-        [filter, newFormLoadState, setNextToken]
+        [filter, setNextToken]
     )
 
     const handleEdit = (event) => {
+        const questionid = event.currentTarget.dataset.questionid
 
+        const formState = questions.find((q) => q.id === questionid)
+        console.log("Form state", formState)
+
+        navigate('/question/' + questionid, {state: formState})
     }
 
     const handleDelete = (event) => {

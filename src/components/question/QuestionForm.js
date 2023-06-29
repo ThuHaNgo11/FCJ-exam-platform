@@ -3,7 +3,7 @@ import { saveQuestion } from "../../api/questionApi";
 import {useContext, useState} from "react"
 import { useImmer } from "use-immer";
 import {delay, getImmerChangeHandler} from "../../hooks/utils";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 
 const initialState = {
     prompt: 'Please enter question prompt.',
@@ -17,8 +17,11 @@ const initialState = {
 }
 
 const QuestionForm = () => {
+    const location = useLocation()
 
-    const [formState, setFormState] = useImmer(initialState)
+    const navState = location.state || initialState
+
+    const [formState, setFormState] = useImmer(navState)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const navigate = useNavigate()
 
@@ -42,21 +45,19 @@ const QuestionForm = () => {
         )
     }
 
-    const navigateToQuestions = (newFormData) => {
-        navigate('/questions', { replace:true, state: { newFormLoad: newFormData } })
-    }
-
     const handleSaveButton = (event) => {
         event.preventDefault()
         setIsSubmitting(true)
 
+        const field = (formState.hasOwnProperty('id')) ? 'createQuestion' : 'updateQuestion'
+
         saveQuestion(formState)
             .then((data) => {
-                console.log("Created new data", data.data.createQuestion)
+                console.log("Created new data", data.data[field])
                 setFormState(initialState)
                 setIsSubmitting(false)
                 delay(1000).then(
-                    () => navigateToQuestions(data.data.createQuestion)
+                    () => navigate('/questions', { replace:true})
                 )
             }, (reason) => {
                 console.log(reason)

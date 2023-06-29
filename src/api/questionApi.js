@@ -11,7 +11,7 @@ export const ApiRequest = {
         },
         saveQuestion : async (state) => {
             if (!!state.id) {
-                let {id, ...input} = state
+                let {createdAt, updatedAt, tests, ...input} = state
                 try {
                     let result = await API.graphql(graphqlOperation(updateQuestion, {input: input}))
                     return result
