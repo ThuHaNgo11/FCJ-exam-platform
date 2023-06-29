@@ -17,9 +17,14 @@ import {useParams} from 'react-router';
 import {getExamForSession} from '../api/examApi';
 
 // import utils
+<<<<<<< HEAD
 import {formatDate} from "../hooks/utils";
+=======
+import {delay, formatDate, getImmerChangeHandler} from "../hooks/utils";
+>>>>>>> d0f7186 (WIP TakeExamPage)
 import {useImmer} from "use-immer";
 import {createNewSession, submitSessionResponse} from "../api/testTakerApi";
+import {useNavigate} from "react-router";
 
 const initialState = {}
 
@@ -37,6 +42,15 @@ const TakeExamPage = () => {
 
     let [responseData, setResponseData] = useImmer({ data: []})
 
+<<<<<<< HEAD
+=======
+    let [userDetails, setUserDetails] = useImmer(initialState)
+
+    let handleChange = getImmerChangeHandler(setUserDetails)
+
+    let navigate = useNavigate()
+
+>>>>>>> d0f7186 (WIP TakeExamPage)
     useEffect(() => {
         const fetchExamData = async () => {
             let data = await getExamForSession(examid)
@@ -73,8 +87,12 @@ const TakeExamPage = () => {
         const submit = async () => {
             let result = await submitSessionResponse(data)
             console.log(result)
+            delay(2000).then(
+                () => navigate('/review/' + sessionId, { replace: true })
+            )
         }
         submit()
+
     }
 
     return (
