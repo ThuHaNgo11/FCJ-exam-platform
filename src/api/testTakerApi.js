@@ -2,9 +2,13 @@ import {API, graphqlOperation} from "@aws-amplify/api";
 import {createResponse, createSession} from "../graphql/mutations";
 
 
-export const createNewSession = async (sessionExamId) => {
+export const createNewSession = async (sessionExamId, data) => {
     try {
-        let result = await API.graphql(graphqlOperation(createSession, {input: {sessionExamId}}))
+        let result = await API.graphql(graphqlOperation(createSession, {input: {
+            sessionExamId,
+            data
+        }}))
+        console.log(result)
         return result.data.createSession.id
     } catch (e) {
         console.log(e)
