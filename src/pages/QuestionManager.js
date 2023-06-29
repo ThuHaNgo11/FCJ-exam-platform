@@ -1,11 +1,11 @@
-import '../components/MainLayout';
+import React from 'react';
 import MainLayout from '../components/MainLayout';
-import QuestionCreateForm from '../ui-components/QuestionCreateForm';
+import QuestionForm from '../components/QuestionForm';
 
 const QuestionManager = () => {
     return (
         <MainLayout>
-            <QuestionCreateForm />
+            <QuestionForm />
         </MainLayout>
     )
 }
