@@ -11,6 +11,7 @@ import SingleTestPage from './pages/SingleTestPage';
 import ExamManager from './pages/ExamManager';
 import SingleExamPage from './pages/SingleExamPage';
 import TakeExamPage from './pages/TakeExamPage';
+import ReviewSessionPage from "./pages/ReviewSessionPage";
 
 const App = () => {
     return (
@@ -21,9 +22,10 @@ const App = () => {
                 <Route path="/question/:id" element={<SingleQuestionPage />} />
                 <Route path="/tests" element={<TestManager />} />
                 <Route path="/test/:id" element={<SingleTestPage />} />
-                <Route path="/take-exam/:examid/:sessionid" element={<TakeExamPage />} />
                 <Route path="/exams" element={<ExamManager />} />
                 <Route path="/exam/:id" element={<SingleExamPage />} />
+                <Route path="/take-exam/:examid/:sessionid" element={<TakeExamPage />} />
+                <Route path="/review/:sessionid" element={<ReviewSessionPage />} />
             </Routes>
         </BrowserRouter>
     )
