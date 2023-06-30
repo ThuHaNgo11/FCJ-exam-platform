@@ -30,7 +30,7 @@ export const getSessionWithScore = async (sessionid) => {
 
         let highestMark = session.Exam.Test.Questions.items.length
 
-        let scorePercentage = Math.round(mark  * 100.0 / highestMark) / 100
+        let scorePercentage = Math.round(mark  * 100.0 / highestMark)
 
         return {
             ...session,
