@@ -5,11 +5,11 @@
  **************************************************************************/
 
 export { default as studioTheme } from "./studioTheme";
-export { default as ResponseCreateForm } from "./ResponseCreateForm";
-export { default as ResponseUpdateForm } from "./ResponseUpdateForm";
 export { default as SessionCreateForm } from "./SessionCreateForm";
 export { default as SessionUpdateForm } from "./SessionUpdateForm";
 export { default as ExamCreateForm } from "./ExamCreateForm";
 export { default as ExamUpdateForm } from "./ExamUpdateForm";
+export { default as TestCreateForm } from "./TestCreateForm";
+export { default as TestUpdateForm } from "./TestUpdateForm";
 export { default as QuestionCreateForm } from "./QuestionCreateForm";
 export { default as QuestionUpdateForm } from "./QuestionUpdateForm";

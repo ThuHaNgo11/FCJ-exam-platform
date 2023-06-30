@@ -1,14 +1,15 @@
 type Response @model @auth(rules: [{allow: public}]) {
   id: ID!
   data: String
-  Session: Session @hasOne
   Question: Question @hasOne
+  sessionID: ID! @index(name: "bySession", sortKeyFields: ["data"])
 }
 
 type Session @model @auth(rules: [{allow: public}]) {
   id: ID!
   data: String
   Exam: Exam @hasOne
+  Responses: [Response] @hasMany(indexName: "bySession", fields: ["id"])
 }
 
 type Exam @model @auth(rules: [{allow: public}]) {

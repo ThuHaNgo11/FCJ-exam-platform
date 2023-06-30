@@ -6,22 +6,6 @@ export const getResponse = /* GraphQL */ `
     getResponse(id: $id) {
       id
       data
-      Session {
-        id
-        data
-        Exam {
-          id
-          date
-          org
-          data
-          createdAt
-          updatedAt
-          examTestId
-        }
-        createdAt
-        updatedAt
-        sessionExamId
-      }
       Question {
         id
         prompt
@@ -31,14 +15,34 @@ export const getResponse = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
         updatedAt
       }
+      sessionID
       createdAt
       updatedAt
-      responseSessionId
       responseQuestionId
     }
   }
@@ -53,23 +57,80 @@ export const listResponses = /* GraphQL */ `
       items {
         id
         data
-        Session {
-          id
-          data
-          createdAt
-          updatedAt
-          sessionExamId
-        }
         Question {
           id
           prompt
+          choices {
+            key
+            value
+          }
           key
+          tests {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
+        sessionID
         createdAt
         updatedAt
-        responseSessionId
+        responseQuestionId
+      }
+      nextToken
+    }
+  }
+`;
+export const responsesBySessionIDAndData = /* GraphQL */ `
+  query ResponsesBySessionIDAndData(
+    $sessionID: ID!
+    $data: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelResponseFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    responsesBySessionIDAndData(
+      sessionID: $sessionID
+      data: $data
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        data
+        Question {
+          id
+          prompt
+          choices {
+            key
+            value
+          }
+          key
+          tests {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        sessionID
+        createdAt
+        updatedAt
         responseQuestionId
       }
       nextToken
@@ -89,12 +150,47 @@ export const getSession = /* GraphQL */ `
         Test {
           id
           data
+          Questions {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
         createdAt
         updatedAt
         examTestId
+      }
+      Responses {
+        items {
+          id
+          data
+          Question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          sessionID
+          createdAt
+          updatedAt
+          responseQuestionId
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -117,9 +213,36 @@ export const listSessions = /* GraphQL */ `
           date
           org
           data
+          Test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
           examTestId
+        }
+        Responses {
+          items {
+            id
+            data
+            Question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            sessionID
+            createdAt
+            updatedAt
+            responseQuestionId
+          }
+          nextToken
         }
         createdAt
         updatedAt
@@ -140,6 +263,26 @@ export const getExam = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -166,6 +309,16 @@ export const listExams = /* GraphQL */ `
         Test {
           id
           data
+          Questions {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -187,6 +340,29 @@ export const getTest = /* GraphQL */ `
           id
           testId
           questionId
+          test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -208,6 +384,26 @@ export const listTests = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -238,6 +434,26 @@ export const searchTests = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -277,6 +493,29 @@ export const getQuestion = /* GraphQL */ `
           id
           testId
           questionId
+          test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -303,6 +542,26 @@ export const listQuestions = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -338,6 +597,26 @@ export const searchQuestions = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -372,6 +651,26 @@ export const getTestQuestion = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -386,6 +685,26 @@ export const getTestQuestion = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -410,13 +729,37 @@ export const listTestQuestions = /* GraphQL */ `
         test {
           id
           data
+          Questions {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
         question {
           id
           prompt
+          choices {
+            key
+            value
+          }
           key
+          tests {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -449,13 +792,37 @@ export const testQuestionsByTestId = /* GraphQL */ `
         test {
           id
           data
+          Questions {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
         question {
           id
           prompt
+          choices {
+            key
+            value
+          }
           key
+          tests {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -488,13 +855,37 @@ export const testQuestionsByQuestionId = /* GraphQL */ `
         test {
           id
           data
+          Questions {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
         question {
           id
           prompt
+          choices {
+            key
+            value
+          }
           key
+          tests {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }

@@ -1,5 +1,5 @@
 import {API, graphqlOperation} from "@aws-amplify/api";
-import {createResponse, createSession} from "../graphql/mutations";
+import {createResponse, createSession, updateSession} from "../graphql/mutations";
 
 
 export const createNewSession = async (sessionExamId, data) => {
@@ -25,7 +25,7 @@ export const submitSessionResponse = async (sessionResponseData) => {
                 let {questionId, answer} = response
                 let result = await API.graphql(graphqlOperation(createResponse, {
                     input: {
-                        responseSessionId: sessionId,
+                        sessionID: sessionId,
                         responseQuestionId: questionId,
                         data: {
                             answer
@@ -39,3 +39,4 @@ export const submitSessionResponse = async (sessionResponseData) => {
 
     return createResponseData
 }
+

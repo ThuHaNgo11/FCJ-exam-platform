@@ -9,22 +9,6 @@ export const createResponse = /* GraphQL */ `
     createResponse(input: $input, condition: $condition) {
       id
       data
-      Session {
-        id
-        data
-        Exam {
-          id
-          date
-          org
-          data
-          createdAt
-          updatedAt
-          examTestId
-        }
-        createdAt
-        updatedAt
-        sessionExamId
-      }
       Question {
         id
         prompt
@@ -34,14 +18,34 @@ export const createResponse = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
         updatedAt
       }
+      sessionID
       createdAt
       updatedAt
-      responseSessionId
       responseQuestionId
     }
   }
@@ -54,22 +58,6 @@ export const updateResponse = /* GraphQL */ `
     updateResponse(input: $input, condition: $condition) {
       id
       data
-      Session {
-        id
-        data
-        Exam {
-          id
-          date
-          org
-          data
-          createdAt
-          updatedAt
-          examTestId
-        }
-        createdAt
-        updatedAt
-        sessionExamId
-      }
       Question {
         id
         prompt
@@ -79,14 +67,34 @@ export const updateResponse = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
         updatedAt
       }
+      sessionID
       createdAt
       updatedAt
-      responseSessionId
       responseQuestionId
     }
   }
@@ -99,22 +107,6 @@ export const deleteResponse = /* GraphQL */ `
     deleteResponse(input: $input, condition: $condition) {
       id
       data
-      Session {
-        id
-        data
-        Exam {
-          id
-          date
-          org
-          data
-          createdAt
-          updatedAt
-          examTestId
-        }
-        createdAt
-        updatedAt
-        sessionExamId
-      }
       Question {
         id
         prompt
@@ -124,14 +116,34 @@ export const deleteResponse = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
         updatedAt
       }
+      sessionID
       createdAt
       updatedAt
-      responseSessionId
       responseQuestionId
     }
   }
@@ -152,12 +164,47 @@ export const createSession = /* GraphQL */ `
         Test {
           id
           data
+          Questions {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
         createdAt
         updatedAt
         examTestId
+      }
+      Responses {
+        items {
+          id
+          data
+          Question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          sessionID
+          createdAt
+          updatedAt
+          responseQuestionId
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -181,12 +228,47 @@ export const updateSession = /* GraphQL */ `
         Test {
           id
           data
+          Questions {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
         createdAt
         updatedAt
         examTestId
+      }
+      Responses {
+        items {
+          id
+          data
+          Question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          sessionID
+          createdAt
+          updatedAt
+          responseQuestionId
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -210,12 +292,47 @@ export const deleteSession = /* GraphQL */ `
         Test {
           id
           data
+          Questions {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
         createdAt
         updatedAt
         examTestId
+      }
+      Responses {
+        items {
+          id
+          data
+          Question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          sessionID
+          createdAt
+          updatedAt
+          responseQuestionId
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -237,6 +354,26 @@ export const createExam = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -262,6 +399,26 @@ export const updateExam = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -287,6 +444,26 @@ export const deleteExam = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -311,6 +488,29 @@ export const createTest = /* GraphQL */ `
           id
           testId
           questionId
+          test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -334,6 +534,29 @@ export const updateTest = /* GraphQL */ `
           id
           testId
           questionId
+          test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -357,6 +580,29 @@ export const deleteTest = /* GraphQL */ `
           id
           testId
           questionId
+          test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -385,6 +631,29 @@ export const createQuestion = /* GraphQL */ `
           id
           testId
           questionId
+          test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -413,6 +682,29 @@ export const updateQuestion = /* GraphQL */ `
           id
           testId
           questionId
+          test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -441,6 +733,29 @@ export const deleteQuestion = /* GraphQL */ `
           id
           testId
           questionId
+          test {
+            id
+            data
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }
@@ -464,6 +779,26 @@ export const createTestQuestion = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -478,6 +813,26 @@ export const createTestQuestion = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -501,6 +856,26 @@ export const updateTestQuestion = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -515,6 +890,26 @@ export const updateTestQuestion = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -538,6 +933,26 @@ export const deleteTestQuestion = /* GraphQL */ `
         id
         data
         Questions {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
@@ -552,6 +967,26 @@ export const deleteTestQuestion = /* GraphQL */ `
         }
         key
         tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
