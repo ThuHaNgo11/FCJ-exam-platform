@@ -1,19 +1,28 @@
-/* src/App.js */
 
-// landing page - prompt login or signup
-// -> if logged in, show dashboard
+import React, { useEffect, useState } from 'react'
 
-import { useEffect, useState } from 'react'
-import { Button, Heading, Text, TextField, View } from '@aws-amplify/ui-react'
+// import Amplify UI components
+import { Heading, View, withAuthenticator } from '@aws-amplify/ui-react'
+
+// import components
+import LandingPageNavBar from '../components/LandingPageNavBar'
 import NavBar from '../components/NavBar'
 
+import {useAuthenticator} from '@aws-amplify/ui-react'
+
 const LandingPage = () => {
+
+  const {route} = useAuthenticator(context => [context.route])
+  const {user, signOut} = useAuthenticator(context => [context.user])
+
   return (
     <View>
-      <NavBar />  
+      {
+        route === "authenticated" ? <NavBar userName={user.username} signOut={signOut} /> : <LandingPageNavBar />
+      }
       <Heading level={1}>Welcome AWS builders</Heading>
     </View>
   )
 }
 
-export default LandingPage
+export default LandingPage;

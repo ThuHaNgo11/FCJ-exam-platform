@@ -1,5 +1,5 @@
 
-import { withAuthenticator, Button, Heading, View } from '@aws-amplify/ui-react'
+import { withAuthenticator, View } from '@aws-amplify/ui-react'
 
 import NavBar from './NavBar';
 
@@ -10,7 +10,7 @@ const MainLayout = ({ signOut, user, children }) => {
       <View className="content">
         {children}
       </View>
-    </View>
+    </View> 
   )
 }
 
