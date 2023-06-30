@@ -90,7 +90,7 @@ const TakeExamPage = () => {
             let result = await submitSessionResponse(data)
             console.log(result)
             delay(2000).then(
-                () => navigate('/review/' + sessionId, { replace: true })
+                () => navigate('/review/' + sessionId, { replace: false })
             )
         }
         submit()

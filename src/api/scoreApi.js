@@ -9,8 +9,35 @@ export const getSessionWithScore = async (sessionid) => {
                 id: sessionid
             }
         })
+        let session = result.data.getSession
 
-        return result
+        session.data = JSON.parse(session.data)
+        session.Exam.data = JSON.parse(session.Exam.data)
+        session.Responses.items.map(
+            (it) => {
+                it.data = JSON.parse(it.data)
+            }
+        )
+
+        let mark = 0
+        session.Responses.items.map(
+            (it) => {
+                if (parseInt(it.data.answer) === it.Question.key) {
+                    mark++
+                }
+            }
+        )
+
+        let highestMark = session.Exam.Test.Questions.items.length
+
+        let scorePercentage = Math.round(mark  * 100.0 / highestMark) / 100
+
+        return {
+            ...session,
+            mark,
+            highestMark,
+            scorePercentage
+        }
     } catch (e) {
         console.log(e)
     }

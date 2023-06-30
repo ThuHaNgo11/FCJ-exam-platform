@@ -4,6 +4,7 @@ import {createResponse, createSession, updateSession} from "../graphql/mutations
 
 export const createNewSession = async (sessionExamId, data) => {
     try {
+        data = JSON.stringify(data)
         let result = await API.graphql(graphqlOperation(createSession, {input: {
             sessionExamId,
             data
@@ -23,13 +24,14 @@ export const submitSessionResponse = async (sessionResponseData) => {
         responseData.data.map(
             async (response) => {
                 let {questionId, answer} = response
+                console.log(answer)
                 let result = await API.graphql(graphqlOperation(createResponse, {
                     input: {
                         sessionID: sessionId,
                         responseQuestionId: questionId,
-                        data: {
+                        data: JSON.stringify({
                             answer
-                        }
+                        })
                     }
                 }))
                 return result
