@@ -34,8 +34,9 @@ type Choice {
 type Question @model @auth(rules: [{allow: public}]) @searchable {
   id: ID!
   prompt: String!
+  data: String
   choices: [Choice]
-  key: Int
+  key: Int!
   tests: [Test] @manyToMany(relationName: "TestQuestion")
 }
  

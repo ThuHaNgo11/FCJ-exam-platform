@@ -9,6 +9,7 @@ export const getResponse = /* GraphQL */ `
       Question {
         id
         prompt
+        data
         choices {
           key
           value
@@ -28,6 +29,7 @@ export const getResponse = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -60,6 +62,7 @@ export const listResponses = /* GraphQL */ `
         Question {
           id
           prompt
+          data
           choices {
             key
             value
@@ -110,6 +113,7 @@ export const responsesBySessionIDAndData = /* GraphQL */ `
         Question {
           id
           prompt
+          data
           choices {
             key
             value
@@ -174,6 +178,7 @@ export const getSession = /* GraphQL */ `
           Question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -233,6 +238,7 @@ export const listSessions = /* GraphQL */ `
             Question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -276,6 +282,7 @@ export const getExam = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -352,6 +359,7 @@ export const getTest = /* GraphQL */ `
           question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -397,6 +405,7 @@ export const listTests = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -447,6 +456,7 @@ export const searchTests = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -483,6 +493,7 @@ export const getQuestion = /* GraphQL */ `
     getQuestion(id: $id) {
       id
       prompt
+      data
       choices {
         key
         value
@@ -505,6 +516,7 @@ export const getQuestion = /* GraphQL */ `
           question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -536,6 +548,7 @@ export const listQuestions = /* GraphQL */ `
       items {
         id
         prompt
+        data
         choices {
           key
           value
@@ -555,6 +568,7 @@ export const listQuestions = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -591,6 +605,7 @@ export const searchQuestions = /* GraphQL */ `
       items {
         id
         prompt
+        data
         choices {
           key
           value
@@ -610,6 +625,7 @@ export const searchQuestions = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -664,6 +680,7 @@ export const getTestQuestion = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -679,6 +696,7 @@ export const getTestQuestion = /* GraphQL */ `
       question {
         id
         prompt
+        data
         choices {
           key
           value
@@ -698,6 +716,7 @@ export const getTestQuestion = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -745,6 +764,7 @@ export const listTestQuestions = /* GraphQL */ `
         question {
           id
           prompt
+          data
           choices {
             key
             value
@@ -808,6 +828,7 @@ export const testQuestionsByTestId = /* GraphQL */ `
         question {
           id
           prompt
+          data
           choices {
             key
             value
@@ -871,6 +892,7 @@ export const testQuestionsByQuestionId = /* GraphQL */ `
         question {
           id
           prompt
+          data
           choices {
             key
             value

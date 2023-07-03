@@ -24,19 +24,23 @@ export default function QuestionCreateForm(props) {
   } = props;
   const initialValues = {
     prompt: "",
+    data: "",
     key: "",
   };
   const [prompt, setPrompt] = React.useState(initialValues.prompt);
+  const [data, setData] = React.useState(initialValues.data);
   const [key, setKey] = React.useState(initialValues.key);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setPrompt(initialValues.prompt);
+    setData(initialValues.data);
     setKey(initialValues.key);
     setErrors({});
   };
   const validations = {
     prompt: [{ type: "Required" }],
-    key: [],
+    data: [],
+    key: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -65,6 +69,7 @@ export default function QuestionCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           prompt,
+          data,
           key,
         };
         const validationResponses = await Promise.all(
@@ -121,6 +126,7 @@ export default function QuestionCreateForm(props) {
           if (onChange) {
             const modelFields = {
               prompt: value,
+              data,
               key,
             };
             const result = onChange(modelFields);
@@ -137,8 +143,34 @@ export default function QuestionCreateForm(props) {
         {...getOverrideProps(overrides, "prompt")}
       ></TextField>
       <TextField
-        label="Key"
+        label="Data"
         isRequired={false}
+        isReadOnly={false}
+        value={data}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              prompt,
+              data: value,
+              key,
+            };
+            const result = onChange(modelFields);
+            value = result?.data ?? value;
+          }
+          if (errors.data?.hasError) {
+            runValidationTasks("data", value);
+          }
+          setData(value);
+        }}
+        onBlur={() => runValidationTasks("data", data)}
+        errorMessage={errors.data?.errorMessage}
+        hasError={errors.data?.hasError}
+        {...getOverrideProps(overrides, "data")}
+      ></TextField>
+      <TextField
+        label="Key"
+        isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"
@@ -150,6 +182,7 @@ export default function QuestionCreateForm(props) {
           if (onChange) {
             const modelFields = {
               prompt,
+              data,
               key: value,
             };
             const result = onChange(modelFields);

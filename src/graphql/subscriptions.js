@@ -9,6 +9,7 @@ export const onCreateResponse = /* GraphQL */ `
       Question {
         id
         prompt
+        data
         choices {
           key
           value
@@ -28,6 +29,7 @@ export const onCreateResponse = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -55,6 +57,7 @@ export const onUpdateResponse = /* GraphQL */ `
       Question {
         id
         prompt
+        data
         choices {
           key
           value
@@ -74,6 +77,7 @@ export const onUpdateResponse = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -101,6 +105,7 @@ export const onDeleteResponse = /* GraphQL */ `
       Question {
         id
         prompt
+        data
         choices {
           key
           value
@@ -120,6 +125,7 @@ export const onDeleteResponse = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -176,6 +182,7 @@ export const onCreateSession = /* GraphQL */ `
           Question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -237,6 +244,7 @@ export const onUpdateSession = /* GraphQL */ `
           Question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -298,6 +306,7 @@ export const onDeleteSession = /* GraphQL */ `
           Question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -346,6 +355,7 @@ export const onCreateExam = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -388,6 +398,7 @@ export const onUpdateExam = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -430,6 +441,7 @@ export const onDeleteExam = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -470,6 +482,7 @@ export const onCreateTest = /* GraphQL */ `
           question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -513,6 +526,7 @@ export const onUpdateTest = /* GraphQL */ `
           question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -556,6 +570,7 @@ export const onDeleteTest = /* GraphQL */ `
           question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -582,6 +597,7 @@ export const onCreateQuestion = /* GraphQL */ `
     onCreateQuestion(filter: $filter) {
       id
       prompt
+      data
       choices {
         key
         value
@@ -604,6 +620,7 @@ export const onCreateQuestion = /* GraphQL */ `
           question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -630,6 +647,7 @@ export const onUpdateQuestion = /* GraphQL */ `
     onUpdateQuestion(filter: $filter) {
       id
       prompt
+      data
       choices {
         key
         value
@@ -652,6 +670,7 @@ export const onUpdateQuestion = /* GraphQL */ `
           question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -678,6 +697,7 @@ export const onDeleteQuestion = /* GraphQL */ `
     onDeleteQuestion(filter: $filter) {
       id
       prompt
+      data
       choices {
         key
         value
@@ -700,6 +720,7 @@ export const onDeleteQuestion = /* GraphQL */ `
           question {
             id
             prompt
+            data
             choices {
               key
               value
@@ -746,6 +767,7 @@ export const onCreateTestQuestion = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -761,6 +783,7 @@ export const onCreateTestQuestion = /* GraphQL */ `
       question {
         id
         prompt
+        data
         choices {
           key
           value
@@ -780,6 +803,7 @@ export const onCreateTestQuestion = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -822,6 +846,7 @@ export const onUpdateTestQuestion = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -837,6 +862,7 @@ export const onUpdateTestQuestion = /* GraphQL */ `
       question {
         id
         prompt
+        data
         choices {
           key
           value
@@ -856,6 +882,7 @@ export const onUpdateTestQuestion = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -898,6 +925,7 @@ export const onDeleteTestQuestion = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt
@@ -913,6 +941,7 @@ export const onDeleteTestQuestion = /* GraphQL */ `
       question {
         id
         prompt
+        data
         choices {
           key
           value
@@ -932,6 +961,7 @@ export const onDeleteTestQuestion = /* GraphQL */ `
             question {
               id
               prompt
+              data
               key
               createdAt
               updatedAt

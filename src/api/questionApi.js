@@ -7,21 +7,24 @@ export const ApiRequest = {
         listQuestion : async (filter) => {
             let questions = await API.graphql(graphqlOperation(searchQuestions, {filter, sort: { direction: 'desc', field: 'createdAt' }}))
             console.log(questions)
+            questions.data = JSON.parse(questions.data)
             return questions
         },
         saveQuestion : async (state) => {
             if (!!state.id) {
-                let {createdAt, updatedAt, tests, ...input} = state
+                let {createdAt, updatedAt, tests, data, ...input} = state
                 try {
-                    let result = await API.graphql(graphqlOperation(updateQuestion, {input: input}))
+                    data = JSON.stringify(data)
+                    let result = await API.graphql(graphqlOperation(updateQuestion, {input: {data, ...input}}))
                     return result
                 } catch (ex) {
                     console.log(ex)
                 }
             } else {
-                let {id, ...input} = state
+                let {id, data, ...input} = state
                 try {
-                    let result = await API.graphql(graphqlOperation(createQuestion, {input: input}))
+                    data = JSON.stringify(data)
+                    let result = await API.graphql(graphqlOperation(createQuestion, {input: {data, ...input}}))
                     return  result
                 } catch (ex) {
                     console.log(ex)

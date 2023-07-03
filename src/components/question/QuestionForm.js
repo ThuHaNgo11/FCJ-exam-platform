@@ -7,6 +7,7 @@ import {useLocation, useNavigate} from "react-router";
 
 const initialState = {
     prompt: 'Please enter question prompt.',
+    data: {},
     key: 1,
     choices: [
         { key: 1, value: 'This is choice 1.' },
