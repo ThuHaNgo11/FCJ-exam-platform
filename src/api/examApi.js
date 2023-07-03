@@ -1,6 +1,7 @@
 import {API, graphqlOperation} from "@aws-amplify/api";
 import {listExams} from "../graphql/queries";
 import {createExam, updateExam, deleteExam} from "../graphql/mutations";
+import { Storage } from "aws-amplify";
 
 
 export const listExam = async(filter) => {
@@ -90,6 +91,7 @@ const getExamForSessionQuery =
                 question {
                   id,
                   prompt,
+                  data,
                   choices {
                     key
                     value
@@ -117,6 +119,13 @@ export const getExamForSession = async (examId) => {
         )
         result.data.getExam.data = JSON.parse(result.data.getExam.data)
         result.data.getExam.Test.data = JSON.parse(result.data.getExam.Test.data)
+
+        result.data.getExam.Test.Questions.items.map(async (item) => {
+            item.question.data = JSON.parse(item.question.data)
+            if (!!item.question.data && !!item.question.data.image) {
+                item.question.data.imageUrl = await Storage.get(item.question.data.image)
+            }
+        })
 
 
         return result

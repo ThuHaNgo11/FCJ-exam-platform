@@ -33,24 +33,6 @@ const QuestionForm = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const navigate = useNavigate()
 
-    // load img url
-    useEffect(
-        () => {
-            if (!!formState.data && !!formState.data.image) {
-                Storage.get(formState.data.image)
-                    .then(
-                        (url) => {
-                            setFormState(
-                                formState => {
-                                    formState.data.image = url
-                                }
-                            )
-                        }
-                    )
-            }
-        }, [navState]
-    )
-
     const handleChanges = getImmerChangeHandler(setFormState)
 
     const handleChoiceChange = (event) => {
@@ -98,7 +80,7 @@ const QuestionForm = () => {
             {!!formState.data && !!formState.data.image &&
                 <Image
                     alt="question prompt illustration"
-                    src={formState.data.image}
+                    src={formState.data.imageUrl}
                     maxHeight="300px"
                     maxWidth="100%"
                 />}

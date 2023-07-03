@@ -1,5 +1,5 @@
-import { React, useEffect} from 'react';
-import { View, useAuthenticator } from '@aws-amplify/ui-react';
+import { React} from 'react';
+import { View } from '@aws-amplify/ui-react';
 
 import { Navigate } from 'react-router';
 
@@ -10,24 +10,17 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import LandingPageNavBar from '../components/LandingPageNavBar';
 
 const SignUpPage = () => {
-
-    const { route } = useAuthenticator(context => [context.route])
-
-    const authContext = useAuthenticator(context => context)
-
-    useEffect(() => {
-        console.log(authContext)
-    }, [authContext])
-    
-
     return (
-        route === "authenticated" ?
-            <Navigate to="/" /> : (
-                <View>
-                    <LandingPageNavBar />
-                    <Authenticator initialState="signUp" />
-                </View>
-            )
+        <View>
+            <LandingPageNavBar />
+            <Authenticator initialState="signUp">
+                {
+                    () => (
+                        <Navigate to="/"/>
+                    )
+                }
+            </Authenticator>
+        </View>
     )
 }
 

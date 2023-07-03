@@ -1,8 +1,8 @@
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // import Amplify UI components
-import { Heading, View, withAuthenticator } from '@aws-amplify/ui-react'
+import { Heading, View } from '@aws-amplify/ui-react'
 
 // import components
 import LandingPageNavBar from '../components/LandingPageNavBar'
