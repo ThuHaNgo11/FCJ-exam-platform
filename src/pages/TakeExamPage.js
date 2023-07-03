@@ -10,7 +10,7 @@ import {
     TextField,
     Collection,
     Radio,
-    RadioGroupField
+    RadioGroupField, Loader
 } from '@aws-amplify/ui-react';
 import {useParams} from 'react-router';
 
@@ -45,6 +45,8 @@ const TakeExamPage = () => {
     let [userDetails, setUserDetails] = useImmer(initialState)
 
     let handleChange = getImmerChangeHandler(setUserDetails)
+
+    let [isSubmitting, setIsSubmitting] = useState(false)
 
     let navigate = useNavigate()
 
@@ -85,6 +87,8 @@ const TakeExamPage = () => {
             responseData,
             sessionId
         }
+
+        setIsSubmitting(true)
 
         const submit = async () => {
             let result = await submitSessionResponse(data)
@@ -143,7 +147,10 @@ const TakeExamPage = () => {
                                             )
                                         }
                                     </Collection>
-                                    <Button onClick={handleSubmit}>Submit</Button>
+                                    <Button onClick={handleSubmit}>
+                                        {isSubmitting && <Loader />}
+                                        Submit
+                                    </Button>
                                 </View>
                             )
                         }
