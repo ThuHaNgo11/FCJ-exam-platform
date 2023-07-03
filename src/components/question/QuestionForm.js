@@ -1,9 +1,16 @@
-import { Heading, TextAreaField, View, TextField, Loader, Flex, Button } from "@aws-amplify/ui-react"
+// import Amplify UI
+import { Heading, TextAreaField, View, TextField, Loader, Flex, Button, Image } from "@aws-amplify/ui-react"
+import { StorageManager } from '@aws-amplify/ui-react-storage';
+import { Storage } from "aws-amplify";
+
+// import API
 import { saveQuestion } from "../../api/questionApi";
-import { useState} from "react"
+
+// import React
+import { useEffect, useState } from "react"
 import { useImmer } from "use-immer";
-import {delay, getImmerChangeHandler} from "../../hooks/utils";
-import {useLocation, useNavigate} from "react-router";
+import { delay, getImmerChangeHandler } from "../../hooks/utils";
+import { useLocation, useNavigate } from "react-router";
 
 const initialState = {
     prompt: 'Please enter question prompt.',
@@ -20,11 +27,29 @@ const initialState = {
 const QuestionForm = () => {
     const location = useLocation()
 
-    const navState =  location.state|| initialState
+    const navState = location.state || initialState
 
     const [formState, setFormState] = useImmer(navState)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const navigate = useNavigate()
+
+    // load img url
+    useEffect(
+        () => {
+            if (!!formState.data && !!formState.data.image) {
+                Storage.get(formState.data.image)
+                    .then(
+                        (url) => {
+                            setFormState(
+                                formState => {
+                                    formState.data.image = url
+                                }
+                            )
+                        }
+                    )
+            }
+        }, [navState]
+    )
 
     const handleChanges = getImmerChangeHandler(setFormState)
 
@@ -57,23 +82,56 @@ const QuestionForm = () => {
                 console.log("Created new data", data.data[field])
                 // wait 2s for the data to be available on OpenSearch
                 delay(2000).then(
-                    () => navigate('/questions', { replace:true})
+                    () => navigate('/questions', { replace: true })
                 )
             }, (reason) => {
                 console.log(reason)
             })
     }
 
+
+
     return (
         <View>
             <Heading level={3}>Compose Question</Heading>
             <TextAreaField name='prompt' value={formState.prompt} onChange={handleChanges}></TextAreaField>
+            {!!formState.data && !!formState.data.image &&
+                <Image
+                    alt="question prompt illustration"
+                    src={formState.data.image}
+                    maxHeight="300px"
+                    maxWidth="100%"
+                />}
+            <StorageManager
+                acceptedFileTypes={['image/*']}
+                accessLevel="public"
+                maxFileCount={1}
+                displayText={{
+                    dropFilesText: 'Upload optional image'
+                }}
+                onUploadSuccess={(data) => {
+                    console.log(data)
+                    setFormState(
+                        formState => {
+                            if (!!formState.data) {
+                                formState.data.image = data.key
+                            } else {
+                                formState.data = { image: data.key }
+                            }
+                        }
+                    )
+                }}
+                onUploadError={(error) => {
+                    console.log(error)
+                }}
+                isResumable
+            />
             {
                 formState.choices.map(
                     (choice, index) => (
                         <Flex key={choice.key}>
                             <TextField data-key={choice.key} value={choice.value}
-                                       onChange={handleChoiceChange}
+                                onChange={handleChoiceChange}
                             >
                             </TextField>
                             {
@@ -89,7 +147,7 @@ const QuestionForm = () => {
                 {isSubmitting && <Loader />}
                 Save
             </Button>
-            <Button onClick={() => navigate('/questions', { replace:true})}>Cancel</Button>
+            <Button onClick={() => navigate('/questions', { replace: true })}>Cancel</Button>
         </View>
     )
 }

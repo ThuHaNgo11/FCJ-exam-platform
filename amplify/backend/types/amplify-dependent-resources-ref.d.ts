@@ -17,6 +17,15 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolName": "string"
     }
   },
+  "function": {
+    "S3Trigger71a36097": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  },
   "hosting": {
     "S3AndCloudFront": {
       "CloudFrontDistributionID": "string",
@@ -27,6 +36,12 @@ export type AmplifyDependentResourcesAttributes = {
       "Region": "string",
       "S3BucketSecureURL": "string",
       "WebsiteURL": "string"
+    }
+  },
+  "storage": {
+    "questionImgBank": {
+      "BucketName": "string",
+      "Region": "string"
     }
   }
 }

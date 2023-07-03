@@ -24,6 +24,15 @@
           "type": "manual"
         },
         "S3AndCloudFront": {}
+      },
+      "function": {
+        "S3Trigger71a36097": {
+          "deploymentBucketName": "amplify-reactamplified-dev-102651-deployment",
+          "s3Key": "amplify-builds/S3Trigger71a36097-42516a6d6a646c466873-build.zip"
+        }
+      },
+      "storage": {
+        "questionImgBank": {}
       }
     }
   }

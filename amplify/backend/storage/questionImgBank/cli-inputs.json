@@ -1,0 +1,16 @@
+{
+  "resourceName": "questionImgBank",
+  "policyUUID": "127d5010",
+  "bucketName": "question-img-bank-storage",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Trigger71a36097",
+  "groupAccess": {}
+}

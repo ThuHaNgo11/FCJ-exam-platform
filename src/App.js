@@ -6,6 +6,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 
 // Import components
 import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 import QuestionManager from './pages/QuestionManager';
 import SingleQuestionPage from "./pages/SingleQuestionPage";
 import TestManager from './pages/TestManager';
@@ -30,6 +31,7 @@ const App = () => {
                     <Route path="/take-exam/:examid/:sessionid" element={<TakeExamPage />} />
                     <Route path="/review/:sessionid" element={<ReviewSessionPage />} />
                     <Route path="/signin" element={<SignInPage />}></Route>
+                    <Route path="/signup" element={<SignUpPage />}></Route>
                 </Routes>
             </BrowserRouter>
         </Authenticator.Provider>

@@ -16,7 +16,7 @@ const LandingPageNavBar = () => {
     }
 
     const signUp = () => {
-        navigate('/signin', { state: 'signUp' })
+        navigate('/signup')
     }
     
     return (

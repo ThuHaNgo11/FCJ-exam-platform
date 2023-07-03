@@ -6,8 +6,9 @@ export const ApiRequest = {
     requests: {
         listQuestion : async (filter) => {
             let questions = await API.graphql(graphqlOperation(searchQuestions, {filter, sort: { direction: 'desc', field: 'createdAt' }}))
-            console.log(questions)
-            questions.data = JSON.parse(questions.data)
+            questions.data.searchQuestions.items.map((item) => {
+                item.data = JSON.parse(item.data)
+            })
             return questions
         },
         saveQuestion : async (state) => {
