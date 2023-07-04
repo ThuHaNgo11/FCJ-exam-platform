@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useImmer } from 'use-immer';
 
 // import react bootstrap components
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button, ModalTitle } from "react-bootstrap";
+import { Modal, ModalHeader, ModalBody, Button, ModalTitle } from "react-bootstrap";
 import {
     Table,
     TableBody,
@@ -14,7 +15,6 @@ import {
     SearchField
 } from '@aws-amplify/ui-react';
 import { FaCheckCircle } from 'react-icons/fa';
-import { useImmer } from 'use-immer';
 
 // import API functions
 import { listQuestion } from '../../api/questionApi';
