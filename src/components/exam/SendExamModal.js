@@ -21,7 +21,7 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
 
     const handleSend = () => {
         console.log(emails)
-        onSend({emails, link: getLink()})
+        onSend({emails, link: getLink(exam)})
     }
 
     return (
