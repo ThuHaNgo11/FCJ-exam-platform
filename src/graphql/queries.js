@@ -657,6 +657,41 @@ export const searchQuestions = /* GraphQL */ `
     }
   }
 `;
+export const getExamEmail = /* GraphQL */ `
+  query GetExamEmail($id: ID!) {
+    getExamEmail(id: $id) {
+      id
+      examLink
+      toAddress
+      fromAddress
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listExamEmails = /* GraphQL */ `
+  query ListExamEmails(
+    $filter: ModelExamEmailFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listExamEmails(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        examLink
+        toAddress
+        fromAddress
+        subject
+        body
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getTestQuestion = /* GraphQL */ `
   query GetTestQuestion($id: ID!) {
     getTestQuestion(id: $id) {

@@ -39,4 +39,13 @@ type Question @model @auth(rules: [{allow: public}]) @searchable {
   key: Int!
   tests: [Test] @manyToMany(relationName: "TestQuestion")
 }
+
+type ExamEmail @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  examLink: String!
+  toAddress: String!
+  fromAddress: String!
+  subject: String!
+  body: String!
+}
  

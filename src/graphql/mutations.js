@@ -787,6 +787,57 @@ export const deleteQuestion = /* GraphQL */ `
     }
   }
 `;
+export const createExamEmail = /* GraphQL */ `
+  mutation CreateExamEmail(
+    $input: CreateExamEmailInput!
+    $condition: ModelExamEmailConditionInput
+  ) {
+    createExamEmail(input: $input, condition: $condition) {
+      id
+      examLink
+      toAddress
+      fromAddress
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateExamEmail = /* GraphQL */ `
+  mutation UpdateExamEmail(
+    $input: UpdateExamEmailInput!
+    $condition: ModelExamEmailConditionInput
+  ) {
+    updateExamEmail(input: $input, condition: $condition) {
+      id
+      examLink
+      toAddress
+      fromAddress
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteExamEmail = /* GraphQL */ `
+  mutation DeleteExamEmail(
+    $input: DeleteExamEmailInput!
+    $condition: ModelExamEmailConditionInput
+  ) {
+    deleteExamEmail(input: $input, condition: $condition) {
+      id
+      examLink
+      toAddress
+      fromAddress
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createTestQuestion = /* GraphQL */ `
   mutation CreateTestQuestion(
     $input: CreateTestQuestionInput!

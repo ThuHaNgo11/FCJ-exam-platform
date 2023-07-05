@@ -16,7 +16,7 @@ import {
 import { FaCheckCircle, FaEdit, FaTrash, FaPaperPlane } from "react-icons/fa";
 
 // import API functions
-import { deleteExamById, listExam } from "../../api/examApi";
+import {deleteExamById, listExam, sendExamEmail} from "../../api/examApi";
 
 // import utils
 import { formatDate } from "../../hooks/utils";
@@ -94,9 +94,10 @@ const ExamList = () => {
     }
 
     // handlers of SendExamModal
-    const handleSend = (event) => {
+    const handleSend = ({emails, link}) => {
         // using SES and lambda to send email
-        console.log("SendExamModal", event)
+
+        sendExamEmail({emails, link})
         
 
     }

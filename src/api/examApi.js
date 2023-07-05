@@ -1,6 +1,6 @@
 import {API, graphqlOperation} from "@aws-amplify/api";
 import {listExams} from "../graphql/queries";
-import {createExam, updateExam, deleteExam} from "../graphql/mutations";
+import {createExam, updateExam, deleteExam, createExamEmail} from "../graphql/mutations";
 import { Storage } from "aws-amplify";
 
 
@@ -137,5 +137,23 @@ export const getExamForSession = async (examId) => {
         result.data.getExam.Test.data = JSON.parse(result.data.getExam.Test.data)
         result.data.getExam.Test.Questions.items = result.data.getExam.Test.Questions.items.filter(x => x)
         return result
+    }
+}
+
+export const sendExamEmail = async({emails, link}) => {
+    try {
+        let input = {
+            examLink: link,
+            toAddress: emails,
+            fromAddress: "ngothuha+ses@amazon.com",
+            subject: "Exam notification",
+            body: `<div>Please use the following URL for your exam: <a href='${link}'>Exam URL</a></div>`
+        }
+        let result = await API.graphql(graphqlOperation(createExamEmail, {input}))
+        // Link result.createExam.id with exam.Test
+        console.log(result)
+        return result
+    } catch (e) {
+        console.log(e)
     }
 }

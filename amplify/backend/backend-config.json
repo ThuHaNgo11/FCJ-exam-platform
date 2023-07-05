@@ -53,6 +53,21 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "sendExamEmail": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "reactamplified"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "hosting": {
@@ -80,6 +95,30 @@
         {
           "category": "function",
           "resourceName": "S3Trigger71a36097"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendExamEmail_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendExamEmail"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendExamEmail_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendExamEmail"
+        }
+      ]
+    },
+    "AMPLIFY_function_sendExamEmail_sesEmail": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sendExamEmail"
         }
       ]
     },

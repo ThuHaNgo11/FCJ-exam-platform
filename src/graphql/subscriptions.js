@@ -742,6 +742,54 @@ export const onDeleteQuestion = /* GraphQL */ `
     }
   }
 `;
+export const onCreateExamEmail = /* GraphQL */ `
+  subscription OnCreateExamEmail(
+    $filter: ModelSubscriptionExamEmailFilterInput
+  ) {
+    onCreateExamEmail(filter: $filter) {
+      id
+      examLink
+      toAddress
+      fromAddress
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateExamEmail = /* GraphQL */ `
+  subscription OnUpdateExamEmail(
+    $filter: ModelSubscriptionExamEmailFilterInput
+  ) {
+    onUpdateExamEmail(filter: $filter) {
+      id
+      examLink
+      toAddress
+      fromAddress
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteExamEmail = /* GraphQL */ `
+  subscription OnDeleteExamEmail(
+    $filter: ModelSubscriptionExamEmailFilterInput
+  ) {
+    onDeleteExamEmail(filter: $filter) {
+      id
+      examLink
+      toAddress
+      fromAddress
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateTestQuestion = /* GraphQL */ `
   subscription OnCreateTestQuestion(
     $filter: ModelSubscriptionTestQuestionFilterInput

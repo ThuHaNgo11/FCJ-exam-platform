@@ -13,3 +13,5 @@ export { default as TestCreateForm } from "./TestCreateForm";
 export { default as TestUpdateForm } from "./TestUpdateForm";
 export { default as QuestionCreateForm } from "./QuestionCreateForm";
 export { default as QuestionUpdateForm } from "./QuestionUpdateForm";
+export { default as ExamEmailCreateForm } from "./ExamEmailCreateForm";
+export { default as ExamEmailUpdateForm } from "./ExamEmailUpdateForm";
