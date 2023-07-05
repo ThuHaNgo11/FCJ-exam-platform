@@ -5,19 +5,21 @@ import { useImmer } from 'use-immer';
 import { Modal, Button } from 'react-bootstrap';
 import {
     Flex,
-    Text,
     RadioGroupField,
     Radio,
     Collection,
     Card,
-    Image
+    Image,
+    Loader
 } from '@aws-amplify/ui-react';
 
-import { FaFlag} from "react-icons/fa";
+import { FaFlag } from "react-icons/fa";
 
 
-const ReviewExamModal = ({ isOpen, onClose, onResponseUpdate, examData, responseData, flaggedQuestions}) => {
+const ReviewExamModal = ({ isOpen, onClose, onResponseUpdate, examData, responseData, flaggedQuestions, handleSubmit }) => {
     let [localResponseData, setLocalResponseData] = useState(responseData)
+
+    let [isSubmitting, setIsSubmitting] = useState(false)
 
     const getAnswer = (questionId) => {
         const response = localResponseData.data.find((response) => response.questionId === questionId)
@@ -28,7 +30,11 @@ const ReviewExamModal = ({ isOpen, onClose, onResponseUpdate, examData, response
         setLocalResponseData(responseData);
     }, [responseData]);
 
-    
+    const onSubmit = () => {
+        setIsSubmitting(true)
+        handleSubmit()
+    }
+
     return (
         <Modal show={isOpen} onHide={onClose} fullscreen scrollable>
             <Modal.Header>
@@ -71,7 +77,10 @@ const ReviewExamModal = ({ isOpen, onClose, onResponseUpdate, examData, response
                 </Collection>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={onClose}>Confirm</Button>
+                <Button onClick={onSubmit}>
+                    { isSubmitting && <Loader /> }
+                    Submit
+                </Button>
             </Modal.Footer>
         </Modal>
     )

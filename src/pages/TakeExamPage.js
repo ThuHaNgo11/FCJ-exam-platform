@@ -110,9 +110,6 @@ const TakeExamPage = () => {
             responseData,
             sessionId
         }
-
-        setIsSubmitting(true)
-
         const submit = async () => {
             let result = await submitSessionResponse(data)
             console.log(result)
@@ -164,7 +161,7 @@ const TakeExamPage = () => {
                 ) : (
                     <View>
                         <ReviewExamModal isOpen={isReviewModalOpen} onClose={handleModalClose} onResponseUpdate={handleResponseUpdate} examData={examData}
-                            responseData={responseData} flaggedQuestions={flaggedQuestions} />
+                            responseData={responseData} flaggedQuestions={flaggedQuestions} handleSubmit={handleSubmit} />
                         <Heading level={3}>{examData.data.name}</Heading>
                         <Flex>
                             <Text>Exam Date: {formatDate(examData.date)}</Text>
