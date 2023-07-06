@@ -177,10 +177,11 @@
             },
             {
               "Action": [
-                "ses:SendEmail"
+                "ses:SendEmail",
+                "ses:SendRawEmail"
               ],
               "Effect": "Allow",
-              "Resource": "arn:aws:ses:ap-southeast-1:824046953782:identity/thuhango+ses@amazon.com"
+              "Resource": "*"
             }
           ]
         }

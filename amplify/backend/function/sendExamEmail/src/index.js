@@ -8,9 +8,7 @@ import {sesClient} from "./lib/sesClient.js";
 const createSendEmailCommand = (toAddress, fromAddress, body, subject) => {
     return new SendEmailCommand({
         Destination: {
-            ToAddresses: [
-                toAddress,
-            ],
+            ToAddresses: toAddress,
         },
         Message: {
             /* required */
@@ -41,12 +39,15 @@ export const handler = async (event) => {
         //pull off items from stream
         const examLink = record.dynamodb.NewImage.examLink.S
         const toAddress = record.dynamodb.NewImage.toAddress.S
+        const toAddressArr = toAddress.split(",")
         const fromAddress = record.dynamodb.NewImage.fromAddress.S
         const subject = record.dynamodb.NewImage.subject.S
         const body = record.dynamodb.NewImage.body.S
 
+        console.log("toAddress", toAddressArr)
+
         const sendEmailCommand = createSendEmailCommand(
-            toAddress,
+            toAddressArr,
             process.env.SES_EMAIL,
             body,
             subject
@@ -57,7 +58,7 @@ export const handler = async (event) => {
             try {
                 return await sesClient.send(sendEmailCommand);
             } catch (e) {
-                console.error("Failed to send email.");
+                console.error("Failed to send email: " + e);
                 return e;
             }
         }

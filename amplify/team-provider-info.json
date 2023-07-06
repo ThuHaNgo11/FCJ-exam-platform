@@ -32,7 +32,7 @@
         },
         "sendExamEmail": {
           "deploymentBucketName": "amplify-reactamplified-dev-102651-deployment",
-          "s3Key": "amplify-builds/sendExamEmail-7448483037645049564a-build.zip",
+          "s3Key": "amplify-builds/sendExamEmail-6c2b4b2b72494e4b7344-build.zip",
           "sesEmail": "thuhango+ses@amazon.com"
         }
       },
