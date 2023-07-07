@@ -51,7 +51,7 @@ const TakeExamPage = () => {
 
     let handleChange = getImmerChangeHandler(setUserDetails)
 
-    let [isSubmitting, setIsSubmitting] = useState(false)
+    let [isSubmitting] = useState(false)
 
     let [currentQuestion, setCurrentQuestion] = useState(0)
 

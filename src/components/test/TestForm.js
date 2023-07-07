@@ -1,7 +1,7 @@
 // import libraries
-import React, { forwardRef, useState } from "react";
+import React, { useState } from "react";
 import { useImmer } from "use-immer";
-import { arrayMergeUnique, delay, getImmerChangeHandler } from "../../hooks/utils";
+import { arrayMergeUnique, delay } from "../../hooks/utils";
 import { useLocation, useNavigate } from "react-router";
 
 // import UI components
@@ -110,6 +110,7 @@ const TestForm = () => {
                             if (data.id && c.id === data.id) {
                                 c.deleted = true
                             }
+                            return c
                         }
                     )
 

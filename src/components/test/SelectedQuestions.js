@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-    View,
     Table,
     TableHead,
     TableRow,
@@ -59,7 +58,7 @@ const SelectedQuestions = ({selectedQuestionsProp, handleDeleteSelectedQuestions
                     selectedQuestions.map(
                         (question) => {
                             if (question.deleted) {
-                                return
+                                return null
                             }
                             console.log(question)
                             return (

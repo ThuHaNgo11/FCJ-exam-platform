@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 
 // import UI components
-import { View, Alert, Heading, Button, TextAreaField, Loader, TextField, Text } from "@aws-amplify/ui-react";
+import { View, Alert, Heading, Button, Loader, TextField, Text } from "@aws-amplify/ui-react";
 import { Form } from "react-bootstrap";
 
 // import components

@@ -14,6 +14,7 @@ export const listExam = async(filter) => {
                 item.Test.data = JSON.parse(item.Test.data)
             }
             item.date = new Date(item.date)
+            return item
         })
         return exams
     }

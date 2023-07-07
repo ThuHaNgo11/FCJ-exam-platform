@@ -61,6 +61,7 @@ export const listTest = async(filter) => {
             } else {
                 item.Questions = []
             }
+            return item
         })
         return tests
     }

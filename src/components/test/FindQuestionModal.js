@@ -35,7 +35,7 @@ const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
             }
             loadQuestions(filter);
         },
-        [filter]
+        [filter, setQuestions]
     )
 
     // handlers
@@ -63,6 +63,7 @@ const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
                                 delete question.new
                             }
                         }
+                        return question
                     }
                 )
             }

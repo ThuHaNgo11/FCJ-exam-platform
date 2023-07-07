@@ -8,7 +8,7 @@ export const ApiRequest = {
         listQuestion: async (filter) => {
             let questions = await API.graphql(graphqlOperation(searchQuestions, { filter, sort: { direction: 'desc', field: 'createdAt' } }))
 
-            let result = await Promise.all(
+            await Promise.all(
                 questions.data.searchQuestions.items.map(async (item) => {
                     item.data = JSON.parse(item.data)
                     if (!!item.data && !!item.data.image) {

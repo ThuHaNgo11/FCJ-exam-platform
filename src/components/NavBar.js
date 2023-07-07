@@ -8,7 +8,7 @@ import { FaAws } from 'react-icons/fa';
 const NavBar = ({ userName, signOut }) => {
     return (
         <>
-            <Navbar bg="dark" data-bs-theme="dark">
+            <Navbar bg="dark" variant="dark" data-bs-theme="dark">
                 <Container>
                     <Navbar.Brand>
                         <FaAws aria-label="AWS" size="32" />

@@ -8,7 +8,7 @@ import {
     TableRow,
     CheckboxField,
     Flex,
-    Text, Placeholder, ButtonGroup, Button
+    Placeholder, ButtonGroup, Button
 } from "@aws-amplify/ui-react";
 import { FaCheckCircle, FaEdit, FaTrash } from "react-icons/fa";
 
@@ -23,7 +23,7 @@ const TestList = () => {
     // States
     const [tests, setTests] = useState([])
     const [isListLoaded, setIsListLoaded] = useState(false)
-    const [filter, setFilter] = useState({})
+    // const [filter, setFilter] = useState({})
 
     // Handlers
     const handleEdit = (event) => {

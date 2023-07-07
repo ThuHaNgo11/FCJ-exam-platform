@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // import react bootstrap components
-import { Modal, ModalHeader, ModalBody, ModalFooter, ModalTitle } from "react-bootstrap";
+import { Modal, ModalHeader, ModalBody, ModalTitle } from "react-bootstrap";
 import {
     Button,
     Table,
@@ -9,11 +9,7 @@ import {
     TableHead,
     TableCell,
     TableRow,
-    Flex,
-    Text,
-    RadioGroupField,
-    SearchField,
-    Radio
+    SearchField
 } from '@aws-amplify/ui-react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { useImmer } from 'use-immer';
@@ -34,7 +30,7 @@ const FindTestModal = ({ isOpen, onClose, onSave }) => {
                 setTests(data.data.searchTests.items)
             }
             loadTests(filter);
-        }, [filter]
+        }, [filter, setTests]
     )
 
     // handlers

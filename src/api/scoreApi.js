@@ -16,6 +16,7 @@ export const getSessionWithScore = async (sessionid) => {
         session.Responses.items.map(
             (it) => {
                 it.data = JSON.parse(it.data)
+                return it
             }
         )
 

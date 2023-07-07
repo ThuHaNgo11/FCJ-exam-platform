@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useImmer } from 'use-immer';
 
 // import UI components 
 import { Modal, Button } from 'react-bootstrap';

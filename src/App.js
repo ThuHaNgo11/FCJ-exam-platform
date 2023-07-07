@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './css/index.css';
+import { Routes, Route } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import LandingPage from './pages/LandingPage';
 import { Authenticator } from '@aws-amplify/ui-react';
 

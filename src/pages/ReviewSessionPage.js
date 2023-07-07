@@ -4,10 +4,10 @@ import {React, useState, useEffect} from "react";
 import {getSessionWithScore} from "../api/scoreApi";
 import {useImmer} from "use-immer";
 import {formatDate} from "../hooks/utils";
-import {FaCheckCircle, FaCross, FaTimes, FaTimesCircle} from "react-icons/fa";
+import {FaCheckCircle, FaTimesCircle} from "react-icons/fa";
 import { getCert } from "../api/certResource";
 import jsPDF from "jspdf";
-import { callAddFont } from "../hooks/emberFont";
+// import { callAddFont } from "../hooks/emberFont";
 
 const ReviewSessionPage = () => {
     const [allStates, setAllStates] = useImmer({})
@@ -25,7 +25,7 @@ const ReviewSessionPage = () => {
         }
 
         fetchSessionDataWithScore()
-    }, [sessionid])
+    }, [setAllStates, sessionid])
 
     const handleDownloadCertificate = () => {
         // var win = window.open("", "Certificate of Completion", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=1024,height=720,top="+(window.screen.height-800)+",left="+(window.screen.width-1024));

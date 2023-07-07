@@ -10,7 +10,7 @@ import {
     TableRow,
     CheckboxField,
     Flex,
-    Text, Placeholder, ButtonGroup, Button, View
+    Placeholder, ButtonGroup, Button, View
 } from "@aws-amplify/ui-react";
 
 import { FaCheckCircle, FaEdit, FaTrash, FaPaperPlane } from "react-icons/fa";
@@ -78,7 +78,7 @@ const ExamList = () => {
     const handleDelete = (event) => {
         // implement delete exam
         const examId = event.currentTarget.dataset.examid
-        const exam = exams.find((e) => e.id === examId)
+        // const exam = exams.find((e) => e.id === examId)
         setIsListLoaded(false)
         deleteExamById(examId).then(
             () => {

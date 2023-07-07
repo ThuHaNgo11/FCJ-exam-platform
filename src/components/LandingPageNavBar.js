@@ -1,22 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import { FaAws } from 'react-icons/fa';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
+
+import { Navigate } from "react-router";
 
 const LandingPageNavBar = () => {
-    const navigate = useNavigate()
-
+    const [doSignup, setDoSignup] = useState(false)
+    const [doSignin, setDoSignin] = useState(false)
     // handlers
     const signIn = () => {
-        navigate('/signin')
+        setDoSignin(true)
     }
 
     const signUp = () => {
-        navigate('/signup')
+        setDoSignup(true)
     }
     
     return (
@@ -35,6 +36,12 @@ const LandingPageNavBar = () => {
             <Button variant="light" onClick={signUp}>
               Sign Up
             </Button>
+              {
+                  doSignup && <Navigate to='/signup' />
+              }
+              {
+                  doSignin && <Navigate to='/signin' />
+              }
           </Navbar.Collapse>
         </Container>
       </Navbar>

@@ -1,5 +1,5 @@
 import {API, graphqlOperation} from "@aws-amplify/api";
-import {createResponse, createSession, updateSession} from "../graphql/mutations";
+import {createResponse, createSession } from "../graphql/mutations";
 
 
 export const createNewSession = async (sessionExamId, data) => {

@@ -1,13 +1,12 @@
 // import Amplify UI
 import { Heading, TextAreaField, View, TextField, Loader, Flex, Button, Image } from "@aws-amplify/ui-react"
 import { StorageManager } from '@aws-amplify/ui-react-storage';
-import { Storage } from "aws-amplify";
 
 // import API
 import { saveQuestion } from "../../api/questionApi";
 
 // import React
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useImmer } from "use-immer";
 import { delay, getImmerChangeHandler } from "../../hooks/utils";
 import { useLocation, useNavigate } from "react-router";

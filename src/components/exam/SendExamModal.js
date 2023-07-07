@@ -1,9 +1,8 @@
-import {React, useState} from 'react';
-import { useImmer } from 'use-immer';
+import React, {useState} from 'react';
 
 // import UI components
 import { Modal, Form, Button} from 'react-bootstrap';
-import { Heading, Text, TextField, Flex } from '@aws-amplify/ui-react';
+import { TextField, Flex } from '@aws-amplify/ui-react';
 import { FaCopy } from 'react-icons/fa';
 
 const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
