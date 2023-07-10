@@ -1,25 +1,25 @@
 // import Amplify UI
-import { Heading, TextAreaField, View, TextField, Loader, Flex, Button, Image } from "@aws-amplify/ui-react"
-import { StorageManager } from '@aws-amplify/ui-react-storage';
+import {Heading, TextAreaField, View, TextField, Loader, Flex, Button, Image, ButtonGroup} from "@aws-amplify/ui-react"
+import {StorageManager} from '@aws-amplify/ui-react-storage';
 
 // import API
-import { saveQuestion } from "../../api/questionApi";
+import {saveQuestion} from "../../api/questionApi";
 
 // import React
-import { useState } from "react"
-import { useImmer } from "use-immer";
-import { delay, getImmerChangeHandler } from "../../hooks/utils";
-import { useLocation, useNavigate } from "react-router";
+import {useState} from "react"
+import {useImmer} from "use-immer";
+import {delay, getImmerChangeHandler} from "../../hooks/utils";
+import {useLocation, useNavigate} from "react-router";
 
 const initialState = {
     prompt: 'Please enter question prompt.',
     data: {},
     key: 1,
     choices: [
-        { key: 1, value: 'This is choice 1.' },
-        { key: 2, value: 'This is choice 2.' },
-        { key: 3, value: 'This is choice 3.' },
-        { key: 4, value: 'This is choice 4.' },
+        {key: 1, value: 'This is choice 1.'},
+        {key: 2, value: 'This is choice 2.'},
+        {key: 3, value: 'This is choice 3.'},
+        {key: 4, value: 'This is choice 4.'},
     ]
 }
 
@@ -63,7 +63,7 @@ const QuestionForm = () => {
                 console.log("Created new data", data.data[field])
                 // wait 2s for the data to be available on OpenSearch
                 delay(2000).then(
-                    () => navigate('/questions', { replace: true })
+                    () => navigate('/questions', {replace: true})
                 )
             }, (reason) => {
                 console.log(reason)
@@ -71,65 +71,72 @@ const QuestionForm = () => {
     }
 
 
-
     return (
-        <View>
-            <Heading level={3}>Compose Question</Heading>
-            <TextAreaField name='prompt' value={formState.prompt} onChange={handleChanges}></TextAreaField>
-            {!!formState.data && !!formState.data.image &&
-                <Image
-                    alt="question prompt illustration"
-                    src={formState.data.imageUrl}
-                    maxHeight="300px"
-                    maxWidth="100%"
-                />}
-            <StorageManager
-                acceptedFileTypes={['image/*']}
-                accessLevel="public"
-                maxFileCount={1}
-                displayText={{
-                    dropFilesText: 'Upload optional image'
-                }}
-                onUploadSuccess={(data) => {
-                    console.log(data)
-                    setFormState(
-                        formState => {
-                            if (!!formState.data) {
-                                formState.data.image = data.key
-                            } else {
-                                formState.data = { image: data.key }
+        <Flex direction="column" alignItems="center" padding="5px">
+            <View width="50vw">
+                <Flex direction="column" alignItems="stretch" padding="5px">
+                <Heading level={3} textAlign="center">Compose Question</Heading>
+                <TextAreaField name='prompt' value={formState.prompt} onChange={handleChanges}></TextAreaField>
+                {!!formState.data && !!formState.data.image &&
+                    <Image
+                        alt="question prompt illustration"
+                        src={formState.data.imageUrl}
+                        maxHeight="300px"
+                        maxWidth="100%"
+                        alignSelf="center"
+                    />}
+                <StorageManager
+                    acceptedFileTypes={['image/*']}
+                    accessLevel="public"
+                    maxFileCount={1}
+                    displayText={{
+                        dropFilesText: 'Upload optional image'
+                    }}
+                    onUploadSuccess={(data) => {
+                        console.log(data)
+                        setFormState(
+                            formState => {
+                                if (!!formState.data) {
+                                    formState.data.image = data.key
+                                } else {
+                                    formState.data = {image: data.key}
+                                }
                             }
-                        }
+                        )
+                    }}
+                    onUploadError={(error) => {
+                        console.log(error)
+                    }}
+                    isResumable
+                />
+                {
+                    formState.choices.map(
+                        (choice, index) => (
+                            <Flex key={choice.key}>
+                                <TextField data-key={choice.key} value={choice.value}
+                                           onChange={handleChoiceChange}
+                                >
+                                </TextField>
+                                {
+                                    (choice.key === formState.key) ?
+                                        <Button size="small" backgroundColor="green">Correct Answer</Button>
+                                        : <Button size="small" data-key={choice.key} onClick={handleKeyChange}>Correct
+                                            Answer</Button>
+                                }
+                            </Flex>
+                        )
                     )
-                }}
-                onUploadError={(error) => {
-                    console.log(error)
-                }}
-                isResumable
-            />
-            {
-                formState.choices.map(
-                    (choice, index) => (
-                        <Flex key={choice.key}>
-                            <TextField data-key={choice.key} value={choice.value}
-                                onChange={handleChoiceChange}
-                            >
-                            </TextField>
-                            {
-                                (choice.key === formState.key) ?
-                                    <Button size="small" backgroundColor="green">Correct Answer</Button>
-                                    : <Button size="small" data-key={choice.key} onClick={handleKeyChange}>Correct Answer</Button>
-                            }
-                        </Flex>
-                    )
-                )
-            }
-            <Button onClick={handleSaveButton}>
-                {isSubmitting && <Loader />}
-                Save
-            </Button>
-            <Button onClick={() => navigate('/questions', { replace: true })}>Cancel</Button>
-        </View>
+                }
+                <ButtonGroup>
+                    <Button onClick={handleSaveButton}>
+                        {isSubmitting && <Loader/>}
+                        Save
+                    </Button>
+                    <Button onClick={() => navigate('/questions', {replace: true})}>Cancel</Button>
+                </ButtonGroup>
+                </Flex>
+            </View>
+        </Flex>
     )
 }
 

@@ -23,7 +23,7 @@ const NavBar = ({ userName, signOut }) => {
                         <Navbar.Text style={{padding: "0 5px"}}>
                             Signed in as: <a href="#login">{userName}</a>
                         </Navbar.Text>
-                        <Button variant="outline-success" onClick={signOut}>
+                        <Button variant="outline-primary" onClick={signOut}>
                             Sign out
                         </Button>
                     </Navbar.Collapse>

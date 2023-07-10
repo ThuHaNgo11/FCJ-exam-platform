@@ -30,10 +30,10 @@ const LandingPageNavBar = () => {
             <Nav.Link as={Link} to="/">Home</Nav.Link>
           </Nav>
           <Navbar.Collapse className="justify-content-end">
-            <Button variant="light" onClick={signIn}>
+            <Button variant="dark" onClick={signIn}>
               Sign In
             </Button>
-            <Button variant="light" onClick={signUp}>
+            <Button variant="primary" onClick={signUp}>
               Sign Up
             </Button>
               {
