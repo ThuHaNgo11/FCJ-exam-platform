@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from "react-router-dom";
 import {
     TableCell,
     TableBody,
@@ -8,9 +8,10 @@ import {
     TableRow,
     CheckboxField,
     Flex,
-    Placeholder, ButtonGroup, Button
+    Placeholder, ButtonGroup, Button,
+    ScrollView
 } from "@aws-amplify/ui-react";
-import { FaCheckCircle, FaEdit, FaTrash } from "react-icons/fa";
+import {FaCheckCircle, FaEdit, FaTrash} from "react-icons/fa";
 
 // import API functions
 import {deleteTestById, listTest} from "../../api/testApi";
@@ -31,7 +32,7 @@ const TestList = () => {
 
         const formState = tests.find((t) => t.id === testid)
 
-        navigate('/test/' + testid, { state: formState })
+        navigate('/test/' + testid, {state: formState})
     }
 
     const handleDelete = (event) => {
@@ -76,45 +77,54 @@ const TestList = () => {
         []
     )
 
+    const colWidths = ["30px", "400px", "500px", "", "250px"]
+
     return (
-        <Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell as="th"><FaCheckCircle /></TableCell>
-                    <TableCell as="th">ID</TableCell>
-                    <TableCell as="th">Name</TableCell>
-                    <TableCell as="th">Description</TableCell>
-                    <TableCell as="th">Actions</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {
-                    !isListLoaded ? <TableRow key="placeholder"><TableCell colSpan="5"><Placeholder /></TableCell></TableRow>:
-                    tests.map(
-                        (test) => (
-                            <TableRow key={test.id}>
-                                <TableCell><CheckboxField></CheckboxField></TableCell>
-                                <TableCell>{test.id}</TableCell>
-                                <TableCell>{test.data.name}</TableCell>
-                                <TableCell>{test.data.description}</TableCell>
-                                <TableCell>
-                                    <Flex direction="row">
-                                        <ButtonGroup>
-                                            <Button data-testid={test.id} onClick={handleEdit}>
-                                                <FaEdit></FaEdit>
-                                            </Button>
-                                            <Button data-testid={test.id} onClick={handleDelete}>
-                                                <FaTrash></FaTrash>
-                                            </Button>
-                                        </ButtonGroup>
-                                    </Flex>
-                                </TableCell>
-                            </TableRow>
-                        )
-                    )
-                }
-            </TableBody>
-        </Table>
+        <>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell as="th" width={colWidths[0]}><FaCheckCircle/></TableCell>
+                        <TableCell as="th" width={colWidths[1]}>ID</TableCell>
+                        <TableCell as="th" width={colWidths[2]}>Name</TableCell>
+                        <TableCell as="th" >Description</TableCell>
+                        <TableCell as="th" width={colWidths[4]}>Actions</TableCell>
+                    </TableRow>
+                </TableHead>
+            </Table>
+            <ScrollView height="calc(100vh - 230px)">
+                <Table>
+                    <TableBody>
+                        {
+                            !isListLoaded ? <TableRow key="placeholder"><TableCell
+                                    colSpan="5"><Placeholder/></TableCell></TableRow> :
+                                tests.map(
+                                    (test) => (
+                                        <TableRow key={test.id}>
+                                            <TableCell width={colWidths[0]}><CheckboxField></CheckboxField></TableCell>
+                                            <TableCell width={colWidths[1]}>{test.id}</TableCell>
+                                            <TableCell width={colWidths[2]}>{test.data.name}</TableCell>
+                                            <TableCell>{test.data.description}</TableCell>
+                                            <TableCell width={colWidths[4]}>
+                                                <Flex direction="row">
+                                                    <ButtonGroup>
+                                                        <Button data-testid={test.id} onClick={handleEdit}>
+                                                            <FaEdit></FaEdit>
+                                                        </Button>
+                                                        <Button data-testid={test.id} onClick={handleDelete}>
+                                                            <FaTrash></FaTrash>
+                                                        </Button>
+                                                    </ButtonGroup>
+                                                </Flex>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                )
+                        }
+                    </TableBody>
+                </Table>
+            </ScrollView>
+        </>
     )
 }
 

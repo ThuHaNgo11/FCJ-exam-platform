@@ -97,81 +97,83 @@ const QuestionForm = () => {
         <Flex direction="column" alignItems="center" padding="5px">
             <View width="50vw">
                 <Flex direction="column" alignItems="stretch" padding="5px">
-                <Heading level={3} textAlign="center">Compose Question</Heading>
-                <TextAreaField name='prompt' value={formState.prompt} onChange={handleChanges}></TextAreaField>
-                {!!formState.data && !!formState.data.image &&
-                    <>
-                        <Image
-                            alt="question prompt illustration"
-                            src={formState.data.imageUrl}
-                            maxHeight="300px"
-                            maxWidth="100%"
-                            alignSelf="center"
-                        />
-                        <Button onClick={handleRemoveImage}>Remove Image</Button>
-                    </>
-                }
-                <StorageManager
-                    acceptedFileTypes={['image/*']}
-                    accessLevel="public"
-                    maxFileCount={1}
-                    displayText={{
-                        dropFilesText: !!formState.data && !!formState.data.image ? 'Replace image' : 'Upload optional image'
-                    }}
-                    onUploadSuccess={(data) => {
-                        console.log(data)
-                        loadImg(data.key).then(
-                            (imageUrl) => {
-                                setFormState(
-                                    formState => {
-                                        if (!!formState.data) {
-                                            formState.data.image = data.key
-                                            formState.data.imageUrl = imageUrl
-                                        } else {
-                                            formState.data = {image: data.key, imageUrl: imageUrl}
+                    <Heading level={3} textAlign="center">Compose Question</Heading>
+                    <TextAreaField name='prompt' value={formState.prompt} onChange={handleChanges}></TextAreaField>
+                    {!!formState.data && !!formState.data.image &&
+                        <>
+                            <Image
+                                alt="question prompt illustration"
+                                src={formState.data.imageUrl}
+                                maxHeight="300px"
+                                maxWidth="100%"
+                                alignSelf="center"
+                            />
+                            <Button onClick={handleRemoveImage}>Remove Image</Button>
+                        </>
+                    }
+                    <StorageManager
+                        acceptedFileTypes={['image/*']}
+                        accessLevel="public"
+                        maxFileCount={1}
+                        displayText={{
+                            dropFilesText: !!formState.data && !!formState.data.image ? 'Replace image' : 'Upload optional image'
+                        }}
+                        onUploadSuccess={(data) => {
+                            console.log(data)
+                            loadImg(data.key).then(
+                                (imageUrl) => {
+                                    setFormState(
+                                        formState => {
+                                            if (!!formState.data) {
+                                                formState.data.image = data.key
+                                                formState.data.imageUrl = imageUrl
+                                            } else {
+                                                formState.data = {image: data.key, imageUrl: imageUrl}
+                                            }
                                         }
-                                    }
-                                )
-                            }
-                        )
-                    }}
-                    onUploadError={(error) => {
-                        console.log(error)
-                    }}
-                    processFile={({file, key}) => {
-                        key = moment().unix() + '-' + key
-                        return {key, file}
-                    }}
-                    isResumable
-                />
-                {
-                    formState.choices.map(
-                        (choice, index) => (
-                            <Flex key={choice.key} direction="row" alignItems="stretch">
-                                <TextField data-key={choice.key} value={choice.value}
-                                           onChange={handleChoiceChange}
-                                           flex="1"
-                                           height="42px"
-                                           labelHidden="true"
-                                >
-                                </TextField>
-                                {
-                                    (choice.key === formState.key) ?
-                                        <ThemedAmplifyButton size="big" variation="primary" colorMode="light">Correct Answer</ThemedAmplifyButton>
-                                        : <ThemedAmplifyButton size="big" colorMode="light" data-key={choice.key} onClick={handleKeyChange}>Correct
-                                            Answer</ThemedAmplifyButton>
+                                    )
                                 }
-                            </Flex>
+                            )
+                        }}
+                        onUploadError={(error) => {
+                            console.log(error)
+                        }}
+                        processFile={({file, key}) => {
+                            key = moment().unix() + '-' + key
+                            return {key, file}
+                        }}
+                        isResumable
+                    />
+                    {
+                        formState.choices.map(
+                            (choice, index) => (
+                                <Flex key={choice.key} direction="row" alignItems="stretch">
+                                    <TextField data-key={choice.key} value={choice.value}
+                                               onChange={handleChoiceChange}
+                                               flex="1"
+                                               height="42px"
+                                               labelHidden="true"
+                                    >
+                                    </TextField>
+                                    {
+                                        (choice.key === formState.key) ?
+                                            <ThemedAmplifyButton size="big" variation="primary" colorMode="light">Correct
+                                                Answer</ThemedAmplifyButton>
+                                            : <ThemedAmplifyButton size="big" colorMode="light" data-key={choice.key}
+                                                                   onClick={handleKeyChange}>Correct
+                                                Answer</ThemedAmplifyButton>
+                                    }
+                                </Flex>
+                            )
                         )
-                    )
-                }
-                <ButtonGroup>
-                    <Button onClick={handleSaveButton}>
-                        {isSubmitting && <Loader/>}
-                        Save
-                    </Button>
-                    <Button onClick={() => navigate('/questions', {replace: true})}>Cancel</Button>
-                </ButtonGroup>
+                    }
+                    <ButtonGroup>
+                        <Button onClick={handleSaveButton}>
+                            {isSubmitting && <Loader/>}
+                            Save
+                        </Button>
+                        <Button onClick={() => navigate('/questions', {replace: true})}>Cancel</Button>
+                    </ButtonGroup>
                 </Flex>
             </View>
         </Flex>

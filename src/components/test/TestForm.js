@@ -1,18 +1,18 @@
 // import libraries
-import React, { useState } from "react";
-import { useImmer } from "use-immer";
-import { arrayMergeUnique, delay } from "../../hooks/utils";
-import { useLocation, useNavigate } from "react-router";
+import React, {useState} from "react";
+import {useImmer} from "use-immer";
+import {arrayMergeUnique, delay} from "../../hooks/utils";
+import {useLocation, useNavigate} from "react-router";
 
 // import UI components
-import { View, Heading, Button, TextAreaField, Loader, TextField } from "@aws-amplify/ui-react";
+import {View, Heading, Button, TextAreaField, Loader, TextField, Flex} from "@aws-amplify/ui-react";
 
 // import components
 import SelectedQuestions from "./SelectedQuestions";
 import FindQuestionModal from "./FindQuestionModal";
 
 // import API functions
-import { saveTest } from "../../api/testApi";
+import {saveTest} from "../../api/testApi";
 
 // default initial state
 const initialState = {
@@ -56,7 +56,7 @@ const TestForm = () => {
             .then((data) => {
                 console.log("Created new data", data.data[field])
                 delay(2000).then(
-                    () => navigate('/tests', { replace: true })
+                    () => navigate('/tests', {replace: true})
                 )
             })
             .catch((error) => {
@@ -83,8 +83,8 @@ const TestForm = () => {
                 data = data.map(
                     (newQuestion) => {
                         if (!newQuestion.questionId) {
-                            let { id, ...others } = newQuestion
-                            return { questionId: id, ...others }
+                            let {id, ...others} = newQuestion
+                            return {questionId: id, ...others}
                         } else {
                             return newQuestion
                         }
@@ -105,68 +105,73 @@ const TestForm = () => {
         console.log(formState.Questions)
         setFormState(
             formState => {
-                    formState.Questions.map(
-                        c => {
-                            if (data.id && c.id === data.id) {
-                                c.deleted = true
-                            }
-                            return c
+                formState.Questions.map(
+                    c => {
+                        if (data.id && c.id === data.id) {
+                            c.deleted = true
                         }
-                    )
-
-                    if (!data.id) {
-                        formState.Questions = formState.Questions.filter(
-                            c => c.questionId !== data.questionId
-                        )
+                        return c
                     }
+                )
+
+                if (!data.id) {
+                    formState.Questions = formState.Questions.filter(
+                        c => c.questionId !== data.questionId
+                    )
+                }
             }
         )
     }
 
     return (
-        <View>
-            <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave} />
-            <Heading level={3}>Compose Test</Heading>
-            {/* General test info */}
-            <TextField
-                name="testName" 
-                value={formState.data.name}
-                onChange={handleChanges('name')}
-            >
-            </TextField>
-            <TextAreaField
-                name='description'
-                value={formState.data.description}
-                onChange={handleChanges('description')}
-            >
-            </TextAreaField>
-            <TextAreaField
-                name='instruction'
-                value={formState.data.instruction}
-                onChange={handleChanges('instruction')}
-            >
-            </TextAreaField>
+        <Flex direction="column" alignItems="center" padding="5px">
+            <View width="50vw">
+                <Flex direction="column" alignItems="stretch" padding="5px">
+                    <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave}/>
+                    <Heading level={3}>Compose Test</Heading>
+                    {/* General test info */}
+                    <TextField
+                        name="testName"
+                        value={formState.data.name}
+                        onChange={handleChanges('name')}
+                    >
+                    </TextField>
+                    <TextAreaField
+                        name='description'
+                        value={formState.data.description}
+                        onChange={handleChanges('description')}
+                    >
+                    </TextAreaField>
+                    <TextAreaField
+                        name='instruction'
+                        value={formState.data.instruction}
+                        onChange={handleChanges('instruction')}
+                    >
+                    </TextAreaField>
 
-            {/* Select questions to add to test */}
-            <Button
-                onClick={handleFindQuestion}
-            >
-                Find Questions
-            </Button>
+                    {/* Select questions to add to test */}
+                    <Button
+                        onClick={handleFindQuestion}
+                    >
+                        Find Questions
+                    </Button>
 
-            {/* List of selected questions in test */}
-            <Heading level={3}>Selected Questions</Heading>
-            <SelectedQuestions selectedQuestionsProp={formState.Questions} key={formState.Questions} handleDeleteSelectedQuestions={handleDeleteSelectedQuestions} />
+                    {/* List of selected questions in test */}
+                    <Heading level={3}>Selected Questions</Heading>
+                    <SelectedQuestions selectedQuestionsProp={formState.Questions} key={formState.Questions}
+                                       handleDeleteSelectedQuestions={handleDeleteSelectedQuestions}/>
 
-            {/* Save changes to form */}
-            <Button onClick={handleSaveButton}>
-                {isSubmitting && <Loader />}
-                Save
-            </Button>
-            <Button onClick={() => navigate('/tests', { replace: true })}>
-                Cancel
-            </Button>
-        </View>
+                    {/* Save changes to form */}
+                    <Button onClick={handleSaveButton}>
+                        {isSubmitting && <Loader/>}
+                        Save
+                    </Button>
+                    <Button onClick={() => navigate('/tests', {replace: true})}>
+                        Cancel
+                    </Button>
+                </Flex>
+            </View>
+        </Flex>
     )
 }
 
