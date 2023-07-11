@@ -12,18 +12,28 @@ The entire application - frontend, backend, and all configuration - can be deplo
 
 ## Description
 
-The project demonstrates the capabilities of AWS amplify in building cloud native full stack application.
+The project demonstrates the capabilities of AWS amplify in building cloud native full stack application... (what and how, why - purpose and objective)
+
+## Built with
+<!-- add image, description and link of each library -->
 
 **Authorization**
 Cognito ...
 
 **Frontend**
 - Amplify UI with React framework
-- Connected components for authentication and data storage 
+- Amplify Connected components for authentication and data storage
+- React Bootstrap
+- MomentJS
+- React Router
+- UseImmer
+- Js PDF
+- React icons
 
 **Backend**
 - Database: DynamoDB
-- AWS AppSync GraphQL API: Data management 
+- AWS AppSync GraphQL API: Data management
+- OpenSearch
 - SES triggered by Lambda subcription to graphQL data change
 - S3 storage 
 
@@ -44,12 +54,20 @@ Cognito ...
 
 ![High-level architectural diagram](readmeImages/ArchDiagram.png)
 
-
 &nbsp;
 
 ## Cost
 
-## Implementation
+## Getting started
+To get your local up and running, please follow this set up guide:
+
+### Prerequisites
+- Install [Node.js®](https://nodejs.org/en/download), [NPM](https://docs.npmjs.com/getting-started), and [Git](https://git-scm.com/) if they are not already on your machine.
+- Verify that you are running at least Node.js version 14.x, npm version 6.14.x, Git version 2.14.x or greater by running node -v and npm -v in a terminal/console window
+- [Create AWS Account](https://portal.aws.amazon.com/billing/signup#/start/email). If you don't already have an AWS account, you'll need to create one in order to follow the steps outlined in this tutorial
+
+### Installation 
+
 
 ## Known limitations
 
