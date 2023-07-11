@@ -1,25 +1,34 @@
 # FCJ Exam Platform 
 <!-- description -->
-This is a full-stack web application that ... **[Try out the deployed application here](https://d2k5b8bzo1vefz.cloudfront.net/)**!
+This is a full-stack web application that provides a solution for online assessment - authoring test contents and delivering examinations.
 
-The entire application - frontend, backend, and all configuration - can deployed in your AWS account.
+**[Try out the deployed application here](https://d1swv02b0ramfa.cloudfront.net/)**!
+
+The entire application - frontend, backend, and all configuration - can be deployed in AWS cloud environment. 
 &nbsp;
 
 ## Outlines
-
+<!-- Table of content -->
 
 ## Description
 
-The goal of AWS Full-Stack Template is to provide ...
+The project demonstrates the capabilities of AWS amplify in building cloud native full stack application.
 
-**Database components**
+**Authorization**
+Cognito ...
 
-**Application components**
+**Frontend**
+- Amplify UI with React framework
+- Connected components for authentication and data storage 
 
-* Serverless service backend 
-* Web application
-  
-**Infrastructure components**
+**Backend**
+- Database: DynamoDB
+- AWS AppSync GraphQL API: Data management 
+- SES triggered by Lambda subcription to graphQL data change
+- S3 storage 
+
+**Hosting**
+- Cloudfront and S3: Build artifacts are stored in a S3 bucket where web application assets are maintained (web graphics, etc.). Amazon CloudFront caches the frontend content from S3, presenting the application to the user via a CloudFront distribution.
 
 &nbsp;
 
@@ -35,17 +44,6 @@ The goal of AWS Full-Stack Template is to provide ...
 
 ![High-level architectural diagram](readmeImages/ArchDiagram.png)
 
-&nbsp;
-
-**Frontend**
-
-Build artifacts are stored in a S3 bucket where web application assets are maintained (web graphics, etc.). Amazon CloudFront caches the frontend content from S3, presenting the application to the user via a CloudFront distribution.  The frontend interacts with Amazon Cognito and Amazon API Gateway only.  Amazon Cognito is used for all authentication requests, whereas API Gateway (and Lambda) is used for all API calls to DynamoDB.
-
-**Backend**
-
-The core of the backend infrastructure consists of Amazon Cognito, Amazon DynamoDB, AWS Lambda, and Amazon API Gateway. The application leverages Amazon Cognito for user authentication, and Amazon DynamoDB to store all of the data for the goals. 
-
-![Backend diagram](readmeImages/BackendDiagram.png)
 
 &nbsp;
 
