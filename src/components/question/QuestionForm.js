@@ -1,6 +1,7 @@
 // import Amplify UI
 import {Heading, TextAreaField, View, TextField, Loader, Flex, Button, Image, ButtonGroup} from "@aws-amplify/ui-react"
 import {StorageManager} from '@aws-amplify/ui-react-storage';
+import ThemedAmplifyButton from "../ui/ThemedAmplifyButton";
 
 // import API
 import {saveQuestion} from "../../api/questionApi";
@@ -10,6 +11,8 @@ import {useState} from "react"
 import {useImmer} from "use-immer";
 import {delay, getImmerChangeHandler} from "../../hooks/utils";
 import {useLocation, useNavigate} from "react-router";
+import {Storage} from "aws-amplify";
+import moment from "moment";
 
 const initialState = {
     prompt: 'Please enter question prompt.',
@@ -33,6 +36,9 @@ const QuestionForm = () => {
     const navigate = useNavigate()
 
     const handleChanges = getImmerChangeHandler(setFormState)
+    const loadImg = async (path) => {
+        return await Storage.get(path)
+    }
 
     const handleChoiceChange = (event) => {
         setFormState(
@@ -70,6 +76,22 @@ const QuestionForm = () => {
             })
     }
 
+    const handleRemoveImage = () => {
+        setFormState(
+            formState => {
+                if (!!formState.data && !!formState.data.image) {
+                    if (!formState.deletedImages) {
+                        formState.deletedImages = [formState.data.image]
+                    } else {
+                        formState.deletedImages.push(formState.data.image)
+                    }
+                    formState.data.image = null
+                    formState.data.imageUrl = null
+                }
+            }
+        )
+    }
+
 
     return (
         <Flex direction="column" alignItems="center" padding="5px">
@@ -78,50 +100,66 @@ const QuestionForm = () => {
                 <Heading level={3} textAlign="center">Compose Question</Heading>
                 <TextAreaField name='prompt' value={formState.prompt} onChange={handleChanges}></TextAreaField>
                 {!!formState.data && !!formState.data.image &&
-                    <Image
-                        alt="question prompt illustration"
-                        src={formState.data.imageUrl}
-                        maxHeight="300px"
-                        maxWidth="100%"
-                        alignSelf="center"
-                    />}
+                    <>
+                        <Image
+                            alt="question prompt illustration"
+                            src={formState.data.imageUrl}
+                            maxHeight="300px"
+                            maxWidth="100%"
+                            alignSelf="center"
+                        />
+                        <Button onClick={handleRemoveImage}>Remove Image</Button>
+                    </>
+                }
                 <StorageManager
                     acceptedFileTypes={['image/*']}
                     accessLevel="public"
                     maxFileCount={1}
                     displayText={{
-                        dropFilesText: 'Upload optional image'
+                        dropFilesText: !!formState.data && !!formState.data.image ? 'Replace image' : 'Upload optional image'
                     }}
                     onUploadSuccess={(data) => {
                         console.log(data)
-                        setFormState(
-                            formState => {
-                                if (!!formState.data) {
-                                    formState.data.image = data.key
-                                } else {
-                                    formState.data = {image: data.key}
-                                }
+                        loadImg(data.key).then(
+                            (imageUrl) => {
+                                setFormState(
+                                    formState => {
+                                        if (!!formState.data) {
+                                            formState.data.image = data.key
+                                            formState.data.imageUrl = imageUrl
+                                        } else {
+                                            formState.data = {image: data.key, imageUrl: imageUrl}
+                                        }
+                                    }
+                                )
                             }
                         )
                     }}
                     onUploadError={(error) => {
                         console.log(error)
                     }}
+                    processFile={({file, key}) => {
+                        key = moment().unix() + '-' + key
+                        return {key, file}
+                    }}
                     isResumable
                 />
                 {
                     formState.choices.map(
                         (choice, index) => (
-                            <Flex key={choice.key}>
+                            <Flex key={choice.key} direction="row" alignItems="stretch">
                                 <TextField data-key={choice.key} value={choice.value}
                                            onChange={handleChoiceChange}
+                                           flex="1"
+                                           height="42px"
+                                           labelHidden="true"
                                 >
                                 </TextField>
                                 {
                                     (choice.key === formState.key) ?
-                                        <Button size="small" backgroundColor="green">Correct Answer</Button>
-                                        : <Button size="small" data-key={choice.key} onClick={handleKeyChange}>Correct
-                                            Answer</Button>
+                                        <ThemedAmplifyButton size="big" variation="primary" colorMode="light">Correct Answer</ThemedAmplifyButton>
+                                        : <ThemedAmplifyButton size="big" colorMode="light" data-key={choice.key} onClick={handleKeyChange}>Correct
+                                            Answer</ThemedAmplifyButton>
                                 }
                             </Flex>
                         )

@@ -20,19 +20,33 @@ export const ApiRequest = {
         },
         saveQuestion: async (state) => {
             if (!!state.id) {
-                let { createdAt, updatedAt, tests, data, ...input } = state
+                let { createdAt, updatedAt, tests, data, deletedImages, ...input } = state
                 try {
                     data = JSON.stringify(data)
                     let result = await API.graphql(graphqlOperation(updateQuestion, { input: { data, ...input } }))
+                    if (deletedImages && deletedImages.length > 0) {
+                        await Promise.all(
+                            deletedImages.map(async (file) => {
+                                return await Storage.remove(file)
+                            })
+                        )
+                    }
                     return result
                 } catch (ex) {
                     console.log(ex)
                 }
             } else {
-                let { id, data, ...input } = state
+                let { id, data, deletedImages, ...input } = state
                 try {
                     data = JSON.stringify(data)
                     let result = await API.graphql(graphqlOperation(createQuestion, { input: { data, ...input } }))
+                    if (deletedImages && deletedImages.length > 0) {
+                        await Promise.all(
+                            deletedImages.map(async (file) => {
+                                return await Storage.remove(file)
+                            })
+                        )
+                    }
                     return result
                 } catch (ex) {
                     console.log(ex)

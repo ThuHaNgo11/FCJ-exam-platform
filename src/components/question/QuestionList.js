@@ -61,15 +61,17 @@ const QuestionList = () => {
         })()
     }
 
+    const colWidths = ["30px", "400px", "", "250px"]
+
     return (
         <>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell as="th"><FaCheckCircle/></TableCell>
-                        <TableCell as="th">ID</TableCell>
+                        <TableCell as="th" width={colWidths[0]}><FaCheckCircle/></TableCell>
+                        <TableCell as="th" width={colWidths[1]}>ID</TableCell>
                         <TableCell as="th">Content</TableCell>
-                        <TableCell as="th">Actions</TableCell>
+                        <TableCell as="th" width={colWidths[3]}>Actions</TableCell>
                     </TableRow>
                 </TableHead>
             </Table>
@@ -83,8 +85,8 @@ const QuestionList = () => {
                                 questions.map(
                                     (question) => (
                                         <TableRow key={question.id}>
-                                            <TableCell><CheckboxField></CheckboxField></TableCell>
-                                            <TableCell>{question.id}</TableCell>
+                                            <TableCell width={colWidths[0]}><CheckboxField></CheckboxField></TableCell>
+                                            <TableCell width={colWidths[1]}>{question.id}</TableCell>
                                             <TableCell>
                                                 <Flex direction="column" alignItems="flex-start">
                                                     <Text>{question.prompt}</Text>
@@ -108,7 +110,7 @@ const QuestionList = () => {
                                                     </Flex>
                                                 </Flex>
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell width={colWidths[3]}>
                                                 <Flex direction="row">
                                                     <ButtonGroup>
                                                         <Button data-questionid={question.id} onClick={handleEdit}>
