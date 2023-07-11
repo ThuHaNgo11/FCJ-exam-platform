@@ -64,10 +64,21 @@ To get your local up and running, please follow this set up guide:
 ### Prerequisites
 - Install [Node.js®](https://nodejs.org/en/download), [NPM](https://docs.npmjs.com/getting-started), and [Git](https://git-scm.com/) if they are not already on your machine.
 - Verify that you are running at least Node.js version 14.x, npm version 6.14.x, Git version 2.14.x or greater by running node -v and npm -v in a terminal/console window
-- [Create AWS Account](https://portal.aws.amazon.com/billing/signup#/start/email). If you don't already have an AWS account, you'll need to create one in order to follow the steps outlined in this tutorial
-
+- [Create AWS Account](https://portal.aws.amazon.com/billing/signup#/start/email). If you don't already have an AWS account, you'll need to create one in order to follow the next steps.
+  
 ### Installation 
 
+#### Set up Amplify environement 
+- Create an empty directory and change current directory to that
+- Run `amplify init --app <github url>`
+- Follow prompts to install Amplify CLI and configure it to connect to your AWS account
+- Check `src/aws-exports.js` is created
+
+#### Build local dev environment 
+- Run `npm install`
+- Run `amplify push`
+- Start local dev server: `npm start`
+- Local dev server should run on `http://localhost:3000`
 
 ## Known limitations
 
