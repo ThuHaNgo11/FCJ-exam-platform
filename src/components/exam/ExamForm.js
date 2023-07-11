@@ -1,19 +1,19 @@
 // import libraries
-import React, { useState } from "react";
-import { useImmer } from "use-immer";
-import { useNavigate } from "react-router";
-import { useLocation } from "react-router-dom";
+import React, {useState} from "react";
+import {useImmer} from "use-immer";
+import {useNavigate} from "react-router";
+import {useLocation} from "react-router-dom";
 
 // import UI components
-import { View, Alert, Heading, Button, Loader, TextField, Text } from "@aws-amplify/ui-react";
-import { Form } from "react-bootstrap";
+import {View, Alert, Heading, Button, Loader, TextField, Text, Flex, ButtonGroup} from "@aws-amplify/ui-react";
+import {Form} from "react-bootstrap";
 
 // import components
 import FindTestModal from "./FindTestModal.js";
-import { formatDate, getImmerChangeHandler, delay } from "../../hooks/utils";
+import {formatDate, getImmerChangeHandler, delay} from "../../hooks/utils";
 
 // import API functions
-import { saveExam } from "../../api/examApi";
+import {saveExam} from "../../api/examApi";
 
 // default initial state
 const initialState = {
@@ -99,7 +99,7 @@ const ExamForm = () => {
             .then((data) => {
                 console.log("Created new data", data.data[field])
                 delay(2000).then(
-                    () => navigate('/exams', { replace: true })
+                    () => navigate('/exams', {replace: true})
                 )
             })
             .catch((error) => {
@@ -109,58 +109,63 @@ const ExamForm = () => {
     }
 
     return (
-        <View>
-            <FindTestModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave}/>
-            <Heading level={3}>Create Exam</Heading>
-            <Form>
-                <Form.Group className="mb-3">
-                    <Form.Label>Exam date</Form.Label>
-                    <Form.Control name="date" type="date" value={formatDate(formState.date)}  min={today} onChange={handleDateChanges}></Form.Control>
-                </Form.Group>
-            </Form>
-            <TextField
-                label="Organization"
-                name="org"
-                value={formState.org}
-                onChange={handleChanges}
-            ></TextField>
-            <TextField
-                label="Exam Name"
-                name="examName"
-                value={formState.data.name}
-                onChange={handleDataChanges('name')}
-            >
-            </TextField>
+        <Flex direction="column" alignItems="center" padding="5px">
+            <View width="50vw">
+                <Flex direction="column" alignItems="stretch" padding="5px">
+                    <FindTestModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave}/>
+                    <Heading level={3} textAlign="center">Create Exam</Heading>
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Exam date</Form.Label>
+                            <Form.Control name="date" type="date" value={formatDate(formState.date)} min={today}
+                                          onChange={handleDateChanges}></Form.Control>
+                        </Form.Group>
+                    </Form>
+                    <TextField
+                        label="Organization"
+                        name="org"
+                        value={formState.org}
+                        onChange={handleChanges}
+                    ></TextField>
+                    <TextField
+                        label="Exam Name"
+                        name="examName"
+                        value={formState.data.name}
+                        onChange={handleDataChanges('name')}
+                    >
+                    </TextField>
 
-            {/* select test for the exam */}
-            {alert.status && 
-            (<Alert 
-            isDismissible={true}
-            heading="Error"
-            variation="error"
-            >
-                {alert.message}
-            </Alert>)}
-            <Button onClick={handleFindExam}>Select Test</Button>
-            {
-                formState.Test && (
-                    <View>
-                        <Text>Selected test</Text>
-                        <Text>{formState.Test.data.name}</Text>
-                    </View>
-                )
-            }
-            {/* Save changes to form */}
-            <View>
-                <Button onClick={handleSaveButton}>
-                    {isSubmitting && <Loader />}
-                    Save
-                </Button>
-                <Button onClick={() => navigate('/exams', { replace: true })}>
-                    Cancel
-                </Button>
+                    {/* select test for the exam */}
+                    {alert.status &&
+                        (<Alert
+                            isDismissible={true}
+                            heading="Error"
+                            variation="error"
+                        >
+                            {alert.message}
+                        </Alert>)}
+                    <Button onClick={handleFindExam}>Select Test</Button>
+                    {
+                        formState.Test && (
+                            <Flex direction="row" gap="5px">
+                                <Text fontWeight="bold" width="120px">Selected test:</Text>
+                                <Text>{formState.Test.data.name} - {formState.Test.data.description}</Text>
+                            </Flex>
+                        )
+                    }
+                    {/* Save changes to form */}
+                    <ButtonGroup>
+                        <Button onClick={handleSaveButton}>
+                            {isSubmitting && <Loader/>}
+                            Save
+                        </Button>
+                        <Button onClick={() => navigate('/exams', {replace: true})}>
+                            Cancel
+                        </Button>
+                    </ButtonGroup>
+                </Flex>
             </View>
-        </View>
+        </Flex>
     )
 }
 

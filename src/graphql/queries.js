@@ -39,6 +39,30 @@ export const getResponse = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -72,6 +96,16 @@ export const listResponses = /* GraphQL */ `
             items {
               id
               testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          categories {
+            items {
+              id
+              questionCategoryId
               questionId
               createdAt
               updatedAt
@@ -123,6 +157,16 @@ export const responsesBySessionIDAndData = /* GraphQL */ `
             items {
               id
               testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          categories {
+            items {
+              id
+              questionCategoryId
               questionId
               createdAt
               updatedAt
@@ -185,6 +229,9 @@ export const getSession = /* GraphQL */ `
             }
             key
             tests {
+              nextToken
+            }
+            categories {
               nextToken
             }
             createdAt
@@ -368,6 +415,9 @@ export const getTest = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -488,6 +538,98 @@ export const searchTests = /* GraphQL */ `
     }
   }
 `;
+export const getQuestionCategory = /* GraphQL */ `
+  query GetQuestionCategory($id: ID!) {
+    getQuestionCategory(id: $id) {
+      id
+      name
+      Questions {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listQuestionCategories = /* GraphQL */ `
+  query ListQuestionCategories(
+    $filter: ModelQuestionCategoryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listQuestionCategories(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        Questions {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getQuestion = /* GraphQL */ `
   query GetQuestion($id: ID!) {
     getQuestion(id: $id) {
@@ -523,6 +665,46 @@ export const getQuestion = /* GraphQL */ `
             }
             key
             tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categories {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
               nextToken
             }
             createdAt
@@ -562,6 +744,30 @@ export const listQuestions = /* GraphQL */ `
             test {
               id
               data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
               createdAt
               updatedAt
             }
@@ -619,6 +825,30 @@ export const searchQuestions = /* GraphQL */ `
             test {
               id
               data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
               createdAt
               updatedAt
             }
@@ -761,6 +991,30 @@ export const getTestQuestion = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -809,6 +1063,16 @@ export const listTestQuestions = /* GraphQL */ `
             items {
               id
               testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          categories {
+            items {
+              id
+              questionCategoryId
               questionId
               createdAt
               updatedAt
@@ -879,6 +1143,16 @@ export const testQuestionsByTestId = /* GraphQL */ `
             }
             nextToken
           }
+          categories {
+            items {
+              id
+              questionCategoryId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
           createdAt
           updatedAt
         }
@@ -937,6 +1211,335 @@ export const testQuestionsByQuestionId = /* GraphQL */ `
             items {
               id
               testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          categories {
+            items {
+              id
+              questionCategoryId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getQuestionsCategories = /* GraphQL */ `
+  query GetQuestionsCategories($id: ID!) {
+    getQuestionsCategories(id: $id) {
+      id
+      questionCategoryId
+      questionId
+      questionCategory {
+        id
+        name
+        Questions {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      question {
+        id
+        prompt
+        data
+        choices {
+          key
+          value
+        }
+        key
+        tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listQuestionsCategories = /* GraphQL */ `
+  query ListQuestionsCategories(
+    $filter: ModelQuestionsCategoriesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listQuestionsCategories(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        questionCategoryId
+        questionId
+        questionCategory {
+          id
+          name
+          Questions {
+            items {
+              id
+              questionCategoryId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        question {
+          id
+          prompt
+          data
+          choices {
+            key
+            value
+          }
+          key
+          tests {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          categories {
+            items {
+              id
+              questionCategoryId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const questionsCategoriesByQuestionCategoryId = /* GraphQL */ `
+  query QuestionsCategoriesByQuestionCategoryId(
+    $questionCategoryId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelQuestionsCategoriesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    questionsCategoriesByQuestionCategoryId(
+      questionCategoryId: $questionCategoryId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        questionCategoryId
+        questionId
+        questionCategory {
+          id
+          name
+          Questions {
+            items {
+              id
+              questionCategoryId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        question {
+          id
+          prompt
+          data
+          choices {
+            key
+            value
+          }
+          key
+          tests {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          categories {
+            items {
+              id
+              questionCategoryId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const questionsCategoriesByQuestionId = /* GraphQL */ `
+  query QuestionsCategoriesByQuestionId(
+    $questionId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelQuestionsCategoriesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    questionsCategoriesByQuestionId(
+      questionId: $questionId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        questionCategoryId
+        questionId
+        questionCategory {
+          id
+          name
+          Questions {
+            items {
+              id
+              questionCategoryId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        question {
+          id
+          prompt
+          data
+          choices {
+            key
+            value
+          }
+          key
+          tests {
+            items {
+              id
+              testId
+              questionId
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          categories {
+            items {
+              id
+              questionCategoryId
               questionId
               createdAt
               updatedAt

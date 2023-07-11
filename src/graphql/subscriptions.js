@@ -39,6 +39,30 @@ export const onCreateResponse = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -87,6 +111,30 @@ export const onUpdateResponse = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -119,6 +167,30 @@ export const onDeleteResponse = /* GraphQL */ `
             test {
               id
               data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
               createdAt
               updatedAt
             }
@@ -191,6 +263,9 @@ export const onCreateSession = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -253,6 +328,9 @@ export const onUpdateSession = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -313,6 +391,9 @@ export const onDeleteSession = /* GraphQL */ `
             }
             key
             tests {
+              nextToken
+            }
+            categories {
               nextToken
             }
             createdAt
@@ -491,6 +572,9 @@ export const onCreateTest = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -535,6 +619,9 @@ export const onUpdateTest = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -577,6 +664,156 @@ export const onDeleteTest = /* GraphQL */ `
             }
             key
             tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateQuestionCategory = /* GraphQL */ `
+  subscription OnCreateQuestionCategory(
+    $filter: ModelSubscriptionQuestionCategoryFilterInput
+  ) {
+    onCreateQuestionCategory(filter: $filter) {
+      id
+      name
+      Questions {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateQuestionCategory = /* GraphQL */ `
+  subscription OnUpdateQuestionCategory(
+    $filter: ModelSubscriptionQuestionCategoryFilterInput
+  ) {
+    onUpdateQuestionCategory(filter: $filter) {
+      id
+      name
+      Questions {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteQuestionCategory = /* GraphQL */ `
+  subscription OnDeleteQuestionCategory(
+    $filter: ModelSubscriptionQuestionCategoryFilterInput
+  ) {
+    onDeleteQuestionCategory(filter: $filter) {
+      id
+      name
+      Questions {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
               nextToken
             }
             createdAt
@@ -629,6 +866,46 @@ export const onCreateQuestion = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categories {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -679,6 +956,46 @@ export const onUpdateQuestion = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categories {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -727,6 +1044,46 @@ export const onDeleteQuestion = /* GraphQL */ `
             }
             key
             tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categories {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
               nextToken
             }
             createdAt
@@ -861,6 +1218,30 @@ export const onCreateTestQuestion = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -940,6 +1321,30 @@ export const onUpdateTestQuestion = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -1003,6 +1408,339 @@ export const onDeleteTestQuestion = /* GraphQL */ `
             test {
               id
               data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateQuestionsCategories = /* GraphQL */ `
+  subscription OnCreateQuestionsCategories(
+    $filter: ModelSubscriptionQuestionsCategoriesFilterInput
+  ) {
+    onCreateQuestionsCategories(filter: $filter) {
+      id
+      questionCategoryId
+      questionId
+      questionCategory {
+        id
+        name
+        Questions {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      question {
+        id
+        prompt
+        data
+        choices {
+          key
+          value
+        }
+        key
+        tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateQuestionsCategories = /* GraphQL */ `
+  subscription OnUpdateQuestionsCategories(
+    $filter: ModelSubscriptionQuestionsCategoriesFilterInput
+  ) {
+    onUpdateQuestionsCategories(filter: $filter) {
+      id
+      questionCategoryId
+      questionId
+      questionCategory {
+        id
+        name
+        Questions {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      question {
+        id
+        prompt
+        data
+        choices {
+          key
+          value
+        }
+        key
+        tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteQuestionsCategories = /* GraphQL */ `
+  subscription OnDeleteQuestionsCategories(
+    $filter: ModelSubscriptionQuestionsCategoriesFilterInput
+  ) {
+    onDeleteQuestionsCategories(filter: $filter) {
+      id
+      questionCategoryId
+      questionId
+      questionCategory {
+        id
+        name
+        Questions {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      question {
+        id
+        prompt
+        data
+        choices {
+          key
+          value
+        }
+        key
+        tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
               createdAt
               updatedAt
             }

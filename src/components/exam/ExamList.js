@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from "react-router-dom";
 
 // import amplify components
 import {
@@ -10,16 +10,17 @@ import {
     TableRow,
     CheckboxField,
     Flex,
-    Placeholder, ButtonGroup, Button, View
+    Placeholder, ButtonGroup, Button, View,
+    ScrollView
 } from "@aws-amplify/ui-react";
 
-import { FaCheckCircle, FaEdit, FaTrash, FaPaperPlane } from "react-icons/fa";
+import {FaCheckCircle, FaEdit, FaTrash, FaPaperPlane} from "react-icons/fa";
 
 // import API functions
 import {deleteExamById, listExam, sendExamEmail} from "../../api/examApi";
 
 // import utils
-import { formatDate } from "../../hooks/utils";
+import {formatDate} from "../../hooks/utils";
 
 // import components
 import SendExamModal from './SendExamModal';
@@ -65,7 +66,7 @@ const ExamList = () => {
 
         const state = exams.find((e) => e.id === examid)
 
-        navigate('/exam/' + examid, { state })
+        navigate('/exam/' + examid, {state})
     }
 
     const handleSendLink = (event) => {
@@ -98,7 +99,7 @@ const ExamList = () => {
         // using SES and lambda to send email
 
         sendExamEmail({emails, link})
-        
+
 
     }
 
@@ -106,52 +107,60 @@ const ExamList = () => {
         setIsModalOpen(false)
     }
 
+    const colWidths = ["30px", "400px", "150px", "350px", "", "250px"]
+
     return (
         <View>
-            <SendExamModal isOpen={isModalOpen} onSend={handleSend} onClose={handleModalClose} exam={modalExam}></SendExamModal>
+            <SendExamModal isOpen={isModalOpen} onSend={handleSend} onClose={handleModalClose}
+                           exam={modalExam}></SendExamModal>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell as="th"><FaCheckCircle /></TableCell>
-                        <TableCell as="th">ID</TableCell>
-                        <TableCell as="th">Date</TableCell>
-                        <TableCell as="th">Organization</TableCell>
+                        <TableCell as="th" width={colWidths[0]}><FaCheckCircle/></TableCell>
+                        <TableCell as="th" width={colWidths[1]}>ID</TableCell>
+                        <TableCell as="th" width={colWidths[2]}>Date</TableCell>
+                        <TableCell as="th" width={colWidths[3]}>Organization</TableCell>
                         <TableCell as="th">Name</TableCell>
-                        <TableCell as="th">Actions</TableCell>
+                        <TableCell as="th" width={colWidths[5]}>Actions</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {
-                        !isListLoaded ? <TableRow key="placeholder"><TableCell colSpan="7"><Placeholder /></TableCell></TableRow> :
-                            exams.map(
-                                (exam) => (
-                                    <TableRow key={exam.id}>
-                                        <TableCell><CheckboxField></CheckboxField></TableCell>
-                                        <TableCell>{exam.id}</TableCell>
-                                        <TableCell>{formatDate(exam.date)}</TableCell>
-                                        <TableCell>{exam.org}</TableCell>
-                                        <TableCell>{exam.data.name}</TableCell>
-                                        <TableCell>
-                                            <Flex direction="row">
-                                                <ButtonGroup>
-                                                    <Button data-examid={exam.id} onClick={handleEdit}>
-                                                        <FaEdit></FaEdit>
-                                                    </Button>
-                                                    <Button data-examid={exam.id} onClick={handleSendLink}>
-                                                        <FaPaperPlane></FaPaperPlane>
-                                                    </Button>
-                                                    <Button data-examid={exam.id} onClick={handleDelete}>
-                                                        <FaTrash></FaTrash>
-                                                    </Button>
-                                                </ButtonGroup>
-                                            </Flex>
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                            )
-                    }
-                </TableBody>
             </Table>
+            <ScrollView height="calc(100vh - 230px)">
+                <Table>
+                    <TableBody>
+                        {
+                            !isListLoaded ? <TableRow key="placeholder"><TableCell
+                                    colSpan="7"><Placeholder/></TableCell></TableRow> :
+                                exams.map(
+                                    (exam) => (
+                                        <TableRow key={exam.id}>
+                                            <TableCell width={colWidths[0]}><CheckboxField></CheckboxField></TableCell>
+                                            <TableCell width={colWidths[1]}>{exam.id}</TableCell>
+                                            <TableCell width={colWidths[2]}>{formatDate(exam.date)}</TableCell>
+                                            <TableCell width={colWidths[3]}>{exam.org}</TableCell>
+                                            <TableCell>{exam.data.name}</TableCell>
+                                            <TableCell width={colWidths[5]}>
+                                                <Flex direction="row">
+                                                    <ButtonGroup>
+                                                        <Button data-examid={exam.id} onClick={handleEdit}>
+                                                            <FaEdit></FaEdit>
+                                                        </Button>
+                                                        <Button data-examid={exam.id} onClick={handleSendLink}>
+                                                            <FaPaperPlane></FaPaperPlane>
+                                                        </Button>
+                                                        <Button data-examid={exam.id} onClick={handleDelete}>
+                                                            <FaTrash></FaTrash>
+                                                        </Button>
+                                                    </ButtonGroup>
+                                                </Flex>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                )
+                        }
+                    </TableBody>
+                </Table>
+            </ScrollView>
         </View>
     )
 }

@@ -42,6 +42,30 @@ export const createResponse = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -93,6 +117,30 @@ export const updateResponse = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -128,6 +176,30 @@ export const deleteResponse = /* GraphQL */ `
             test {
               id
               data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
               createdAt
               updatedAt
             }
@@ -203,6 +275,9 @@ export const createSession = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -268,6 +343,9 @@ export const updateSession = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -331,6 +409,9 @@ export const deleteSession = /* GraphQL */ `
             }
             key
             tests {
+              nextToken
+            }
+            categories {
               nextToken
             }
             createdAt
@@ -521,6 +602,9 @@ export const createTest = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -568,6 +652,9 @@ export const updateTest = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -613,6 +700,159 @@ export const deleteTest = /* GraphQL */ `
             }
             key
             tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createQuestionCategory = /* GraphQL */ `
+  mutation CreateQuestionCategory(
+    $input: CreateQuestionCategoryInput!
+    $condition: ModelQuestionCategoryConditionInput
+  ) {
+    createQuestionCategory(input: $input, condition: $condition) {
+      id
+      name
+      Questions {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateQuestionCategory = /* GraphQL */ `
+  mutation UpdateQuestionCategory(
+    $input: UpdateQuestionCategoryInput!
+    $condition: ModelQuestionCategoryConditionInput
+  ) {
+    updateQuestionCategory(input: $input, condition: $condition) {
+      id
+      name
+      Questions {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteQuestionCategory = /* GraphQL */ `
+  mutation DeleteQuestionCategory(
+    $input: DeleteQuestionCategoryInput!
+    $condition: ModelQuestionCategoryConditionInput
+  ) {
+    deleteQuestionCategory(input: $input, condition: $condition) {
+      id
+      name
+      Questions {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
               nextToken
             }
             createdAt
@@ -668,6 +908,46 @@ export const createQuestion = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categories {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -721,6 +1001,46 @@ export const updateQuestion = /* GraphQL */ `
             tests {
               nextToken
             }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categories {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
             createdAt
             updatedAt
           }
@@ -772,6 +1092,46 @@ export const deleteQuestion = /* GraphQL */ `
             }
             key
             tests {
+              nextToken
+            }
+            categories {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      categories {
+        items {
+          id
+          questionCategoryId
+          questionId
+          questionCategory {
+            id
+            name
+            Questions {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
+          question {
+            id
+            prompt
+            data
+            choices {
+              key
+              value
+            }
+            key
+            tests {
+              nextToken
+            }
+            categories {
               nextToken
             }
             createdAt
@@ -910,6 +1270,30 @@ export const createTestQuestion = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -990,6 +1374,30 @@ export const updateTestQuestion = /* GraphQL */ `
           }
           nextToken
         }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -1054,6 +1462,342 @@ export const deleteTestQuestion = /* GraphQL */ `
             test {
               id
               data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createQuestionsCategories = /* GraphQL */ `
+  mutation CreateQuestionsCategories(
+    $input: CreateQuestionsCategoriesInput!
+    $condition: ModelQuestionsCategoriesConditionInput
+  ) {
+    createQuestionsCategories(input: $input, condition: $condition) {
+      id
+      questionCategoryId
+      questionId
+      questionCategory {
+        id
+        name
+        Questions {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      question {
+        id
+        prompt
+        data
+        choices {
+          key
+          value
+        }
+        key
+        tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateQuestionsCategories = /* GraphQL */ `
+  mutation UpdateQuestionsCategories(
+    $input: UpdateQuestionsCategoriesInput!
+    $condition: ModelQuestionsCategoriesConditionInput
+  ) {
+    updateQuestionsCategories(input: $input, condition: $condition) {
+      id
+      questionCategoryId
+      questionId
+      questionCategory {
+        id
+        name
+        Questions {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      question {
+        id
+        prompt
+        data
+        choices {
+          key
+          value
+        }
+        key
+        tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteQuestionsCategories = /* GraphQL */ `
+  mutation DeleteQuestionsCategories(
+    $input: DeleteQuestionsCategoriesInput!
+    $condition: ModelQuestionsCategoriesConditionInput
+  ) {
+    deleteQuestionsCategories(input: $input, condition: $condition) {
+      id
+      questionCategoryId
+      questionId
+      questionCategory {
+        id
+        name
+        Questions {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      question {
+        id
+        prompt
+        data
+        choices {
+          key
+          value
+        }
+        key
+        tests {
+          items {
+            id
+            testId
+            questionId
+            test {
+              id
+              data
+              createdAt
+              updatedAt
+            }
+            question {
+              id
+              prompt
+              data
+              key
+              createdAt
+              updatedAt
+            }
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        categories {
+          items {
+            id
+            questionCategoryId
+            questionId
+            questionCategory {
+              id
+              name
               createdAt
               updatedAt
             }

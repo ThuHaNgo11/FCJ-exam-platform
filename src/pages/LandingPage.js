@@ -2,7 +2,7 @@
 import React from 'react'
 
 // import Amplify UI components
-import { Heading, View } from '@aws-amplify/ui-react'
+import { Heading, View, Card } from '@aws-amplify/ui-react'
 
 // import components
 import LandingPageNavBar from '../components/LandingPageNavBar'
@@ -20,7 +20,9 @@ const LandingPage = () => {
       {
         route === "authenticated" ? <NavBar userName={user.username} signOut={signOut} /> : <LandingPageNavBar />
       }
-      <Heading level={1}>Welcome AWS builders</Heading>
+      <Card>
+        <Heading level={1} textAlign="center">Welcome AWS builders</Heading>
+      </Card>
     </View>
   )
 }

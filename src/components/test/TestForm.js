@@ -5,7 +5,7 @@ import {arrayMergeUnique, delay} from "../../hooks/utils";
 import {useLocation, useNavigate} from "react-router";
 
 // import UI components
-import {View, Heading, Button, TextAreaField, Loader, TextField, Flex} from "@aws-amplify/ui-react";
+import {View, Heading, Button, ButtonGroup, TextAreaField, Loader, TextField, Flex} from "@aws-amplify/ui-react";
 
 // import components
 import SelectedQuestions from "./SelectedQuestions";
@@ -128,7 +128,7 @@ const TestForm = () => {
             <View width="50vw">
                 <Flex direction="column" alignItems="stretch" padding="5px">
                     <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave}/>
-                    <Heading level={3}>Compose Test</Heading>
+                    <Heading level={3} textAlign="center">Compose Test</Heading>
                     {/* General test info */}
                     <TextField
                         name="testName"
@@ -162,13 +162,15 @@ const TestForm = () => {
                                        handleDeleteSelectedQuestions={handleDeleteSelectedQuestions}/>
 
                     {/* Save changes to form */}
-                    <Button onClick={handleSaveButton}>
-                        {isSubmitting && <Loader/>}
-                        Save
-                    </Button>
-                    <Button onClick={() => navigate('/tests', {replace: true})}>
-                        Cancel
-                    </Button>
+                    <ButtonGroup>
+                        <Button onClick={handleSaveButton}>
+                            {isSubmitting && <Loader/>}
+                            Save
+                        </Button>
+                        <Button onClick={() => navigate('/tests', {replace: true})}>
+                            Cancel
+                        </Button>
+                    </ButtonGroup>
                 </Flex>
             </View>
         </Flex>

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 
 // import UI components
-import { Modal, Form, Button} from 'react-bootstrap';
-import { TextField, Flex } from '@aws-amplify/ui-react';
+import { Modal, Form } from 'react-bootstrap';
+import { TextField, Flex, Button } from '@aws-amplify/ui-react';
 import { FaCopy } from 'react-icons/fa';
 
 const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
@@ -44,8 +44,8 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                     </Form.Group>
                 </Form>
                 <Flex direction="row" alignItems="center" justifyContent="flex-start"> 
-                    <TextField width="90%" value={getLink(exam)} readonly></TextField>
-                    <Button onClick={handleCopy}>
+                    <TextField width="90%" value={getLink(exam)} readonly labelHidden="true" height="42px"></TextField>
+                    <Button onClick={handleCopy} size="large">
                         <FaCopy />
                     </Button>
                 </Flex>

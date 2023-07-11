@@ -31,6 +31,12 @@ type Choice {
   value: String
 }
 
+type QuestionCategory @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  Questions: [Question] @manyToMany(relationName: "QuestionsCategories")
+}
+
 type Question @model @auth(rules: [{allow: public}]) @searchable {
   id: ID!
   prompt: String!
@@ -38,6 +44,7 @@ type Question @model @auth(rules: [{allow: public}]) @searchable {
   choices: [Choice]
   key: Int!
   tests: [Test] @manyToMany(relationName: "TestQuestion")
+  categories: [QuestionCategory] @manyToMany(relationName: "QuestionsCategories")
 }
 
 type ExamEmail @model @auth(rules: [{allow: public}]) {
@@ -48,4 +55,3 @@ type ExamEmail @model @auth(rules: [{allow: public}]) {
   subject: String!
   body: String!
 }
- 
