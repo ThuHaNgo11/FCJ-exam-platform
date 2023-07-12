@@ -1,6 +1,7 @@
 # FCJ Exam Platform 
 <!-- description -->
-This is a full-stack web application that provides a solution for online assessment - authoring test contents and delivering examinations.
+This is a full-stack web application that provides a solution for online assessment - authoring test contents and delivering exams.
+User (admin) performs CRUD operation on Questions, Tests, and Exams Databases. When exam is ready to delivered, admin sends email with test link to exam taker(s). Answers will be graded and customed certificate will be ready for download with passed result. 
 
 **[Try out the deployed application here](https://d1swv02b0ramfa.cloudfront.net/)**!
 
@@ -18,7 +19,7 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 <!-- add image, description and link of each library -->
 
 **Authorization**
-Cognito ...
+- Cognito
 
 **Frontend**
 - Amplify UI with React framework
@@ -43,10 +44,6 @@ Cognito ...
 &nbsp;
 
 ## architecture
-
-**Summary diagram**
-
-![Summary diagram](readmeImages/SummaryDiagram.png)
 
 &nbsp;
 
