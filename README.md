@@ -52,7 +52,7 @@ Cognito ...
 
 **High-level, end-to-end diagram**
 
-![High-level architectural diagram](readmeImages/ArchDiagram.png)
+![High-level architectural diagram](readme-img/fcj-exam-platform-architecture.png)
 
 &nbsp;
 
