@@ -68,6 +68,14 @@ To get your local up and running, please follow this set up guide:
 - Run `amplify init --app <github url>`
 - Follow prompts to install Amplify CLI and configure it to connect to your AWS account
 - Check `src/aws-exports.js` is created
+- Configure SES verified identities via SES Console.
+For dev environment which use SES sandbox, only verified identities can send or receive emails via SES.
+- Update lambda function environment variable:
+  - Run `amplify update function`.
+  - Choose `sendExamEmail` function
+  - Variable name: `SES_EMAIL`
+  - Variable value: an email address where email should be sent from. This email address should be verified in SES Console.
+
 
 #### Build local dev environment 
 - Run `npm install`
