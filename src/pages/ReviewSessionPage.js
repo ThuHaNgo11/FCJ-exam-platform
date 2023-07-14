@@ -1,12 +1,12 @@
-import {Heading, View, Text, Flex, Card, Collection, Button} from "@aws-amplify/ui-react";
+import {Heading, View, Text, Flex, Card, Collection, Button, RadioGroupField, Radio} from "@aws-amplify/ui-react";
 import {useParams} from "react-router";
 import {React, useState, useEffect} from "react";
 import {getSessionWithScore} from "../api/scoreApi";
 import {useImmer} from "use-immer";
 import {formatDate} from "../hooks/utils";
-import {FaCheckCircle, FaTimesCircle} from "react-icons/fa";
-import { getCert } from "../api/certResource";
+import {getCert} from "../api/certResource";
 import jsPDF from "jspdf";
+import '../css/reviewSession.css';
 // import { callAddFont } from "../hooks/emberFont";
 
 const ReviewSessionPage = () => {
@@ -49,68 +49,90 @@ const ReviewSessionPage = () => {
         })
     }
 
-    return (
-        <Card>
-            <Heading level={3}>Review Exam Session</Heading>
-            {
-                isPageLoaded && (
-                    <View>
-                        <Card>
-                            <Flex>
-                                <Text>Exam: {allStates.Exam.data.name}</Text>
-                                <Text>Date: {formatDate(allStates.Exam.date)}</Text>
-                            </Flex>
-                        </Card>
-                        <Card>
-                            <Text>User name: {allStates.data.username}</Text>
-                            <Text>User email: {allStates.data.email}</Text>
-                        </Card>
-                        <Card>
-                            <Text>Score: {allStates.mark} / {allStates.highestMark}</Text>
-                            <Text>Result: {allStates.scorePercentage >= 80 ? "PASSED" : "FAILED"}</Text>
-                            {
-                                allStates.scorePercentage >= 80 && (
-                                    <Button onClick={handleDownloadCertificate}>Download Certificate</Button>
-                                )
-                            }
-                        </Card>
-                        <Card>
-                            <Heading level={4}>Answers</Heading>
-                            <Collection items={allStates.Responses.items}>
-                                {
-                                    (item, index) => (
-                                        <View key={index}>
-                                            <Flex direction="column">
-                                                <Text fontWeight="bold">{item.Question.prompt}</Text>
-                                                <Flex direction="column">
-                                                    {
-                                                        item.Question.choices.map(
-                                                            (choice) => (
-                                                                <Flex alignItems="baseline" key={choice.key}>
-                                                                    <Text>{choice.value} </Text>
-                                                                    {
-                                                                        (choice.key === parseInt(item.data.answer)) &&
-                                                                        (choice.key !== item.Question.key) && <FaTimesCircle/>
-                                                                    }
-                                                                    {
-                                                                        (choice.key === item.Question.key) && <FaCheckCircle/>
-                                                                    }
-                                                                </Flex>
-                                                            )
-                                                        )
-                                                    }
-                                                </Flex>
-                                            </Flex>
-                                        </View>
-                                    )
-                                }
-                            </Collection>
-                        </Card>
-                    </View>
-                )
-            }
+    const getAnswerBoxClass = (questionId, answer) => {
+        if (
+            allStates.responsesMap.hasOwnProperty(questionId) &&
+            (answer === allStates.responsesMap[questionId].data.answer) &&
+            (answer !== allStates.questionsMap[questionId].key)
+        ) {
+            return "wrong-answer"
+        }
 
-        </Card>
+        if (answer === allStates.questionsMap[questionId].key) {
+            return "correct-answer"
+        }
+
+        return ""
+    }
+
+    return (
+        <Flex direction="column" alignItems="center" padding="5px">
+            <View width="50vw">
+                <Flex direction="column" alignItems="stretch" padding="5px">
+                    <Heading level={3} textAlign="center">Review Exam Session</Heading>
+                    {
+                        isPageLoaded && (
+                            <View>
+                                <Card>
+                                    <Flex direction="row" justifyContent="space-between">
+                                        <Text>Exam: {allStates.Exam.data.name}</Text>
+                                        <Text>Date: {formatDate(allStates.Exam.date)}</Text>
+                                    </Flex>
+                                </Card>
+                                <Card>
+                                    <Text>User name: {allStates.data.username}</Text>
+                                    <Text>User email: {allStates.data.email}</Text>
+                                </Card>
+                                <Card>
+                                    <Text>Score: {allStates.mark} / {allStates.highestMark}</Text>
+                                    <Text>Result: {allStates.scorePercentage >= 80 ? "PASSED" : "FAILED"}</Text>
+                                    <View textAlign="center">
+                                    {
+                                        allStates.scorePercentage >= 80 && (
+                                            <Button onClick={handleDownloadCertificate}>Download Certificate</Button>
+                                        )
+                                    }
+                                    </View>
+                                </Card>
+                                <Card>
+                                    <Heading level={4} textAlign="center">Submitted Answers</Heading>
+                                    <Collection items={allStates.questions}>
+                                        {
+                                            (item, index) => (
+                                                <View key={index}>
+                                                    <Flex direction="column">
+                                                        <Text fontWeight="bold">Question {index + 1} / {allStates.questions.length}</Text>
+                                                        <Flex direction="column">
+                                                            <RadioGroupField label={allStates.questionsMap[item].prompt}
+                                                                             name={allStates.questionsMap[item].id}
+                                                                             className="rgf-review-session"
+                                                                             onChange={() => {}}
+                                                                             value={(!!allStates.responsesMap[item] && !!allStates.responsesMap[item].data.answer) ? allStates.responsesMap[item].data.answer : null}>
+                                                                {
+                                                                    allStates.questionsMap[item].choices.map(
+                                                                        (choice) => (
+                                                                            <Radio
+                                                                                value={choice.key}
+                                                                                key={choice.key}
+                                                                                className={getAnswerBoxClass(item, choice.key)}>{choice.value}</Radio>
+                                                                        )
+                                                                    )
+                                                                }
+                                                            </RadioGroupField>
+                                                        </Flex>
+                                                    </Flex>
+                                                </View>
+                                            )
+                                        }
+                                    </Collection>
+                                </Card>
+                            </View>
+                        )
+                    }
+
+                </Flex>
+            </View>
+        </Flex>
     )
 }
 

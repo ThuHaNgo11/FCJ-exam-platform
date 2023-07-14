@@ -203,6 +203,16 @@ export const getSession = /* GraphQL */ `
               id
               testId
               questionId
+              question {
+                id
+                prompt
+                data
+                choices {
+                  key
+                  value
+                }
+                key
+              }
               createdAt
               updatedAt
             }

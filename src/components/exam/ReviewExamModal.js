@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react';
 // import UI components 
 import { Modal, Button } from 'react-bootstrap';
 import {
+    View,
     Flex,
     RadioGroupField,
     Radio,
+    Text,
     Collection,
     Card,
     Image,
@@ -36,15 +38,19 @@ const ReviewExamModal = ({ isOpen, onClose, onResponseUpdate, examData, response
 
     return (
         <Modal show={isOpen} onHide={onClose} fullscreen scrollable>
-            <Modal.Header>
+            <Modal.Header closeButton>
                 <Modal.Title>Review</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <Flex direction="column" alignItems="center" padding="5px">
+                    <View width="50vw">
+                        <Flex direction="column" alignItems="stretch" padding="5px">
                 <Collection items={examData.Test.Questions.items} type="list" direction="column" gap="20px" searchNoResultsFound="No questions found">
                     {
                         (item, index) => (
                             <Card key={index}>
-                                <Flex alignItems="flex-end">
+                                <Flex justifyContent="space-between">
+                                    <Text fontWeight="bold">Question {index+1} / {examData.Test.Questions.items.length}</Text>
                                     {
                                         flaggedQuestions.indexOf(index) !== -1 &&
                                         <FaFlag />
@@ -74,6 +80,9 @@ const ReviewExamModal = ({ isOpen, onClose, onResponseUpdate, examData, response
                         )
                     }
                 </Collection>
+                        </Flex>
+                    </View>
+                </Flex>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={onSubmit}>

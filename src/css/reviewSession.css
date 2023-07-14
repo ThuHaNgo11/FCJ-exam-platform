@@ -1,0 +1,21 @@
+.rgf-review-session .amplify-radiogroup, .rgf-review-session .amplify-radiogroup label {
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.rgf-review-session label {
+    padding: 3px 3px 3px 9px;
+    width: 100%;
+}
+
+.rgf-review-session label.correct-answer {
+    padding-left: 6px;
+    background: #68ffc4;
+    border-left: 3px solid #2e4832;
+}
+
+.rgf-review-session label.wrong-answer {
+    padding-left: 6px;
+    background: #fffcb8;
+    border-left: 3px solid #ffbf0f;
+}

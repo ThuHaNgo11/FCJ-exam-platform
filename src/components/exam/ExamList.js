@@ -97,10 +97,7 @@ const ExamList = () => {
     // handlers of SendExamModal
     const handleSend = ({emails, link}) => {
         // using SES and lambda to send email
-
-        sendExamEmail({emails, link})
-
-
+        return sendExamEmail({emails, link})
     }
 
     const handleModalClose = (event) => {

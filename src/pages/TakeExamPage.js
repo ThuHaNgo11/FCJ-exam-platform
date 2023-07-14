@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router';
-import { useImmer } from "use-immer";
+import React, {useEffect, useState} from 'react';
+import {useParams, useNavigate} from 'react-router';
+import {useImmer} from "use-immer";
 
 // import UI components
 import {
@@ -16,14 +16,14 @@ import {
     Image,
     Card
 } from '@aws-amplify/ui-react';
-import { FaArrowLeft, FaFlag, FaArrowRight } from "react-icons/fa";
+import {FaArrowLeft, FaFlag, FaArrowRight} from "react-icons/fa";
 
 // import API fucntions
-import { getExamForSession } from '../api/examApi';
+import {getExamForSession} from '../api/examApi';
 
 // import utils
-import { delay, formatDate, getImmerChangeHandler } from "../hooks/utils";
-import { createNewSession, submitSessionResponse } from "../api/testTakerApi";
+import {delay, formatDate, getImmerChangeHandler} from "../hooks/utils";
+import {createNewSession, submitSessionResponse} from "../api/testTakerApi";
 
 // import customed components
 import ReviewExamModal from '../components/exam/ReviewExamModal';
@@ -35,7 +35,7 @@ const initialState = {
 
 const TakeExamPage = () => {
     // states
-    let { examid, sessionid } = useParams()
+    let {examid, sessionid} = useParams()
 
     let [examData, setExamData] = useState({})
 
@@ -45,7 +45,7 @@ const TakeExamPage = () => {
 
     let [isTestLoaded, setIsTestLoaded] = useState(false)
 
-    let [responseData, setResponseData] = useState({ data: [] })
+    let [responseData, setResponseData] = useState({data: []})
 
     let [userDetails, setUserDetails] = useImmer(initialState)
 
@@ -89,19 +89,19 @@ const TakeExamPage = () => {
 
     const handleResponseUpdate = (event) => {
         let found = false
-            let data = [...responseData.data]
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].questionId === event.target.name) {
-                    data[i].answer = parseInt(event.target.value)
-                    found = true
-                }
+        let data = [...responseData.data]
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].questionId === event.target.name) {
+                data[i].answer = parseInt(event.target.value)
+                found = true
             }
-            if (!found) {
-                data.push({
-                    "questionId": event.target.name,
-                    "answer": parseInt(event.target.value)
-                })
-            }
+        }
+        if (!found) {
+            data.push({
+                "questionId": event.target.name,
+                "answer": parseInt(event.target.value)
+            })
+        }
         setResponseData({data})
     }
 
@@ -114,7 +114,7 @@ const TakeExamPage = () => {
             let result = await submitSessionResponse(data)
             console.log(result)
             delay(2000).then(
-                () => navigate('/review/' + sessionId, { replace: false })
+                () => navigate('/review/' + sessionId, {replace: false})
             )
         }
         submit()
@@ -154,87 +154,111 @@ const TakeExamPage = () => {
     }
 
     return (
-        <View>
-            {
-                !isTestLoaded ? (
-                    <Text>Please wait while the test is loading...</Text>
-                ) : (
-                    <View>
-                        <ReviewExamModal isOpen={isReviewModalOpen} onClose={handleModalClose} onResponseUpdate={handleResponseUpdate} examData={examData}
-                            responseData={responseData} flaggedQuestions={flaggedQuestions} handleSubmit={handleSubmit} />
-                        <Heading level={3}>{examData.data.name}</Heading>
-                        <Flex>
-                            <Text>Exam Date: {formatDate(examData.date)}</Text>
-                            {
-                                examData.org &&
-                                (<Text>Prepared for: {examData.org}</Text>)
-                            }
-                        </Flex>
-                        <Flex>
-                            <Text>{examData.Test.data.description}</Text>
-                        </Flex>
-                        <Flex direction="column">
-                            <TextField label="Please enter your name" name="username" value={userDetails.username} onChange={handleChange} />
-                            <TextField label="Please enter your email" name="email" type="email" value={userDetails.email} onChange={handleChange} />
-                        </Flex>
-                        {
-                            !isTestStarted ? (
-                                <Button onClick={handleBeginTest}>Begin</Button>
-                            ) : (
-                                <View>
-                                    <Collection items={examData.Test.Questions.items} type="list" direction="column" gap="20px" searchNoResultsFound="No questions found">
-                                        {
-                                            (item, index) => (
-                                                index === currentQuestion &&
-                                                <Card key={index}>
-                                                    <Flex alignItems="flex-end">
-                                                        {
-                                                            flaggedQuestions.indexOf(index) === -1 &&
-                                                            <Button onClick={handleFlag}><FaFlag /></Button>
-                                                        }
-                                                        {
-                                                            flaggedQuestions.indexOf(index) !== -1 &&
-                                                            <Button onClick={handleFlag} variation='primary' ><FaFlag /></Button>
-                                                        }
+        <Flex direction="column" alignItems="center" padding="5px">
+            <View width="50vw">
+                <Flex direction="column" alignItems="stretch" padding="5px">
+                    {
+                        !isTestLoaded ? (
+                            <Text>Please wait while the test is loading...</Text>
+                        ) : (
+                            <View>
+                                <ReviewExamModal isOpen={isReviewModalOpen} onClose={handleModalClose}
+                                                 onResponseUpdate={handleResponseUpdate} examData={examData}
+                                                 responseData={responseData} flaggedQuestions={flaggedQuestions}
+                                                 handleSubmit={handleSubmit}/>
+                                <Heading level={3} textAlign="center">{examData.data.name}</Heading>
+                                <Flex>
+                                    <Text>Exam Date: {formatDate(examData.date)}</Text>
+                                    {
+                                        examData.org &&
+                                        (<Text>Prepared for: {examData.org}</Text>)
+                                    }
+                                </Flex>
+                                <Flex>
+                                    <Text>{examData.Test.data.description}</Text>
+                                </Flex>
+                                <Flex direction="column">
+                                    <TextField label="Please enter your name" name="username"
+                                               value={userDetails.username} onChange={handleChange}/>
+                                    <TextField label="Please enter your email" name="email" type="email"
+                                               value={userDetails.email} onChange={handleChange}/>
+                                    {
+                                        !isTestStarted ? (
+                                            <Button onClick={handleBeginTest}>Begin</Button>
+                                        ) : (
+                                            <>
+                                                <Collection items={examData.Test.Questions.items} type="list"
+                                                            direction="column" gap="20px"
+                                                            searchNoResultsFound="No questions found">
+                                                    {
+                                                        (item, index) => (
+                                                            index === currentQuestion &&
+                                                            <Card key={index}>
+                                                                <Flex direction="row" justifyContent="space-between">
+                                                                    <Text fontWeight="bold">Question {index+1} / {totalQuestion}</Text>
+                                                                    {
+                                                                        flaggedQuestions.indexOf(index) === -1 &&
+                                                                        <Button onClick={handleFlag}><FaFlag/></Button>
+                                                                    }
+                                                                    {
+                                                                        flaggedQuestions.indexOf(index) !== -1 &&
+                                                                        <Button onClick={handleFlag}
+                                                                                variation='primary'><FaFlag/></Button>
+                                                                    }
 
-                                                    </Flex>
-                                                    <RadioGroupField label={item.question.prompt} name={item.question.id} value={getAnswer(item.question.id)} onChange={handleResponseUpdate}>
-                                                        {
-                                                            !!item.question.data && !!item.question.data.imageUrl &&
-                                                            (
-                                                                <Image src={item.question.data.imageUrl} alt="Question prompt illustration" />
-                                                            )
-                                                        }
-                                                        <Collection items={item.question.choices} type="list" direction="column" gap="20px" alignItems="flex-start">
-                                                            {
-                                                                (choice, index) => {
-                                                                    return (
-                                                                        <Radio key={choice.key} value={choice.key}>{choice.value}</Radio>
-                                                                    )
-                                                                }
-                                                            }
-                                                        </Collection>
-                                                    </RadioGroupField>
-                                                    <Flex>
-                                                        {index > 0 && <Button onClick={handlePreviousButton}><FaArrowLeft /></Button>}
-                                                        {index < totalQuestion - 1 && <Button onClick={handleNextButton}><FaArrowRight /></Button>}
-                                                    </Flex>
-                                                </Card>
-                                            )
-                                        }
-                                    </Collection>
-                                    <Button onClick={() => setIsReviewModalOpen(true)}>Review</Button>
-                                    <Button onClick={handleSubmit}>
-                                        {isSubmitting && <Loader />}
-                                        Submit
-                                    </Button>
-                                </View>
-                            )
-                        }
-                    </View>
-                )
-            }
-        </View>
+                                                                </Flex>
+                                                                <RadioGroupField label={item.question.prompt}
+                                                                                 name={item.question.id}
+                                                                                 value={getAnswer(item.question.id)}
+                                                                                 onChange={handleResponseUpdate}>
+                                                                    {
+                                                                        !!item.question.data && !!item.question.data.imageUrl &&
+                                                                        (
+                                                                            <Image src={item.question.data.imageUrl}
+                                                                                   alt="Question prompt illustration"/>
+                                                                        )
+                                                                    }
+                                                                    <Collection items={item.question.choices}
+                                                                                type="list"
+                                                                                direction="column" gap="20px"
+                                                                                alignItems="flex-start">
+                                                                        {
+                                                                            (choice, index) => {
+                                                                                return (
+                                                                                    <Radio key={choice.key}
+                                                                                           value={choice.key}>{choice.value}</Radio>
+                                                                                )
+                                                                            }
+                                                                        }
+                                                                    </Collection>
+                                                                </RadioGroupField>
+                                                                <Flex direction="row" justifyContent="center">
+                                                                    {index > 0 && <Button
+                                                                        onClick={handlePreviousButton}><FaArrowLeft/></Button>}
+                                                                    {index < totalQuestion - 1 && <Button
+                                                                        onClick={handleNextButton}><FaArrowRight/></Button>}
+                                                                </Flex>
+                                                            </Card>
+                                                        )
+                                                    }
+                                                </Collection>
+                                                <Flex direction="row" justifyContent="center">
+                                                    <Button flex={1} onClick={() => setIsReviewModalOpen(true)}>Review</Button>
+                                                    <Button flex={1} onClick={handleSubmit}>
+                                                        {isSubmitting && <Loader/>}
+                                                        Submit
+                                                    </Button>
+                                                </Flex>
+                                            </>
+                                        )
+                                    }
+                                </Flex>
+                            </View>
+                        )
+                    }
+                </Flex>
+            </View>
+        </Flex>
     )
 }
 

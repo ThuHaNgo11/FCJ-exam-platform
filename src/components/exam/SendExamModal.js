@@ -2,25 +2,38 @@ import React, {useState} from 'react';
 
 // import UI components
 import { Modal, Form } from 'react-bootstrap';
-import { TextField, Flex, Button } from '@aws-amplify/ui-react';
-import { FaCopy } from 'react-icons/fa';
+import { TextField, Flex, Button, View } from '@aws-amplify/ui-react';
+import {FaCopy, FaPaperPlane} from 'react-icons/fa';
+import {delay} from "../../hooks/utils";
+import {ReactMultiEmail, isEmail} from "react-multi-email";
+import 'react-multi-email/dist/style.css';
 
 const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
 
-    const [emails, setEmails] = useState("")
+    const [emails, setEmails] = useState([])
+    const [copied, setCopied] = useState(false)
+    const [isSending, setIsSending] = useState(false)
 
     // function to get link to exam
     const getLink = (exam) => {
         return window.location.protocol + "//" + window.location.host + "/take-exam/" + exam + "/start"
     }
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(getLink(exam))
+    const handleCopy = (event) => {
+        navigator.clipboard.writeText(getLink(exam)).then(
+            () => {
+                setCopied(true)
+                delay(1000).then(() => setCopied(false))
+            }
+        )
     }
 
     const handleSend = () => {
+        setIsSending(true)
         console.log(emails)
-        onSend({emails, link: getLink(exam)})
+        onSend({emails: emails.join(','), link: getLink(exam)}).finally(
+            () => setIsSending(false)
+        )
     }
 
     return (
@@ -31,32 +44,46 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Student Email addresses</Form.Label>
-                        <Form.Control 
-                            value={emails}
-                            onChange={(event) => setEmails(event.target.value)}
-                            type="email" placeholder="Enter email addresses" multiple/>
-                        <Form.Text className="text-muted">
-                            Please enter student email addresses
-                        </Form.Text>
-                    </Form.Group>
-                </Form>
-                <Flex direction="row" alignItems="center" justifyContent="flex-start"> 
-                    <TextField width="90%" value={getLink(exam)} readonly labelHidden="true" height="42px"></TextField>
-                    <Button onClick={handleCopy} size="large">
-                        <FaCopy />
-                    </Button>
+                <Flex direction="column" alignItems="center" padding="5px">
+                    <View width="50vw">
+                        <Flex direction="column" alignItems="stretch" padding="5px">
+                            <Form.Group>
+                                <Form.Label>Student Email addresses</Form.Label>
+                                <ReactMultiEmail
+                                    placeholder="Enter email addresses"
+                                    emails={emails}
+                                    onChange={(emails) => setEmails(emails)}
+                                    autoFocus={true}
+                                    getLabel={(email, index, removeEmail) => {
+                                        return (
+                                            <div data-tag key={index}>
+                                                <div data-tag-item>{email}</div>
+                                                <span data-tag-handle onClick={() => removeEmail(index)}>×</span>
+                                            </div>
+                                        );
+                                    }}
+                                    width="100%"
+                                />
+                            </Form.Group>
+
+                            <Flex direction="row" alignItems="center" justifyContent="flex-start">
+                                <TextField width="90%" value={getLink(exam)} readonly labelHidden="true" height="42px"></TextField>
+                                <Button onClick={handleCopy} height="42px" isDisabled={copied} justifyContent="space-between">
+                                    <FaCopy />
+                                    {copied && (<span style={{paddingLeft: "5px"}}>Copied!</span>)}
+                                </Button>
+                            </Flex>
+                        </Flex>
+                    </View>
                 </Flex>
-                
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={onClose}>
                     Close
                 </Button>
                 <Button variant="primary" onClick={handleSend}>
-                    Send
+                    <FaPaperPlane />
+                    <span style={{paddingLeft: "5px"}}>{isSending ? "Sending..." : "Send"}</span>
                 </Button>
             </Modal.Footer>
         </Modal>

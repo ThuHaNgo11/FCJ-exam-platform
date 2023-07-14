@@ -30,6 +30,7 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 - UseImmer
 - Js PDF
 - React icons
+- ReactMultiEmail
 
 **Backend**
 - Database: DynamoDB

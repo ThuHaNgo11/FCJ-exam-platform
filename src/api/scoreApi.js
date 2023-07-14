@@ -13,28 +13,39 @@ export const getSessionWithScore = async (sessionid) => {
 
         session.data = JSON.parse(session.data)
         session.Exam.data = JSON.parse(session.Exam.data)
-        session.Responses.items.map(
+
+        let questions = []
+        let questionsMap = {}
+        let responsesMap = {}
+
+        session.Exam.Test.Questions.items.map(
             (it) => {
-                it.data = JSON.parse(it.data)
-                return it
+                questions.push(it.question.id)
+                questionsMap[it.question.id] = it.question
             }
         )
 
         let mark = 0
         session.Responses.items.map(
             (it) => {
+                it.data = JSON.parse(it.data)
                 if (parseInt(it.data.answer) === it.Question.key) {
                     mark++
                 }
+                responsesMap[it.responseQuestionId] = it
+                return it
             }
         )
 
-        let highestMark = session.Exam.Test.Questions.items.length
+        let highestMark =  questions.length
 
         let scorePercentage = Math.round(mark  * 100.0 / highestMark)
 
         return {
             ...session,
+            questions,
+            questionsMap,
+            responsesMap,
             mark,
             highestMark,
             scorePercentage
