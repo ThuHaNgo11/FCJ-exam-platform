@@ -5,14 +5,16 @@ import { Modal, Form } from 'react-bootstrap';
 import { TextField, Flex, Button, View } from '@aws-amplify/ui-react';
 import {FaCopy, FaPaperPlane} from 'react-icons/fa';
 import {delay} from "../../hooks/utils";
-import {ReactMultiEmail, isEmail} from "react-multi-email";
+import {ReactMultiEmail} from "react-multi-email";
 import 'react-multi-email/dist/style.css';
+import {QRCodeSVG} from 'qrcode.react';
 
 const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
 
     const [emails, setEmails] = useState([])
     const [copied, setCopied] = useState(false)
     const [isSending, setIsSending] = useState(false)
+    let [qrCodeSize, setQrCodeSize] = useState(256)
 
     // function to get link to exam
     const getLink = (exam) => {
@@ -34,6 +36,14 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
         onSend({emails: emails.join(','), link: getLink(exam)}).finally(
             () => setIsSending(false)
         )
+    }
+
+    const toggleQRCodeSize = () => {
+        if (qrCodeSize === 256) {
+            setQrCodeSize(512)
+        } else {
+            setQrCodeSize(256)
+        }
     }
 
     return (
@@ -73,6 +83,8 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                                     {copied && (<span style={{paddingLeft: "5px"}}>Copied!</span>)}
                                 </Button>
                             </Flex>
+                            Or scan this QR Code to take the exam:
+                            <QRCodeSVG size={qrCodeSize} value={getLink(exam)} onClick={toggleQRCodeSize}/>
                         </Flex>
                     </View>
                 </Flex>

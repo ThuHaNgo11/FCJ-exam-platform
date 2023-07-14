@@ -141,6 +141,16 @@ export const getExamForSession = async (examId) => {
     }
 }
 
+const getEmailBody = (link) => (
+    `
+    <div>
+        <div>Hi,<div>
+        <div>You are invited to take an exam via FCJ Exam Platform.</div>
+        <div>Please use the following URL to start your exam: <a href='${link}'>Exam URL</a></div>
+    </div>
+    `
+)
+
 export const sendExamEmail = async({emails, link}) => {
     try {
         let input = {
@@ -148,7 +158,7 @@ export const sendExamEmail = async({emails, link}) => {
             toAddress: emails,
             fromAddress: "ngothuha+ses@amazon.com",
             subject: "Exam notification",
-            body: `<div>Please use the following URL for your exam: <a href='${link}'>Exam URL</a></div>`
+            body: getEmailBody(link)
         }
         let result = await API.graphql(graphqlOperation(createExamEmail, {input}))
         // Link result.createExam.id with exam.Test
