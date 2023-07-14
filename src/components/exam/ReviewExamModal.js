@@ -43,7 +43,7 @@ const ReviewExamModal = ({ isOpen, onClose, onResponseUpdate, examData, response
             </Modal.Header>
             <Modal.Body>
                 <Flex direction="column" alignItems="center" padding="5px">
-                    <View width="50vw">
+                    <View width={{base:'98vw', large:'50vw'}}>
                         <Flex direction="column" alignItems="stretch" padding="5px">
                 <Collection items={examData.Test.Questions.items} type="list" direction="column" gap="20px" searchNoResultsFound="No questions found">
                     {

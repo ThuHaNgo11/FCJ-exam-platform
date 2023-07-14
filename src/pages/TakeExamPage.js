@@ -155,7 +155,7 @@ const TakeExamPage = () => {
 
     return (
         <Flex direction="column" alignItems="center" padding="5px">
-            <View width="50vw">
+            <View width={{base:'98vw', large:'50vw'}}>
                 <Flex direction="column" alignItems="stretch" padding="5px">
                     {
                         !isTestLoaded ? (
