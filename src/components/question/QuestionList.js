@@ -104,8 +104,7 @@ const QuestionList = () => {
                                                                 (choice) => (
                                                                     <Text
                                                                         className={(choice.key === question.key) ? "correct-answer":""}
-                                                                        key={choice.key}>{(choice.key === question.key) ?
-                                                                        <FaCheckCircle/> : ""} {choice.value}</Text>
+                                                                        key={choice.key}>{choice.value}</Text>
                                                                 )
                                                             )
                                                         }

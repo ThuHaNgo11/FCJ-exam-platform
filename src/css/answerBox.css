@@ -12,6 +12,14 @@
     padding-left: 6px;
     background: #68ffc4;
     border-left: 3px solid #2e4832;
+    position: relative;
+}
+.answer-box label.correct-answer::after, .answer-box .correct-answer::after {
+    content: 'CORRECT';
+    position: absolute;
+    right: 5px;
+    font-size: 0.75rem;
+    line-height: 1.5rem;
 }
 
 .answer-box label.wrong-answer {
