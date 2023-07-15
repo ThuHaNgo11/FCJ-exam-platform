@@ -1,0 +1,7 @@
+1. Bulk actions
+2. Create test: 
+- set timer
+- set percentage to pass the test
+- set if certificate is granted for a particular test. 
+
+3. Create Exam
