@@ -62,7 +62,7 @@ const QuestionList = () => {
         })()
     }
 
-    const colWidths = ["30px", "400px", "", "250px"]
+    const colWidths = ["30px", "360px", "", "250px"]
 
     return (
         <>
@@ -71,7 +71,7 @@ const QuestionList = () => {
                     <TableRow>
                         <TableCell as="th" width={colWidths[0]}><FaCheckCircle/></TableCell>
                         <TableCell as="th" width={colWidths[1]}>ID</TableCell>
-                        <TableCell as="th">Content</TableCell>
+                        <TableCell as="th" flex={"1 1 auto"}>Content</TableCell>
                         <TableCell as="th" width={colWidths[3]}>Actions</TableCell>
                     </TableRow>
                 </TableHead>
@@ -88,7 +88,7 @@ const QuestionList = () => {
                                         <TableRow key={question.id}>
                                             <TableCell width={colWidths[0]}><CheckboxField></CheckboxField></TableCell>
                                             <TableCell width={colWidths[1]}>{question.id}</TableCell>
-                                            <TableCell>
+                                            <TableCell flex={"1 1 auto"}>
                                                 <Flex direction="column" alignItems="flex-start">
                                                     <Text>{question.prompt}</Text>
                                                     {!!question.data && !!question.data.imageUrl &&
