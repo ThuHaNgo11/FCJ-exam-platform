@@ -52,13 +52,15 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 
 ![High-level architectural diagram](readme-img/fcj-exam-platform-architecture.png)
 
-**Frontend**
+**Frontend architecture**
+![Frontend architecture](readme-img/frontend-architecture.png)
 
+**Backend architecture**
+![Backend architecture](readme-img/backend-architecture.png)
 
-**Backend**
+**Detailed architecture**
+![Detailed architecture](readme-img/detailed-architecture.png)
 
-
-**Detailed**
 &nbsp;
 
 ## Cost
