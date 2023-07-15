@@ -3,7 +3,9 @@
 This is a full-stack web application that provides a solution for online assessment - authoring test contents and delivering exams.
 User (admin) performs CRUD operation on Questions, Tests, and Exams Databases. When exam is ready to delivered, admin sends email with test link to exam taker(s). Answers will be graded and customed certificate will be ready for download with passed result. 
 
-**[Try out the deployed application here](https://d1swv02b0ramfa.cloudfront.net/)**!
+**[Try out the deployed application here](https://d1swv02b0ramfa.cloudfront.net/)**
+
+Demo credential (username/password): testUser/testUser123
 
 The entire application - frontend, backend, and all configuration - can be deployed in AWS cloud environment. 
 &nbsp;
@@ -13,7 +15,7 @@ The entire application - frontend, backend, and all configuration - can be deplo
 
 ## Description
 
-The project demonstrates the capabilities of AWS amplify in building cloud native full stack application... (what and how, why - purpose and objective)
+The project demonstrates the capabilities of AWS amplify in building cloud native full stack application. 
 
 ## Built with
 <!-- add image, description and link of each library -->
@@ -46,10 +48,17 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 
 ## architecture
 
-**High-level, end-to-end diagram**
+**High-level, end-to-end**
 
 ![High-level architectural diagram](readme-img/fcj-exam-platform-architecture.png)
 
+**Frontend**
+
+
+**Backend**
+
+
+**Detailed**
 &nbsp;
 
 ## Cost
