@@ -110,11 +110,13 @@ const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
                                         <TableCell>
                                             <Flex direction="column">
                                                 <Text>{question.prompt}</Text>
-                                                <Flex direction="column">
+                                                <Flex direction="column" className="answer-box" width="100%">
                                                     {
                                                         question.choices.map(
                                                             (choice) => (
-                                                                <Text key={choice.key}>{(choice.key === question.key) ? <FaCheckCircle /> : ""} {choice.value}</Text>
+                                                                <Text
+                                                                    className={(choice.key === question.key) ? "correct-answer":""}
+                                                                    key={choice.key}>{(choice.key === question.key) ? <FaCheckCircle /> : ""} {choice.value}</Text>
                                                             )
                                                         )
                                                     }
@@ -132,7 +134,7 @@ const FindQuestionModal = ({ isOpen, onClose, onSave }) => {
                 <Button variant="secondary" onClick={onClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleSelectButton}>
+                <Button variant="light" onClick={handleSelectButton}>
                     Select
                 </Button>
             </Modal.Footer>

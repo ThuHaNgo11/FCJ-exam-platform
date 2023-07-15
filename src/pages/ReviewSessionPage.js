@@ -6,7 +6,7 @@ import {useImmer} from "use-immer";
 import {formatDate} from "../hooks/utils";
 import {getCert} from "../api/certResource";
 import jsPDF from "jspdf";
-import '../css/reviewSession.css';
+import '../css/answerBox.css';
 // import { callAddFont } from "../hooks/emberFont";
 
 const ReviewSessionPage = () => {
@@ -105,7 +105,7 @@ const ReviewSessionPage = () => {
                                                         <Flex direction="column">
                                                             <RadioGroupField label={allStates.questionsMap[item].prompt}
                                                                              name={allStates.questionsMap[item].id}
-                                                                             className="rgf-review-session"
+                                                                             className="answer-box"
                                                                              onChange={() => {}}
                                                                              value={(!!allStates.responsesMap[item] && !!allStates.responsesMap[item].data.answer) ? allStates.responsesMap[item].data.answer : null}>
                                                                 {

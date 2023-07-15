@@ -14,6 +14,7 @@ import {useImmer} from "use-immer";
 import {listQuestion, deleteQuestionById} from "../../api/questionApi";
 import {FaCheckCircle, FaEdit, FaTrash} from "react-icons/fa";
 import {useNavigate} from "react-router";
+import '../../css/answerBox.css';
 
 const QuestionList = () => {
     const [questions, setQuestions] = useState([])
@@ -97,11 +98,12 @@ const QuestionList = () => {
                                                             maxHeight="300px"
                                                             maxWidth="100%"
                                                         />}
-                                                    <Flex direction="column">
+                                                    <Flex direction="column" className="answer-box" width="100%">
                                                         {
                                                             question.choices.map(
                                                                 (choice) => (
                                                                     <Text
+                                                                        className={(choice.key === question.key) ? "correct-answer":""}
                                                                         key={choice.key}>{(choice.key === question.key) ?
                                                                         <FaCheckCircle/> : ""} {choice.value}</Text>
                                                                 )
