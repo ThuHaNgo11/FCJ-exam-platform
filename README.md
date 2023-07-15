@@ -50,7 +50,7 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 
 **High-level, end-to-end**
 
-![High-level architectural diagram](readme-img/fcj-exam-platform-architecture.png)
+![High-level architectural diagram](readme-img/high-level-architecture.png)
 
 **Frontend architecture**
 ![Frontend architecture](readme-img/frontend-architecture.png)
