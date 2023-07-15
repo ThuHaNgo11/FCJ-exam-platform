@@ -12,6 +12,26 @@ The entire application - frontend, backend, and all configuration - can be deplo
 
 ## Outlines
 <!-- Table of content -->
+- [Description](#description)
+- [Built with](#built-with)
+    - [Authorization](#authorization)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [Hosting](#hosting)
+- [Architectures](#architecture)
+    - [High level overview](#high-level-end-to-end)
+    - [Frontend architecture](#frontend-architecture)
+    - [Backend architecture](#backend-architecture)
+    - [Detailed architecture](#detailed-architecture)
+- [Cost](#cost)
+- [Getting started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+        - [Set up Amplify environement](#set-up-amplify-environement)
+        - [Build local dev environment](#build-local-dev-environment)
+- [Know limitations](#known-limitations)
+- [Future roadmap](#future-roadmap)
+
 
 ## Description
 
@@ -20,10 +40,10 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 ## Built with
 <!-- add image, description and link of each library -->
 
-**Authorization**
+### Authorization
 - Cognito
 
-**Frontend**
+### Frontend
 - Amplify UI with React framework
 - Amplify Connected components for authentication and data storage
 - React Bootstrap
@@ -34,31 +54,31 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 - React icons
 - ReactMultiEmail
 
-**Backend**
+### Backend
 - Database: DynamoDB
 - AWS AppSync GraphQL API: Data management
 - OpenSearch
 - SES triggered by Lambda subcription to graphQL data change
 - S3 storage 
 
-**Hosting**
+### Hosting
 - Cloudfront and S3: Build artifacts are stored in a S3 bucket where web application assets are maintained (web graphics, etc.). Amazon CloudFront caches the frontend content from S3, presenting the application to the user via a CloudFront distribution.
 
 &nbsp;
 
-## architecture
+## architectures
 
-**High-level, end-to-end**
+### High-level, end-to-end
 
 ![High-level architectural diagram](readme-img/high-level-architecture.png)
 
-**Frontend architecture**
+### Frontend architecture
 ![Frontend architecture](readme-img/frontend-architecture.png)
 
-**Backend architecture**
+### Backend architecture
 ![Backend architecture](readme-img/backend-architecture.png)
 
-**Detailed architecture**
+### Detailed architecture
 ![Detailed architecture](readme-img/detailed-architecture.png)
 
 &nbsp;
@@ -96,5 +116,10 @@ For dev environment which use SES sandbox, only verified identities can send or 
 - Local dev server should run on `http://localhost:3000`
 
 ## Known limitations
+- The SES service is in a sandbox environment, which allows sending emails to verified identities only.
+- A glitch on Sign in form where sometimes clicking "Sign up" button shows the Sign in tab and vice versa. 
 
-## Contribution guidelines
+## Future roadmap
+- Question categories (for filtering and searching) were modeled in the database but the UI has not been implemented
+- Create a text editor to enable rich content (styling, inserting image, hyperlink, etc) formatting for question prompt and choices
+- Create Timer for Exam, schedule exam and activate link only on Exam date and time. 
