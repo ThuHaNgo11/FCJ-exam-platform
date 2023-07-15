@@ -77,7 +77,7 @@ const TestList = () => {
         []
     )
 
-    const colWidths = ["30px", "360px", "500px", "", "250px"]
+    const colWidths = ["30px", "360px", "500px", "250px", "250px"]
 
     return (
         <>
@@ -87,7 +87,7 @@ const TestList = () => {
                         <TableCell as="th" width={colWidths[0]}><FaCheckCircle/></TableCell>
                         <TableCell as="th" width={colWidths[1]}>ID</TableCell>
                         <TableCell as="th" width={colWidths[2]}>Name</TableCell>
-                        <TableCell as="th" flex={"1 1 auto"}>Description</TableCell>
+                        <TableCell as="th" minWidth={colWidths[3]} flex={"1 1 auto"}>Description</TableCell>
                         <TableCell as="th" width={colWidths[4]}>Actions</TableCell>
                     </TableRow>
                 </TableHead>
@@ -104,7 +104,7 @@ const TestList = () => {
                                             <TableCell width={colWidths[0]}><CheckboxField></CheckboxField></TableCell>
                                             <TableCell width={colWidths[1]}>{test.id}</TableCell>
                                             <TableCell width={colWidths[2]}>{test.data.name}</TableCell>
-                                            <TableCell flex={"1 1 auto"}>{test.data.description}</TableCell>
+                                            <TableCell minWidth={colWidths[3]} flex={"1 1 auto"}>{test.data.description}</TableCell>
                                             <TableCell width={colWidths[4]}>
                                                 <Flex direction="row">
                                                     <ButtonGroup>

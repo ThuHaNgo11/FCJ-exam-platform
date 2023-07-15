@@ -104,7 +104,7 @@ const ExamList = () => {
         setIsModalOpen(false)
     }
 
-    const colWidths = ["30px", "360px", "150px", "300px", "", "250px"]
+    const colWidths = ["30px", "360px", "150px", "300px", "250px", "250px"]
 
     return (
         <View>
@@ -117,7 +117,7 @@ const ExamList = () => {
                         <TableCell as="th" width={colWidths[1]}>ID</TableCell>
                         <TableCell as="th" width={colWidths[2]}>Date</TableCell>
                         <TableCell as="th" width={colWidths[3]}>Organization</TableCell>
-                        <TableCell as="th" flex={"1 1 auto"}>Name</TableCell>
+                        <TableCell as="th" minWidth={colWidths[4]} flex={"1 1 auto"}>Name</TableCell>
                         <TableCell as="th" width={colWidths[5]}>Actions</TableCell>
                     </TableRow>
                 </TableHead>
@@ -135,7 +135,7 @@ const ExamList = () => {
                                             <TableCell width={colWidths[1]}>{exam.id}</TableCell>
                                             <TableCell width={colWidths[2]}>{formatDate(exam.date)}</TableCell>
                                             <TableCell width={colWidths[3]}>{exam.org}</TableCell>
-                                            <TableCell flex={"1 1 auto"}>{exam.data.name}</TableCell>
+                                            <TableCell minWidth={colWidths[4]} flex={"1 1 auto"}>{exam.data.name}</TableCell>
                                             <TableCell width={colWidths[5]}>
                                                 <Flex direction="row">
                                                     <ButtonGroup>
