@@ -40,11 +40,12 @@
 
 .get-started-button {
     background: #ffffff !important;
-    border: #2e4832 !important;
-    color: #2e4832 !important;
+    border: #0071ce !important;
+    color: #0071ce !important;
     width: 20vw !important;
 }
 
 .get-started-button:hover {
-    background: #68ffc4 !important;
+    background: #0071ce !important;
+    color: #ffffff !important;
 }

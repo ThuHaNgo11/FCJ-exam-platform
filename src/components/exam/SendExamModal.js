@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 // import UI components
 import { Modal, Form } from 'react-bootstrap';
-import { TextField, Flex, Button, View } from '@aws-amplify/ui-react';
+import { TextField, Flex, Button, View, Alert } from '@aws-amplify/ui-react';
 import {FaCopy, FaPaperPlane} from 'react-icons/fa';
 import {delay} from "../../hooks/utils";
 import {ReactMultiEmail} from "react-multi-email";
@@ -14,6 +14,7 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
     const [emails, setEmails] = useState([])
     const [copied, setCopied] = useState(false)
     const [isSending, setIsSending] = useState(false)
+    const [isSent, setIsSent] = useState(false)
     let [qrCodeSize, setQrCodeSize] = useState(256)
 
     // function to get link to exam
@@ -30,11 +31,19 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
         )
     }
 
+    const clearForm = () => {
+        setEmails([])
+        setIsSent(false)
+    }
+
     const handleSend = () => {
         setIsSending(true)
         console.log(emails)
         onSend({emails: emails.join(','), link: getLink(exam)}).finally(
-            () => setIsSending(false)
+            () => {
+                setIsSending(false)
+                setIsSent(true)
+            }
         )
     }
 
@@ -54,6 +63,13 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {
+                    isSent && (
+                        <Alert variation="success" heading="Success">
+                            Exam invitation has been sent!
+                        </Alert>
+                    )
+                }
                 <Flex direction="column" alignItems="center" padding="5px">
                     <View width="50vw">
                         <Flex direction="column" alignItems="stretch" padding="5px">
@@ -68,7 +84,7 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                                         return (
                                             <div data-tag key={index}>
                                                 <div data-tag-item>{email}</div>
-                                                <span data-tag-handle onClick={() => removeEmail(index)}>×</span>
+                                                {!isSent && <span data-tag-handle onClick={() => removeEmail(index)}>×</span>}
                                             </div>
                                         );
                                     }}
@@ -77,7 +93,7 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                             </Form.Group>
 
                             <Flex direction="row" alignItems="center" justifyContent="flex-start">
-                                <TextField width="90%" value={getLink(exam)} readonly labelHidden="true" height="42px"></TextField>
+                                <TextField width="90%" value={getLink(exam)} readOnly labelHidden="true" height="42px"></TextField>
                                 <Button onClick={handleCopy} height="42px" isDisabled={copied} justifyContent="space-between">
                                     <FaCopy />
                                     {copied && (<span style={{paddingLeft: "5px"}}>Copied!</span>)}
@@ -93,9 +109,9 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                 <Button variant="secondary" onClick={onClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleSend}>
+                <Button variant="primary" onClick={handleSend} isDisabled={isSending || isSent}>
                     <FaPaperPlane />
-                    <span style={{paddingLeft: "5px"}}>{isSending ? "Sending..." : "Send"}</span>
+                    <span style={{paddingLeft: "5px"}}>{isSending ? "Sending..." : (isSent ? "Sent!" : "Send")}</span>
                 </Button>
             </Modal.Footer>
         </Modal>
