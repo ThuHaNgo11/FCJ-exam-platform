@@ -149,13 +149,18 @@ For dev environment which use SES sandbox, only verified identities can send or 
   - Variable name: `SES_EMAIL`
   - Variable value: an email address where email should be sent from. This email address should be verified in SES Console.
 
-
 #### Build local dev environment 
 - Run `npm install`
 - Run `amplify push`
 - Start local dev server: `npm start`
 - Local dev server should run on `http://localhost:3000`
 
+#### Deploy and Publish
+- Configure hosting:
+    - `amplify add hosting`
+    - `amplify configure hosting` - choose Amazon S3 & Amazon Cloudfront
+    - `amplify publish`, it may take 10-15 minutes. When published, the url to your website will be showed in the terminal.
+      
 ## Known limitations
 - The SES service is in a sandbox environment, which allows sending emails to verified identities only.
 - A glitch on Sign in form where sometimes clicking "Sign up" button shows the Sign in tab and vice versa. 
@@ -163,4 +168,5 @@ For dev environment which use SES sandbox, only verified identities can send or 
 ## Future roadmap
 - Question categories (for filtering and searching) were modeled in the database but the UI has not been implemented
 - Create a text editor to enable rich content (styling, inserting image, hyperlink, etc) formatting for question prompt and choices
-- Create Timer for Exam, schedule exam and activate link only on Exam date and time. 
+- Create Timer for Exam, schedule exam and activate link only on Exam date and time.
+- Improvements to current features can be found in future-roadmap.text
