@@ -1,11 +1,16 @@
 .intro-box {
     border: 2px solid #232f3e !important;
     border-radius: 10px !important;
-    width: 25%;
+    padding: 20px !important;
 }
 
 .intro-box:hover {
-    border: 4px solid #232f3e !important;
+    box-shadow: 1px 1px 1px 1px #232f3e !important;
+    cursor: pointer;
+}
+
+.intro-box:hover .amplify-heading{
+    text-decoration: underline;
 }
 
 .landing-banner {
@@ -20,4 +25,26 @@
 .landing-banner h1 {
     color: white;
     font-weight: bold;
+}
+
+.get-started-box {
+    background: #ed7211 !important;
+    color: white;
+    border-radius: 10px !important;
+    padding: 40px !important;
+}
+
+.get-started-box .amplify-heading {
+    color: white;
+}
+
+.get-started-button {
+    background: #ffffff !important;
+    border: #2e4832 !important;
+    color: #2e4832 !important;
+    width: 20vw !important;
+}
+
+.get-started-button:hover {
+    background: #68ffc4 !important;
 }
