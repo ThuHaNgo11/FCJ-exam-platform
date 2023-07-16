@@ -1,7 +1,16 @@
 # FCJ Exam Platform 
 <!-- description -->
 This is a full-stack web application that provides a solution for online assessment - authoring test contents and delivering exams.
-User (admin) performs CRUD operation on Questions, Tests, and Exams Databases. When exam is ready to delivered, admin sends email with test link to exam taker(s). Answers will be graded and customed certificate will be ready for download with passed result. 
+
+Key Features:
+
+1. CRUD Operations: Administrators can manage the assessment content by performing CRUD operations on Questions, Tests, and Exams databases. This feature provides customization for the assessment materials.
+
+3. Exam Delivery via Email: Once exams are ready for delivery, administrators can send exam links to the designated exam takers via email. This ensures a secure and personalized approach to exam distribution.
+
+4. Automated Grading: The platform automatically grades the submitted answers, saving valuable time for educators and providing immediate feedback to the exam takers.
+
+5. Customized Certificates: Upon successful completion of an exam, the FCJ Exam Platform generates customized certificates for the exam takers. These certificates can be easily downloaded, providing recognition for their achievements.
 
 **[Try out the deployed application here](https://d1swv02b0ramfa.cloudfront.net/)**
 
