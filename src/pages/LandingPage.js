@@ -63,7 +63,7 @@ const LandingPage = () => {
                                 <img width="100px" height="100px" src={"/assets/img/exam.png"} />
                                 <Flex direction="column" width="calc(20vw - 130px)" minWidth="120px">
                                     <Heading level={3} textAlign="center">Exam Manager</Heading>
-                                    <Text>Pick predefined tests and set up exams for test takes.</Text>
+                                    <Text>Pick predefined tests and set up exams for test takers.</Text>
                                 </Flex>
                             </Flex>
                         </Flex>
