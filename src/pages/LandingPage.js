@@ -29,12 +29,12 @@ const LandingPage = () => {
     return (
         <View>
             {
+                !!redirectedPath && <Navigate to={redirectedPath} />
+            }
+            {
                 route === "authenticated" ? <NavBar userName={user.username} signOut={signOut}/> : <LandingPageNavBar/>
             }
             <View>
-                {
-                    !!redirectedPath && <Navigate to={redirectedPath} />
-                }
                 <Flex direction="column" justifyContent="space-between">
                     <Card textAlign="center" class="landing-banner">
                         <Heading level={1} textAlign="center">Welcome AWS builders</Heading>
@@ -55,7 +55,7 @@ const LandingPage = () => {
                                 <img width="100px" height="100px" src={"/assets/img/test.png"} />
                                 <Flex direction="column" width="calc(20vw - 130px)" minWidth="120px">
                                     <Heading level={3} textAlign="center">Test Manager</Heading>
-                                    <Text>Pick questions from the question back to compile tests.</Text>
+                                    <Text>Pick questions from the question bank to compile tests.</Text>
                                 </Flex>
                             </Flex>
                             <Flex className="intro-box" direction="row" justifyContent="flex-start" gap="1em" wrap="wrap"
@@ -70,7 +70,7 @@ const LandingPage = () => {
                         <Flex direction="row" justifyContent="space-evenly">
                             <Flex direction="column" className="get-started-box" alignItems="center" width="71vw">
                                 <RxRocket size='100' color="white"/>
-                                <Heading level={3}>Learn more to begin creating quizzes for your workshop.</Heading>
+                                <Heading level={3}>Learn more to begin creating quizzes for your workshops.</Heading>
                                 <Button className="get-started-button" onClick={redirect('/get-started')}>Get Started</Button>
                             </Flex>
                         </Flex>
