@@ -40,12 +40,12 @@ const LandingPage = () => {
                         <Heading level={1} textAlign="center">Welcome AWS builders</Heading>
                         FCJ Exam Platform for creating workshop quizzes
                     </Card>
-                    <Flex height="calc(100vh - 350px)" direction="column" justifyContent="center" alignItems="stretch" gap="40px">
+                    <Flex height="calc(100vh - 350px)" direction="column" justifyContent="center" alignItems="stretch" gap="20px">
                         <Flex direction="row" justifyContent="center" gap="3vw">
                             <Flex className="intro-box" direction="row" justifyContent="flex-start" gap="1em" wrap="wrap"
                                   onClick={redirect("/questions")}>
                                 <img alt="" width="100px" height="100px" src={"/assets/img/question.png"} />
-                                <Flex direction="column" width="calc(20vw - 130px)" minWidth="120px">
+                                <Flex direction="column" width="calc(25vw - 130px)" minWidth="120px">
                                     <Heading level={3} textAlign="center">Question Bank</Heading>
                                     <Text>Manage question bank and create more question contents.</Text>
                                 </Flex>
@@ -53,7 +53,7 @@ const LandingPage = () => {
                             <Flex className="intro-box" direction="row" justifyContent="flex-start" gap="1em" wrap="wrap"
                                   onClick={redirect("/tests")}>
                                 <img alt="" width="100px" height="100px" src={"/assets/img/test.png"} />
-                                <Flex direction="column" width="calc(20vw - 130px)" minWidth="120px">
+                                <Flex direction="column" width="calc(25vw - 130px)" minWidth="120px">
                                     <Heading level={3} textAlign="center">Test Manager</Heading>
                                     <Text>Pick questions from the question bank to compile tests.</Text>
                                 </Flex>
@@ -61,15 +61,15 @@ const LandingPage = () => {
                             <Flex className="intro-box" direction="row" justifyContent="flex-start" gap="1em" wrap="wrap"
                                   onClick={redirect("/exams")}>
                                 <img alt="" width="100px" height="100px" src={"/assets/img/exam.png"} />
-                                <Flex direction="column" width="calc(20vw - 130px)" minWidth="120px">
+                                <Flex direction="column" width="calc(25vw - 130px)" minWidth="120px">
                                     <Heading level={3} textAlign="center">Exam Manager</Heading>
                                     <Text>Pick predefined tests and set up exams for test takers.</Text>
                                 </Flex>
                             </Flex>
                         </Flex>
                         <Flex direction="row" justifyContent="space-evenly">
-                            <Flex direction="column" className="get-started-box" alignItems="center" width="71vw">
-                                <RxRocket size='100' color="white"/>
+                            <Flex direction="column" className="get-started-box" alignItems="center" width="87vw">
+                                <RxRocket size='80' color="white"/>
                                 <Heading level={3}>Learn more to begin creating quizzes for your workshops.</Heading>
                                 <Button className="get-started-button" onClick={redirect('/get-started')}>Get Started</Button>
                             </Flex>

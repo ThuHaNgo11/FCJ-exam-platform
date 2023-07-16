@@ -14,7 +14,7 @@
 }
 
 .landing-banner {
-    height: 250px;
+    height: 230px;
     padding: 50px;
     background: url('/public/assets/img/block-bg.png');
     background-size: cover;
@@ -31,7 +31,7 @@
     background: #ed7211 !important;
     color: white;
     border-radius: 10px !important;
-    padding: 40px !important;
+    padding: 30px !important;
 }
 
 .get-started-box .amplify-heading {
