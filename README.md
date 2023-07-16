@@ -12,9 +12,11 @@ Key Features:
 
 5. Customized Certificates: Upon successful completion of an exam, the FCJ Exam Platform generates customized certificates for the exam takers. These certificates can be easily downloaded, providing recognition for their achievements.
 
-**[Try out the deployed application here](https://d1swv02b0ramfa.cloudfront.net/)**
+You can explore the functionalities of the FCJ Exam Platform by trying out the deployed application at the following link: **[FCJ Exam Platform Demo](https://d1swv02b0ramfa.cloudfront.net/)**
 
-Demo credential (username/password): testUser/testUser123
+Demo Credentials:
+- Username: testUser
+- Password: testUser123
 
 The entire application - frontend, backend, and all configuration - can be deployed in AWS cloud environment. 
 &nbsp;
