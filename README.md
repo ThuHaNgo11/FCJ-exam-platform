@@ -96,6 +96,36 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 
 ## Cost
 
+### Amazon Cognito 
+Amazon Cognito user pools has a **free tier** of 50,000 MAUs per account for users who sign in directly to Amazon Cognito user pools and 50 MAUs for users federated through SAML 2.0 based identity providers.
+
+https://aws.amazon.com/cognito/pricing/
+
+### Amazon S3
+As part of the AWS Free Tier, you can get started with Amazon S3 for free. Upon sign-up, new AWS customers receive 5GB of Amazon S3 storage in the S3 Standard storage class; 20,000 GET Requests; 2,000 PUT, COPY, POST, or LIST Requests; and 100 GB of Data Transfer Out each month.
+
+https://aws.amazon.com/s3/pricing/
+
+### AWS Amplify 
+- Build frontend: free
+- Create backend:
+      - Amplify studio, CLI, libraries: No cost
+      - AWS backend resources: Get started free, then pay as you go
+- Host an app: Free for 12 months with limited capacity. Amplify switches over to pay as you go pricing once you exceed free tier limits, with no disruption to your apps.
+ 
+ https://aws.amazon.com/amplify/pricing/
+
+### Amazon simple mail service - SES
+In a sandbox environment, you can use all of the features offered by Amazon SES; however, certain sending limits and restrictions apply (Daily sendind quota - 200 emails per 24-hour period, Maximum send rate - 1 email per second). When you’re ready to move out of the sandbox, submit a request for production access.
+
+https://aws.amazon.com/ses/pricing/
+
+### Amazon OpenSearch service
+By default, Amplify CLI will configure a t2.small instance type
+For customers in the AWS Free Tier, OpenSearch Service provides free usage of up to 750 hours per month of a t2.small.search or t3.small.search instance, and 10 GB per month of optional Amazon Elastic Block Store (EBS) storage. If you exceed the Free Tier usage limits, you will be charged the OpenSearch Service rates for the additional resources you use.
+
+https://aws.amazon.com/opensearch-service/pricing/
+
 ## Getting started
 To get your local up and running, please follow this set up guide:
 
