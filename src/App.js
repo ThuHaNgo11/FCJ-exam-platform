@@ -15,6 +15,7 @@ import ExamManager from './pages/ExamManager';
 import SingleExamPage from './pages/SingleExamPage';
 import TakeExamPage from './pages/TakeExamPage';
 import ReviewSessionPage from "./pages/ReviewSessionPage";
+import GetStartedPage from './pages/GetStartedPage';
 
 const App = () => {
     return (
@@ -32,6 +33,7 @@ const App = () => {
                     <Route path="/review/:sessionid" element={<ReviewSessionPage />} />
                     <Route path="/signin" element={<SignInPage />}></Route>
                     <Route path="/signup" element={<SignUpPage />}></Route>
+                    <Route path="/get-started" element={<GetStartedPage />}></Route>
                 </Routes>
             </BrowserRouter>
         </Authenticator.Provider>
