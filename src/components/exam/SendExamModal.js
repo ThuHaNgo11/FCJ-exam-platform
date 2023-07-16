@@ -55,8 +55,13 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
         }
     }
 
+    const onHide = () => {
+        clearForm()
+        onClose()
+    }
+
     return (
-        <Modal show={isOpen} onHide={onClose} scrollable fullscreen>
+        <Modal show={isOpen} onHide={onHide} scrollable fullscreen>
             <Modal.Header closeButton>
                 <Modal.Title>
                     Send Exam Link
@@ -106,7 +111,7 @@ const SendExamModal = ({ isOpen, onClose, onSend, exam }) => {
                 </Flex>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onClose}>
+                <Button variant="secondary" onClick={onHide}>
                     Close
                 </Button>
                 <Button variant="primary" onClick={handleSend} isDisabled={isSending || isSent}>
