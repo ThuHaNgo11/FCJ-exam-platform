@@ -44,7 +44,7 @@ const LandingPage = () => {
                         <Flex direction="row" justifyContent="center" gap="3vw">
                             <Flex className="intro-box" direction="row" justifyContent="flex-start" gap="1em" wrap="wrap"
                                   onClick={redirect("/questions")}>
-                                <img width="100px" height="100px" src={"/assets/img/question.png"} />
+                                <img alt="" width="100px" height="100px" src={"/assets/img/question.png"} />
                                 <Flex direction="column" width="calc(20vw - 130px)" minWidth="120px">
                                     <Heading level={3} textAlign="center">Question Bank</Heading>
                                     <Text>Manage question bank and create more question contents.</Text>
@@ -52,7 +52,7 @@ const LandingPage = () => {
                             </Flex>
                             <Flex className="intro-box" direction="row" justifyContent="flex-start" gap="1em" wrap="wrap"
                                   onClick={redirect("/tests")}>
-                                <img width="100px" height="100px" src={"/assets/img/test.png"} />
+                                <img alt="" width="100px" height="100px" src={"/assets/img/test.png"} />
                                 <Flex direction="column" width="calc(20vw - 130px)" minWidth="120px">
                                     <Heading level={3} textAlign="center">Test Manager</Heading>
                                     <Text>Pick questions from the question bank to compile tests.</Text>
@@ -60,7 +60,7 @@ const LandingPage = () => {
                             </Flex>
                             <Flex className="intro-box" direction="row" justifyContent="flex-start" gap="1em" wrap="wrap"
                                   onClick={redirect("/exams")}>
-                                <img width="100px" height="100px" src={"/assets/img/exam.png"} />
+                                <img alt="" width="100px" height="100px" src={"/assets/img/exam.png"} />
                                 <Flex direction="column" width="calc(20vw - 130px)" minWidth="120px">
                                     <Heading level={3} textAlign="center">Exam Manager</Heading>
                                     <Text>Pick predefined tests and set up exams for test takers.</Text>
