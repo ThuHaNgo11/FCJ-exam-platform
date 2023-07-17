@@ -81,16 +81,13 @@ The project demonstrates the capabilities of AWS amplify in building cloud nativ
 
 ### High-level, end-to-end
 
-![High-level architectural diagram](readme-img/high-level-architecture.png)
+![High-level architectural diagram](readme-img/overview-architect.png)
 
-### Frontend architecture
-![Frontend architecture](readme-img/frontend-architecture.png)
+### Devops architecture
+![Devops architecture](readme-img/devops-architect.png)
 
-### Backend architecture
-![Backend architecture](readme-img/backend-architecture.png)
-
-### Detailed architecture
-![Detailed architecture](readme-img/detailed-architecture.png)
+### Entity relationship diagram
+![Entity relationship diagram](readme-img/erd.drawio.png)
 
 &nbsp;
 
