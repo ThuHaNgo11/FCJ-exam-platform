@@ -1,18 +1,18 @@
 // import libraries
-import React, {useState} from "react";
-import {useImmer} from "use-immer";
-import {arrayMergeUnique, delay} from "../../hooks/utils";
-import {useLocation, useNavigate} from "react-router";
+import React, { useState } from "react";
+import { useImmer } from "use-immer";
+import { arrayMergeUnique, delay } from "../../hooks/utils";
+import { useLocation, useNavigate } from "react-router";
 
 // import UI components
-import {View, Heading, Button, ButtonGroup, TextAreaField, Loader, TextField, Flex} from "@aws-amplify/ui-react";
+import { View, Heading, Button, ButtonGroup, TextAreaField, Loader, TextField, Flex } from "@aws-amplify/ui-react";
 
 // import components
 import SelectedQuestions from "./SelectedQuestions";
 import FindQuestionModal from "./FindQuestionModal";
 
 // import API functions
-import {saveTest} from "../../api/testApi";
+import { saveTest } from "../../api/testApi";
 
 // default initial state
 const initialState = {
@@ -56,7 +56,7 @@ const TestForm = () => {
             .then((data) => {
                 console.log("Created new data", data.data[field])
                 delay(2000).then(
-                    () => navigate('/tests', {replace: true})
+                    () => navigate('/tests', { replace: true })
                 )
             })
             .catch((error) => {
@@ -83,8 +83,8 @@ const TestForm = () => {
                 data = data.map(
                     (newQuestion) => {
                         if (!newQuestion.questionId) {
-                            let {id, ...others} = newQuestion
-                            return {questionId: id, ...others}
+                            let { id, ...others } = newQuestion
+                            return { questionId: id, ...others }
                         } else {
                             return newQuestion
                         }
@@ -127,22 +127,25 @@ const TestForm = () => {
         <Flex direction="column" alignItems="center" padding="5px">
             <View width="50vw">
                 <Flex direction="column" alignItems="stretch" padding="5px">
-                    <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave}/>
+                    <FindQuestionModal isOpen={isModalOpen} onClose={handleModalClose} onSave={handleModalSave} />
                     <Heading level={3} textAlign="center">Compose Test</Heading>
                     {/* General test info */}
                     <TextField
+                        label="Test Name"
                         name="testName"
                         value={formState.data.name}
                         onChange={handleChanges('name')}
                     >
                     </TextField>
                     <TextAreaField
+                        label="Description"
                         name='description'
                         value={formState.data.description}
                         onChange={handleChanges('description')}
                     >
                     </TextAreaField>
                     <TextAreaField
+                        label="Instruction"
                         name='instruction'
                         value={formState.data.instruction}
                         onChange={handleChanges('instruction')}
@@ -159,15 +162,15 @@ const TestForm = () => {
                     {/* List of selected questions in test */}
                     <Heading level={3}>Selected Questions</Heading>
                     <SelectedQuestions selectedQuestionsProp={formState.Questions} key={formState.Questions}
-                                       handleDeleteSelectedQuestions={handleDeleteSelectedQuestions}/>
+                        handleDeleteSelectedQuestions={handleDeleteSelectedQuestions} />
 
                     {/* Save changes to form */}
                     <ButtonGroup>
                         <Button onClick={handleSaveButton}>
-                            {isSubmitting && <Loader/>}
+                            {isSubmitting && <Loader />}
                             Save
                         </Button>
-                        <Button onClick={() => navigate('/tests', {replace: true})}>
+                        <Button onClick={() => navigate('/tests', { replace: true })}>
                             Cancel
                         </Button>
                     </ButtonGroup>

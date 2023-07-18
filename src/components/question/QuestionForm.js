@@ -98,7 +98,7 @@ const QuestionForm = () => {
             <View width="50vw">
                 <Flex direction="column" alignItems="stretch" padding="5px">
                     <Heading level={3} textAlign="center">Compose Question</Heading>
-                    <TextAreaField name='prompt' value={formState.prompt} onChange={handleChanges}></TextAreaField>
+                    <TextAreaField label='Question prompt' name='prompt' value={formState.prompt} onChange={handleChanges}></TextAreaField>
                     {!!formState.data && !!formState.data.image &&
                         <>
                             <Image

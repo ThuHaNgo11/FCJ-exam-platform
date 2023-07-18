@@ -1,17 +1,20 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 // import Amplify UI components
-import {Heading, View, Card, Flex, Text, Button} from '@aws-amplify/ui-react'
+import { Heading, View, Card, Flex, Text, Button } from '@aws-amplify/ui-react'
 
 // import components
-import MainLayout from '../components/MainLayout'
+import LandingPageNavBar from '../components/LandingPageNavBar'
+
 
 const GetStartedPage = () => {
 
     return (
-        <MainLayout>
-            <Heading level={3}>User guide and demo video</Heading>
-        </MainLayout>
+        <View>
+            <LandingPageNavBar/>
+            <Heading level={3} textAlign={'center'}>User guide and demo video</Heading>
+            <Text textAlign={'center'}>To be added ...</Text>
+        </View>
     )
 }
 
