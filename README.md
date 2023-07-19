@@ -18,6 +18,8 @@ Demo Credentials:
 - Username: testUser
 - Password: testUser123
 
+**[Video demo](https://youtu.be/S7uNOHjVO3E)**
+
 The entire application - frontend, backend, and all configuration - can be deployed in AWS cloud environment. 
 &nbsp;
 
